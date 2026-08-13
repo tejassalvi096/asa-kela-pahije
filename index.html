@@ -59,6 +59,52 @@
   .viralnote .vimg{display:block;width:100%;max-width:380px;margin:0 auto 8px;}
   .viralnote .vq{font-family:'Rubik',sans-serif;font-style:italic;font-weight:600;font-size:16px;color:#2c2620}
   .viralnote .vby{font-family:'Rubik',sans-serif;font-size:12px;color:#7a7060;margin-top:4px}
+  /* Janta Bolte — political banner */
+  .janta{margin:18px 0}
+  .jbanner{
+    position:relative;border:6px double #c62828;outline:3px solid #f9a825;outline-offset:-14px;
+    border-radius:8px;padding:30px 22px 24px;overflow:hidden;
+    background:
+      repeating-conic-gradient(from 0deg at 50% -20%, rgba(255,255,255,.14) 0deg 6deg, rgba(255,255,255,0) 6deg 12deg),
+      linear-gradient(175deg,#ff9933 0%,#fdb44b 35%,#ffd54f 70%,#ff9933 100%);
+    box-shadow:0 8px 22px rgba(0,0,0,.30), inset 0 0 60px rgba(198,40,40,.12);
+  }
+  .jbanner::before{content:"🚩";position:absolute;top:10px;left:14px;font-size:26px}
+  .jbanner::after{content:"🚩";position:absolute;top:10px;right:14px;font-size:26px}
+  .jb-head{text-align:center;position:relative;z-index:1}
+  .jb-title{
+    font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,8vw,64px);line-height:1;letter-spacing:.05em;color:#fff;
+    text-shadow:2px 2px 0 #b71c1c, 4px 4px 0 rgba(0,0,0,.45), 0 0 28px rgba(255,255,255,.35);
+  }
+  .jb-mic{font-size:clamp(26px,5vw,40px);vertical-align:middle}
+  .jb-ribbon{
+    display:inline-block;margin-top:10px;background:#c62828;color:#ffe082;border:2px solid #7f1414;
+    font-family:'Rubik','Mukta',sans-serif;font-weight:800;font-size:clamp(13px,2.6vw,16px);
+    padding:7px 26px;border-radius:4px;box-shadow:0 3px 0 #7f1414;
+    clip-path:polygon(3% 0,97% 0,100% 50%,97% 100%,3% 100%,0 50%);
+  }
+  .jb-wall{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px;position:relative;z-index:1}
+  .jb-chip{
+    background:#fffdf5;border:2.5px solid #b71c1c;border-radius:6px;padding:8px 14px;max-width:340px;
+    box-shadow:2px 3px 0 rgba(0,0,0,.35);transform:rotate(var(--r,0deg));
+  }
+  .jb-chip .jm{font-family:'Mukta','Rubik',sans-serif;font-weight:800;font-size:16px;color:#1d1a16;line-height:1.3}
+  .jb-chip .jm::before{content:"📣 "}
+  .jb-empty{background:rgba(255,255,255,.85);border:2px dashed #b71c1c;border-radius:8px;padding:16px 22px;
+    font-family:'Rubik','Mukta',sans-serif;font-weight:700;color:#7f1414;font-size:14.5px}
+  .jb-foot{margin-top:18px;text-align:center;position:relative;z-index:1;
+    font-family:'Rubik','Mukta',sans-serif;font-size:11.5px;color:#7f1414;font-weight:600}
+  /* input below the banner */
+  .jform{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  #jmsg{flex:1 1 300px;min-width:220px;background:#fff;border:3px solid var(--ink);border-radius:10px;
+    padding:13px 16px;font-family:'Rubik','Mukta',sans-serif;font-size:15.5px;color:#1d1a16;outline:none;box-shadow:3px 3px 0 var(--ink)}
+  #jmsg:focus{border-color:#c62828}
+  #jsend{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;background:var(--red);color:#fff;
+    border:3px solid var(--ink);border-radius:10px;padding:10px 26px;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+  #jsend:active{transform:scale(.96)}
+  #jsend:disabled{opacity:.5;cursor:not-allowed}
+  .jhint{text-align:center;font-size:12.5px;color:#7a7060;font-family:'Rubik','Mukta',sans-serif;margin-top:8px}
+  .jhint b{color:#c62828}
   /* Saaf List */
   .saaf{background:linear-gradient(170deg,#eaf6ec,#dff0e2);border:3px solid #1e7d3c;border-radius:14px;padding:20px 22px;margin:18px 0;box-shadow:5px 5px 0 var(--ink)}
   .saaf h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4.5vw,30px);color:#14572a;letter-spacing:.03em}
@@ -385,6 +431,23 @@
     <div class="un-foot">anchors: <b>Ratan Undirkar</b> &amp; <b>Zharina Zurlekar</b> • sponsor kuni nahi (sagle sponsors suspend zale) • "batmi tikhat, source pakka" 🎙️ • <b>100% fictional satire</b> — rats ani zurle news nahi dete, obviously</div>
   </div>
 
+  <!-- JANTA BOLTE -->
+  <div class="janta" id="jantaBolte">
+    <div class="jbanner">
+      <div class="jb-head">
+        <div class="jb-title"><span class="jb-mic">🎙️</span> JANTA BOLTE <span class="jb-mic">🎙️</span></div>
+        <div class="jb-ribbon">जनतेचा आवाज — फक्त ५ शब्दांत! • janta ka awaaz, sirf 5 shabdon mein</div>
+      </div>
+      <div class="jb-wall" id="jwall"><div class="jb-empty">Banner load hot aahe... 🐀</div></div>
+      <div class="jb-foot">* public messages — team chi views nahi • kuch hatana asel tar DM @asakelapahije *</div>
+    </div>
+    <div class="jform">
+      <input id="jmsg" type="text" maxlength="60" placeholder="5 shabdon mein bola... (e.g. Khup chaan kaam kela..)">
+      <button id="jsend">BOLA! 🎙️</button>
+    </div>
+    <div class="jhint">shabda: <b id="jcount">0</b>/5 • Enter dabao ya BOLA click karo — turant banner var yeto!</div>
+  </div>
+
   <!-- POLICY + SOURCES -->
   <div class="grid2" style="margin-top:20px">
     <div class="panel policy">
@@ -614,6 +677,68 @@ new Chart(seizChart,{type:"bar",
     setTimeout(function(){ rat.classList.remove("talk"); busy=false; }, 2200);
   });
 })();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyAnTiybUYG71e21bOG0vH1SyDq_h7x9Y9E",
+  authDomain: "asa-kela-pahije.firebaseapp.com",
+  projectId: "asa-kela-pahije",
+  storageBucket: "asa-kela-pahije.firebasestorage.app",
+  messagingSenderId: "1019509914936",
+  appId: "1:1019509914936:web:b958a25a035a5ae6e8d5cd"
+});
+const db = getFirestore(app);
+const wall = document.getElementById("jwall"), msgEl = document.getElementById("jmsg"),
+      btn = document.getElementById("jsend"), countEl = document.getElementById("jcount");
+
+const BAD = ["bhosdi","madarchod","bhenchod","chutiya","gandu","randi","lavda","lund","bhadva","harami","kutta kamina","fuck","bitch","bastard","zavadya","aaichya","madarch","bkl","mc ","bc "];
+const words = s => s.trim().split(/\s+/).filter(Boolean);
+const clean = s => { const l = " " + s.toLowerCase() + " "; return !BAD.some(b => l.includes(b)); };
+
+msgEl.addEventListener("input", () => {
+  const n = words(msgEl.value).length;
+  countEl.textContent = n;
+  countEl.style.color = n > 5 ? "#ff5a5a" : "#f7b32b";
+});
+
+async function post(){
+  const m = msgEl.value.trim(), n = "janta";
+  const w = words(m);
+  if(!m){ msgEl.focus(); return; }
+  if(w.length > 5){ alert("Fakt 5 shabda! Sadhya: " + w.length + " 😅 Thodi kaat-chhaat kara."); return; }
+  if(m.length > 60){ alert("60 characters max!"); return; }
+  if(!clean(m)){ alert("Aho, ghari aai-baba baghtat! 🙏 Bhasha saaf theva."); return; }
+  const last = +(localStorage.getItem("jlast")||0);
+  if(Date.now() - last < 30000){ alert("Thoda dum ghya — 30 second madhe ek message. 😄"); return; }
+  btn.disabled = true; btn.textContent = "...";
+  try{
+    await addDoc(collection(db,"janta"), { name:n.slice(0,25), msg:m, t:serverTimestamp() });
+    localStorage.setItem("jlast", Date.now());
+    msgEl.value = ""; countEl.textContent = "0";
+  }catch(e){ alert("Post nahi zala — network check kara."); console.error(e); }
+  btn.disabled = false; btn.textContent = "BOLA! 🎙️";
+}
+btn.addEventListener("click", post);
+msgEl.addEventListener("keydown", e => { if(e.key === "Enter") post(); });
+
+onSnapshot(query(collection(db,"janta"), orderBy("t","desc"), limit(150)), snap => {
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  let h = "", i = 0;
+  snap.forEach(d => {
+    const x = d.data();
+    if(!x.msg) return;
+    const rot = ((i*53)%5)-2; i++;
+    h += '<div class="jb-chip" style="--r:'+rot+'deg"><div class="jm">'+esc(x.msg)+'</div></div>';
+  });
+  wall.innerHTML = h || '<div class="jb-empty">Abhi tak koi bola nahi... pahila awaaz tumchich taka! 😏</div>';
+}, err => {
+  wall.innerHTML = '<div class="jb-empty">Banner load nahi zala — thodya velane refresh kara.</div>';
+  console.error(err);
+});
 </script>
 </body>
 </html>
