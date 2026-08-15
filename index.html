@@ -59,6 +59,14 @@
   .viralnote .vimg{display:block;width:100%;max-width:380px;margin:0 auto 8px;}
   .viralnote .vq{font-family:'Rubik',sans-serif;font-style:italic;font-weight:600;font-size:16px;color:#2c2620}
   .viralnote .vby{font-family:'Rubik',sans-serif;font-size:12px;color:#7a7060;margin-top:4px}
+  /* Independence Day strip (auto shows 13-18 Aug) */
+  #idayStrip{display:none;border:3px solid var(--ink);border-radius:12px;overflow:hidden;margin:0 0 18px;box-shadow:5px 5px 0 var(--ink)}
+  #idayStrip .tri{height:8px;display:flex}
+  #idayStrip .tri div{flex:1}
+  #idayStrip .mid{background:#fffdf5;text-align:center;padding:12px 16px}
+  #idayStrip .l1{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4vw,26px);letter-spacing:.05em;color:#1d1a16}
+  #idayStrip .l1 .sf{color:#e46A1a} #idayStrip .l1 .gr{color:#128807}
+  #idayStrip .l2{font-family:'Rubik','Mukta',sans-serif;font-size:13.5px;color:#4a4238;margin-top:3px}
   /* Janta Bolte — political banner */
   .janta{margin:18px 0}
   .jbanner{
@@ -256,6 +264,16 @@
 </head>
 <body>
 <div class="wrap">
+
+  <!-- INDEPENDENCE DAY STRIP -->
+  <div id="idayStrip">
+    <div class="tri"><div style="background:#ff9933"></div><div style="background:#ffffff"></div><div style="background:#128807"></div></div>
+    <div class="mid">
+      <div class="l1">🇮🇳 <span class="sf">SWATANTRYA DINACHYA</span> HARDIK <span class="gr">SHUBHECHHA!</span> 🇮🇳</div>
+      <div class="l2">1947 madhe firangyan pasun azadi milali — ata <b>milawati pasun pan azadi pahije</b>. Saaf anna, saaf Maharashtra. <b>Jai Hind!</b> 🫡</div>
+    </div>
+    <div class="tri"><div style="background:#128807"></div><div style="background:#ffffff"></div><div style="background:#ff9933"></div></div>
+  </div>
 
   <!-- MASTHEAD -->
   <div class="masthead">
@@ -493,6 +511,10 @@
   var a=document.getElementById("dayCount"), b=document.getElementById("dayCount2");
   if(a) a.textContent = days;
   if(b) b.textContent = days;
+  var now = new Date(Date.now() + (330 + new Date().getTimezoneOffset())*60000); // IST
+  if(now.getMonth() === 7 && now.getDate() >= 13 && now.getDate() <= 18){
+    var s = document.getElementById("idayStrip"); if(s) s.style.display = "block";
+  }
 })();
 
 const DATA = [
