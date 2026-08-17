@@ -59,6 +59,17 @@
   .viralnote .vimg{display:block;width:100%;max-width:380px;margin:0 auto 8px;}
   .viralnote .vq{font-family:'Rubik',sans-serif;font-style:italic;font-weight:600;font-size:16px;color:#2c2620}
   .viralnote .vby{font-family:'Rubik',sans-serif;font-size:12px;color:#7a7060;margin-top:4px}
+  /* Taaza Update strip (auto-fills from newest register entry) */
+  #taaza{border:3px solid var(--ink);border-radius:12px;overflow:hidden;margin:0 0 18px;box-shadow:5px 5px 0 var(--ink);background:#fffdf5;display:none}
+  #taaza .tag{display:flex;align-items:center;gap:10px;background:var(--red);padding:8px 16px}
+  #taaza .tag .lbl{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.14em;color:#fff}
+  #taaza .tag .dot{width:10px;height:10px;border-radius:50%;background:#fff;animation:blink 1s steps(2) infinite}
+  #taaza .tag .dt{margin-left:auto;font-family:'Rubik','Mukta',sans-serif;font-size:12px;color:#ffe082;font-weight:700}
+  #taaza .body{padding:12px 16px}
+  #taaza .tt{font-family:'Rubik','Mukta',sans-serif;font-weight:800;font-size:16.5px;color:#1d1a16}
+  #taaza .ds{font-family:'Rubik','Mukta',sans-serif;font-size:13.5px;color:#4a4238;margin-top:3px}
+  #taaza a{color:var(--red);font-weight:800;text-decoration:none;white-space:nowrap}
+  @keyframes blink{50%{opacity:.2}}
   /* Independence Day strip (auto shows 13-18 Aug) */
   #idayStrip{display:none;border:3px solid var(--ink);border-radius:12px;overflow:hidden;margin:0 0 18px;box-shadow:5px 5px 0 var(--ink)}
   #idayStrip .tri{height:8px;display:flex}
@@ -265,6 +276,15 @@
 <body>
 <div class="wrap">
 
+  <!-- TAAZA UPDATE (auto-filled from newest register entry) -->
+  <div id="taaza">
+    <div class="tag"><span class="dot"></span><span class="lbl">🚨 TAAZA UPDATE</span><span class="dt" id="tzDate"></span></div>
+    <div class="body">
+      <div class="tt" id="tzName"></div>
+      <div class="ds" id="tzDesc"></div>
+    </div>
+  </div>
+
   <!-- INDEPENDENCE DAY STRIP -->
   <div id="idayStrip">
     <div class="tri"><div style="background:#ff9933"></div><div style="background:#ffffff"></div><div style="background:#128807"></div></div>
@@ -403,51 +423,45 @@
       <span class="un-loc">from a gutter near you</span>
     </div>
     <div class="un-ticker"><div class="un-track" id="unTrack">
-      🔴 BREAKING: 3,137 kitchen band — undir samaj bombla, "aata rahaycha kuthe??" &nbsp;•&nbsp;
-      🔴 दिल दहला देने वाली खबर: चूहा समाज में बेरोज़गारी 100% पहुंची — "किचन ही नहीं बचे तो नौकरी कहां?" &nbsp;•&nbsp;
-      🔴 RAT EXODUS 2026: Thousands flee Mumbai kitchens as Operation Saaf-Safai enters week 11 &nbsp;•&nbsp;
-      🔴 Zurla Union cha statewide strike: "Phenyl atyachar band kara!" &nbsp;•&nbsp;
-      🔴 मुंधे साहब देखे गए — सब अपने-अपने बिल के पीछे छुप जाओ!! &nbsp;•&nbsp;
-      🔴 COCKROACH STOCK MARKET CRASHES: Kitchen real-estate index down 3,137 points &nbsp;•&nbsp;
-      🔴 Property crash: Bhendi Bazaar 2BHK (Behind-2-Handi-Kitchen) la koni bhav vicharat nahi &nbsp;•&nbsp;
-      🔴 EXCLUSIVE: 104-year-old rat says "I survived British Raj, but not Mundhe Raj" &nbsp;•&nbsp;
-      🔴 BREAKING: Domino's ke 4 outlets suspended — ab 30 minute mein delivery nahi, improvement chahiye 🍕 &nbsp;•&nbsp;
-      🔴 PUNE ALERT: ek divsat 16 units suspend — puneri pest control ekdum time-table pramane 🕙 &nbsp;•&nbsp;
       🔴 FILMI KHABAR: SRK, Ajay, Tiger la FDA cha 'love letter' — Elaichi ad samjhavun sanga 💌 &nbsp;•&nbsp;
       🔴 Frooti expire, licence bhi expire — Parle warehouse suspended 🧃 &nbsp;•&nbsp;
+      🔴 PUNE ALERT: ek divsat 16 units suspend — puneri pest control ekdum time-table pramane 🕙 &nbsp;•&nbsp;
       🔴 GHAR WAPSI: Bombay HC ne ek suspension revoke kiya — Belapur ke rats celebrate, "aamcha ghar parat milala!" 🏠 &nbsp;•&nbsp;
-      🔴 Poornima case courtroom mein — rats ki nazrein ab judge sahab par 👀 &nbsp;•&nbsp;
+      🔴 Domino's ke 4 outlets suspended — ab 30 minute mein delivery nahi, improvement chahiye 🍕 &nbsp;•&nbsp;
+      🔴 दिल दहला देने वाली खबर: चूहा समाज में बेरोज़गारी 100% पहुंची — "किचन ही नहीं बचे तो नौकरी कहां?" &nbsp;•&nbsp;
+      🔴 EXCLUSIVE: 104-year-old rat says "I survived British Raj, but not Mundhe Raj" &nbsp;•&nbsp;
+      🔴 मुंधे साहब देखे गए — सब अपने-अपने बिल के पीछे छुप जाओ!! &nbsp;•&nbsp;
     </div></div>
     <div class="un-grid">
       <div class="un-card">
-        <div class="un-tag">HOUSING CRISIS</div>
-        <div class="un-h">"Amhi 4 pidhya Shalimar madhe rahilo" — beghar zurla emotional</div>
-        <div class="un-p">Re-inspection madhe 25 deficiencies nighalya ani gharch band zala. "Deficiency amhi navhto... amhi toh amenity hoto," rudan karat zurla mhanala. Rehabilitation package ajun jahir nahi.</div>
+        <div class="un-tag">HOUSING CRISIS 2.0</div>
+        <div class="un-h">"Ek divsat 16 ghar gele" — Pune undir samaj cha akrosh</div>
+        <div class="un-p">Simply South sakat 16 units band zalya ani Puneri undir ekdumch beghar. "Amhi 2BHK madhe rahat hoto — Behind-2-Hotel-Kitchen. Ata Mumbai la shift hoto ka? Tithe pan Mundhe saheb aahet!" Rehabilitation chi vaat baghto aahot.</div>
+      </div>
+      <div class="un-card">
+        <div class="un-tag">मनोरंजन 🎬</div>
+        <div class="un-h">मन्नत में भी नोटिस पहुंचा — चूहा समाज हैरान</div>
+        <div class="un-p">"शाहरुख भाई को भी FDA का लेटर आ सकता है, तो हम किस खेत की मूली हैं," बांद्रा के एक सीनियर चूहे ने कहा। चूहों ने एलान किया: अब से कोई भी elaichi स्पॉन्सरशिप नहीं लेंगे। "Boss, risk नहीं लेने का।"</div>
       </div>
       <div class="un-card">
         <div class="un-tag">ECONOMY 📉</div>
-        <div class="un-h">Rat Sensex crashes 3,137 points in 76 days — worst quarter in rodent history</div>
-        <div class="un-p">The kitchen real-estate sector has been completely wiped out. "Diversify your portfolio — godowns, canteens, some rural exposure," advised a senior rat economist. "Although honestly, the FDA reaches everywhere now."</div>
+        <div class="un-h">Frooti flush: expired-beverage black market collapses overnight</div>
+        <div class="un-p">The Chembur warehouse raid wiped out the rodent community's entire expired-juice reserve. "That stock was our retirement fund — mango flavour appreciates with age," sobbed one investor rat. Analysts have downgraded Expired FMCG to 'strong sell'.</div>
       </div>
       <div class="un-card">
-        <div class="un-tag">राजनीति</div>
-        <div class="un-h">झुरळा यूनियन का अल्टीमेटम: "फिनाइल-मुक्त महाराष्ट्र चाहिए!"</div>
-        <div class="un-p">यूनियन नेता झुरलोबा पाटील ने सिंक के नीचे प्रेस कॉन्फ्रेंस की: "हम essential workers हैं। Quality-check हम ही करते हैं — खराब खाना सबसे पहले हम खाते हैं!" FDA ने कोई जवाब नहीं दिया, सिर्फ pest control भेज दिया।</div>
+        <div class="un-tag">राजनीति ⚖️</div>
+        <div class="un-h">बेलापुर वापसी! HC के फैसले पर चूहा यूनियन की विजय रैली</div>
+        <div class="un-p">हाईकोर्ट ने Hotel Pawan का suspension हटाया तो झुरळा-उंदीर यूनियन ने "घर वापसी मोर्चा" निकाला। यूनियन नेता बोले: "ये due process की जीत है। लेकिन ध्यान रहे — साफ किचन में हमारी entry फिर भी बैन है। ये कैसा इंसाफ?"</div>
       </div>
       <div class="un-card">
         <div class="un-tag">WEATHER ⛈️</div>
-        <div class="un-h">Aaj cha andaaz: 100% chance of phenyl, scattered raids</div>
-        <div class="un-p">Poorva Mumbai, Nagpur ani Dhule madhe heavy clipboard activity expected. Ghara bahar padu naka — ghar asel tar. Visibility: zero (fridge chya mage andhaar aahe).</div>
-      </div>
-      <div class="un-card">
-        <div class="un-tag">अंतरराष्ट्रीय</div>
-        <div class="un-h">शरणार्थी संकट: गुजरात बॉर्डर पर चूहों की लंबी कतारें</div>
-        <div class="un-p">"हम मुंबई के 5-स्टार किचन में पले-बढ़े हैं, यहां का खाना हमसे नहीं खाया जाता," बॉर्डर पर खड़े एक शरणार्थी ने रोते हुए कहा। गुजरात के चूहों ने विरोध शुरू किया: "पहले से ही जगह नहीं है, ऊपर से ये migrant crowd!"</div>
+        <div class="un-h">Aaj cha andaaz: Pune-Chembur belt madhe heavy clipboard activity</div>
+        <div class="un-p">Chain-restaurant corridor madhe 100% chance of surprise inspection. Domino's chya 30-minute guarantee peksha FDA lavkar pohochte. Ghara bahar padu naka — ghar asel tar. Visibility: zero (fridge chya mage andhaar aahe).</div>
       </div>
       <div class="un-card">
         <div class="un-tag">SPORTS 🏏</div>
-        <div class="un-h">Roach Premier League postponed indefinitely — all 5 club venues raided</div>
-        <div class="un-p">CCI, Willingdon, MIG and both Juhu gymkhanas suspended in one week, leaving the RPL with no stadiums. "We were mid-season. The biryani-dodging finals were next week," said a heartbroken team owner from behind a dustbin.</div>
+        <div class="un-h">RPL update: finals shifted again — Domino's dugouts also sealed</div>
+        <div class="un-p">The Roach Premier League, already homeless after the gymkhana raids, has now lost its backup venues in the chain-restaurant sweep. "We practised biryani-dodging for months. Now there is no biryani, and no venue," said the league commissioner from inside a shoe.</div>
       </div>
     </div>
     <div class="un-foot">anchors: <b>Ratan Undirkar</b> &amp; <b>Zharina Zurlekar</b> • sponsor kuni nahi (sagle sponsors suspend zale) • "batmi tikhat, source pakka" 🎙️ • <b>100% fictional satire</b> — rats ani zurle news nahi dete, obviously</div>
@@ -506,6 +520,20 @@
 </div>
 
 <script>
+/* taaza update strip — auto from newest register entry */
+window.addEventListener("DOMContentLoaded", function(){
+  try{
+    var newest = DATA.slice().sort(function(a,b){ return b.date.localeCompare(a.date); })[0];
+    if(!newest) return;
+    var d = new Date(newest.date + "T00:00:00+05:30");
+    var opts = {day:"numeric", month:"short"};
+    document.getElementById("tzDate").textContent = d.toLocaleDateString("en-IN", opts);
+    document.getElementById("tzName").textContent = newest.name + " — " + newest.city;
+    var desc = newest.viol.length > 160 ? newest.viol.slice(0,157) + "..." : newest.viol;
+    document.getElementById("tzDesc").innerHTML = desc + ' <a href="' + newest.url + '" target="_blank" rel="noopener">source ↗</a>';
+    document.getElementById("taaza").style.display = "block";
+  }catch(e){ console.error(e); }
+});
 /* live day counter — Mundhe Raj day count since 25 May 2026 */
 (function(){
   var start = new Date("2026-05-25T00:00:00+05:30");
@@ -514,7 +542,7 @@
   if(a) a.textContent = days;
   if(b) b.textContent = days;
   var now = new Date(Date.now() + (330 + new Date().getTimezoneOffset())*60000); // IST
-  if(now.getMonth() === 7 && now.getDate() >= 13 && now.getDate() <= 18){
+  if(now.getMonth() === 7 && now.getDate() >= 13 && now.getDate() <= 15){
     var s = document.getElementById("idayStrip"); if(s) s.style.display = "block";
   }
 })();
