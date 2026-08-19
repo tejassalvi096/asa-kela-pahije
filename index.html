@@ -139,6 +139,17 @@
   .saaf .plea{margin-top:14px;background:#fff8dc;border:2px dashed #b8912e;border-radius:10px;padding:10px 14px;font-family:'Kalam','Mukta',cursive;font-size:14.5px;color:#5a4a1e}
   .saaf .check{margin-top:10px;font-size:13px;font-family:'Rubik','Mukta',sans-serif;color:#2c4a35}
   .saaf .check a{color:#0f8b8d;font-weight:700}
+  /* Press / In the news */
+  .press{background:#fffdf5;border:3px solid var(--ink);border-radius:14px;padding:20px 22px;margin:18px 0;box-shadow:5px 5px 0 var(--ink);position:relative}
+  .press::before{content:"📰";position:absolute;top:-20px;left:24px;font-size:34px;background:#fdf3dc;padding:0 8px}
+  .press h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,4.2vw,28px);letter-spacing:.04em}
+  .press h2 span{color:var(--red)}
+  .press .psub{font-family:'Rubik','Mukta',sans-serif;font-size:12.5px;color:#7a7060;margin:2px 0 14px}
+  .clip{display:block;text-decoration:none;background:#fff;border:2px solid var(--ink);border-left:8px solid var(--red);border-radius:8px;padding:14px 18px;box-shadow:3px 3px 0 rgba(0,0,0,.25);transform:rotate(-.4deg);transition:transform .15s}
+  .clip:hover{transform:rotate(0) scale(1.01)}
+  .clip .src{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.12em;color:var(--red)}
+  .clip .hl{font-family:'Rubik','Mukta',sans-serif;font-weight:800;font-size:16.5px;color:#1d1a16;margin-top:4px;line-height:1.35}
+  .clip .rd{font-family:'Rubik','Mukta',sans-serif;font-size:12.5px;color:#0f8b8d;font-weight:700;margin-top:8px}
   /* Complaint CTA */
   .cta-box{
     display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between;
@@ -326,7 +337,7 @@
   <!-- DISCLAIMER -->
   <div class="warn">
     <span class="stamp">OYE, PADHO!</span>
-    <div>Full imandaari (honesty): this is a <b>fan-made parody/satire tracker</b> compiled from <b>public news reports</b> (snapshot: <b>19 Aug 2026</b>) — numbers may be incomplete, outdated, or plain wrong. This is <b>NOT</b> an official government website and has <b>no affiliation with, or endorsement by</b>, FDA Maharashtra, the Government of Maharashtra, or Shri Tukaram Mundhe. <b>Important:</b> a suspended licence is usually restored after compliance — many establishments listed here may have already reopened; suspension ≠ permanent closure, and nothing here is a comment on their current status. Caricatures are artistic impressions. Spotted an error, or want something corrected/removed? DM us on Instagram <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener">@asakelapahije</a> — we act fast. Before quoting us at a dinner party, verify with <a href="https://fda.maharashtra.gov.in/" target="_blank">FDA Maharashtra</a> or <a href="https://fssai.gov.in/" target="_blank">FSSAI</a>.</div>
+    <div>Full imandaari (honesty): this is a <b>fan-made parody/satire tracker</b> compiled from <b>public news reports</b> (snapshot: <b>20 Aug 2026</b>) — numbers may be incomplete, outdated, or plain wrong. This is <b>NOT</b> an official government website and has <b>no affiliation with, or endorsement by</b>, FDA Maharashtra, the Government of Maharashtra, or Shri Tukaram Mundhe. <b>Important:</b> a suspended licence is usually restored after compliance — many establishments listed here may have already reopened; suspension ≠ permanent closure, and nothing here is a comment on their current status. Caricatures are artistic impressions. Spotted an error, or want something corrected/removed? DM us on Instagram <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener">@asakelapahije</a> — we act fast. Before quoting us at a dinner party, verify with <a href="https://fda.maharashtra.gov.in/" target="_blank">FDA Maharashtra</a> or <a href="https://fssai.gov.in/" target="_blank">FSSAI</a>.</div>
   </div>
 
   <!-- COMPLAINT CTA -->
@@ -345,6 +356,17 @@
       <div class="cta-s">Surprise visit chi waat kashala baghta — khud invite kara! Mundhe sir la email pathva ani boldly saanga: "Sir, aamchi kitchen kadhi pan tapasa." Confidence asel tarach click kara. 😏</div>
     </div>
     <a class="cta-btn cta-btn-green" href="mailto:comm.fda-mah@nic.in?subject=Invitation%3A%20Please%20inspect%20our%20restaurant%20%E2%80%94%20aamchi%20kitchen%20kadhi%20pan%20tapasa!&body=Respected%20Mundhe%20Sir%2C%0A%0AWe%20are%20proud%20of%20our%20kitchen%20hygiene%20and%20would%20be%20honoured%20to%20welcome%20a%20surprise%20inspection%20by%20the%20FDA%20team%20%E2%80%94%20anytime%2C%20no%20advance%20notice%20needed.%0A%0ARestaurant%20name%3A%20%0AAddress%3A%20%0AContact%3A%20%0A%0AAamchi%20kitchen%20kadhi%20pan%20tapasa%20%E2%80%94%20swagat%20aahe!%0A%0ARegards%2C">📋 INVITE MUNDHE SIR →</a>
+  </div>
+
+  <!-- PRESS / IN THE NEWS -->
+  <div class="press">
+    <h2>CHARCHET <span>AAHOT!</span> — media ne dakhal ghetli</h2>
+    <div class="psub">janta ka tracker, ab akhbaar mein • humbly framed, proudly shared</div>
+    <a class="clip" href="https://maharashtratimes.com/viral/viral-news/maharashtra-youth-builds-website-to-track-tukaram-mundhes-fda-actions-and-report-food-adulteration/articleshow/133215263.cms" target="_blank" rel="noopener">
+      <div class="src">महाराष्ट्र टाइम्स • MAHARASHTRA TIMES</div>
+      <div class="hl">"Maharashtra youth builds website to track Tukaram Mundhe's FDA actions and report food adulteration"</div>
+      <div class="rd">poori story vaacha ↗</div>
+    </a>
   </div>
 
   <!-- SCORECARD -->
@@ -397,7 +419,7 @@
   <!-- TABLE -->
   <div class="panel">
     <h2>THE RAID <span>REGISTER</span> — every documented visit</h2>
-    <div style="font-size:12px;color:#7a7060;margin:2px 0 10px">Status shown is <b>as reported on the date listed</b> (snapshot 19 Aug 2026) — suspensions are typically lifted after compliance, so an establishment's current status may be different. Always check the linked source and <a href="https://hygiene.fssai.gov.in/knowRating.php" target="_blank" style="color:#0f8b8d">official ratings</a>.</div>
+    <div style="font-size:12px;color:#7a7060;margin:2px 0 10px">Status shown is <b>as reported on the date listed</b> (snapshot 20 Aug 2026) — suspensions are typically lifted after compliance, so an establishment's current status may be different. Always check the linked source and <a href="https://hygiene.fssai.gov.in/knowRating.php" target="_blank" style="color:#0f8b8d">official ratings</a>.</div>
     <div class="controls">
       <input type="text" id="search" placeholder="🔍  Search: rat, kebab, ice-cream, gymkhana…">
       <select id="cityFilter"><option value="">All cities</option></select>
@@ -424,6 +446,7 @@
     </div>
     <div class="un-ticker"><div class="un-track" id="unTrack">
       🔴 COURT ROOM: 98% pass hokar bhi band? HC ne FDA la ₹5 lakh cha dand thokla ⚖️ &nbsp;•&nbsp;
+      🔴 DARK STORE, DARK SECRETS: 86 quick-commerce warehouses raided — 10-min delivery, 10-sec verdict 📦 &nbsp;•&nbsp;
       🔴 FILMI KHABAR: SRK, Ajay, Tiger la FDA cha 'love letter' — Elaichi ad samjhavun sanga 💌 &nbsp;•&nbsp;
       🔴 Frooti expire, licence bhi expire — Parle warehouse suspended 🧃 &nbsp;•&nbsp;
       🔴 PUNE ALERT: ek divsat 16 units suspend — puneri pest control ekdum time-table pramane 🕙 &nbsp;•&nbsp;
@@ -515,8 +538,8 @@
   <footer>
     <div class="fcredit">★ A PROJECT BY ASA KELA PAHIJE ★</div>
     <div class="kalam">"Asa kela pahije" — this is how it should be done.</div><br>
-    Compiled 19 Aug 2026 from online news reports — accuracy not guaranteed, not an official government dashboard.<br>
-    The register lists only named, documented actions; official totals (165 suspensions / 3,137 inspections) are far bigger — the FDA doesn't publish an itemised public list.<br><br><b>Parody &amp; corrections policy:</b> This is a non-commercial fan/satire project protected as free expression. It is not affiliated with, sponsored, or endorsed by any government body or official. All raid information is drawn from the linked published news reports as of 19 Aug 2026; establishments may have remedied issues and reopened since — we welcome updates. Caricatures are artistic impressions. For corrections, updates, or removal requests, DM <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener" style="color:#0f8b8d">@asakelapahije</a> on Instagram — genuine requests are honoured promptly.
+    Compiled 20 Aug 2026 from online news reports — accuracy not guaranteed, not an official government dashboard.<br>
+    The register lists only named, documented actions; official totals (165 suspensions / 3,137 inspections) are far bigger — the FDA doesn't publish an itemised public list.<br><br><b>Parody &amp; corrections policy:</b> This is a non-commercial fan/satire project protected as free expression. It is not affiliated with, sponsored, or endorsed by any government body or official. All raid information is drawn from the linked published news reports as of 20 Aug 2026; establishments may have remedied issues and reopened since — we welcome updates. Caricatures are artistic impressions. For corrections, updates, or removal requests, DM <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener" style="color:#0f8b8d">@asakelapahije</a> on Instagram — genuine requests are honoured promptly.
   </footer>
 </div>
 
@@ -580,6 +603,7 @@ const DATA = [
  {date:"2026-07-23", name:"Poornima Restaurant (est. ~1960s, Udupi icon)", city:"Mumbai (Fort)", type:"Restaurant", viol:"Inspectors reported fungal growth on ingredients, cockroaches & hygiene violations. Poornima has challenged the suspension in Bombay HC, saying due process wasn't followed — case pending.", outcome:"Licence suspended (challenged in HC)", url:"https://www.mumbailive.com/en/civic/mumbais-poornima-restaurant-moves-bombay-hc-against-fda-licence-suspension-93734"},
  {date:"2026-08-04", name:"Statewide gutkha operation (4–6 Aug)", city:"Statewide", type:"Tobacco/Gutkha", viol:"Mumbai, Konkan, Pune, Nashik, Chh. Sambhajinagar, Nagpur — banned gutkha & pan masala worth ₹20.29 lakh seized; 19 FIRs, 22 arrests; 38 improvement notices & 7 suspensions in the drive.", outcome:"Seizure + FIRs", url:"https://www.wionews.com/india-news/maharashtra-s-food-safety-crackdown-how-tukaram-mundhe-s-raids-are-changing-restaurant-kitchens-1786441851729/amp"},
  {date:"2026-08-07", name:"Hotel Pawan Bar & Restaurant — HC reversal ⚖️", city:"Navi Mumbai (Belapur)", type:"Restaurant", viol:"THE OTHER SIDE: after a compliant re-inspection, Bombay HC revoked the suspension and slammed FDA for not restoring the licence — court is weighing costs against FDA. Due process matters.", outcome:"HC revoked suspension", url:"https://www.mumbailive.com/en/civic/bombay-hc-revokes-fda-suspension-of-navi-mumbai-restaurant-93802"},
+ {date:"2026-08-13", name:"Quick-commerce sweep — Blinkit, Zepto, Instamart 📦", city:"Statewide", type:"Q-commerce", viol:"86 establishments selling via online platforms inspected in one statewide drive — 14 licences linked to Blinkit, Zepto & Instamart suspended over safety and hygiene violations. 10-minute delivery, 10-second inspection verdict.", outcome:"14 licences suspended", url:"https://www.business-standard.com/india-news/maharashtra-fda-suspends-14-licences-linked-to-blinkit-zepto-instamart-126081401880_1.html"},
  {date:"2026-08-13", name:"Domino's Pizza — 4 outlets (chain drive begins 🍕)", city:"Mumbai + Satara", type:"Chain restaurant", viol:"Vile Parle W, Borivali W, R-City Ghatkopar + Satara outlets suspended for food safety non-compliance. Mundhe: special drive against CHAIN restaurants has begun. Multinationals, tumcha number pan aala.", outcome:"Licences suspended", url:"https://www.business-standard.com/india-news/maharashtra-fda-suspends-licences-of-4-domino-s-outlets-amid-special-drive-126081300697_1.html"},
  {date:"2026-08-14", name:"Pune mega sweep — 16 units incl. Simply South", city:"Pune + districts", type:"Mixed", viol:"16 restaurants, dairies & food units suspended in one campaign day under 'Safe Food, Safe Drug, Safe Maharashtra'. Pune's famous Simply South also in the list — puneri misal ke baad ab puneri raid famous.", outcome:"Licences suspended", url:"https://www.mypunepulse.com/pune-simply-south-among-16-restaurants-dairy-and-food-units-face-licence-suspension-after-fda-raid/"},
  {date:"2026-08-15", name:"Parle Agro warehouse (Velocit Express) — I-Day special 🇮🇳", city:"Mumbai (Chembur)", type:"Warehouse", viol:"Independence Day pe bhi duty on: expired Frooti & Appy Fizz worth ~₹1 lakh found in the warehouse. Licence suspended. Expiry date se azadi nahi milti.", outcome:"Licence suspended", url:"https://www.theweek.in/news/biz-tech/2026/08/15/why-was-parle-warehouse-licence-suspended-tukaram-mundhe-led-fda-raid-reveals-expired-frooty-appy-fizz-in-mumbai-premises.html"},
