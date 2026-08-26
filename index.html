@@ -139,6 +139,16 @@
   .saaf .plea{margin-top:14px;background:#fff8dc;border:2px dashed #b8912e;border-radius:10px;padding:10px 14px;font-family:'Kalam','Mukta',cursive;font-size:14.5px;color:#5a4a1e}
   .saaf .check{margin-top:10px;font-size:13px;font-family:'Rubik','Mukta',sans-serif;color:#2c4a35}
   .saaf .check a{color:#0f8b8d;font-weight:700}
+  /* August so-far box */
+  .augbox{background:#fffdf5;border:3px dashed var(--ink);border-radius:14px;padding:16px 18px;margin:14px 0 0}
+  .aughead{font-family:'Bebas Neue',sans-serif;font-size:clamp(15px,3.1vw,20px);letter-spacing:.03em;text-align:center;color:#1d1a16}
+  .aughead span{color:var(--red)}
+  .augrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+  @media(max-width:620px){.augrow{grid-template-columns:1fr 1fr}}
+  .augcard{background:#fff;border:2px solid var(--ink);border-radius:10px;padding:12px 8px;text-align:center;box-shadow:3px 3px 0 rgba(0,0,0,.18)}
+  .augcard .an{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,4.4vw,28px);color:var(--red)}
+  .augcard .al{font-size:11px;color:#7a7060;font-family:'Rubik','Mukta',sans-serif;line-height:1.35;margin-top:3px}
+  .augnote{margin-top:10px;font-size:11.5px;color:#7a7060;text-align:center;font-family:'Rubik','Mukta',sans-serif}
   /* Instagram follow button */
   .igbtn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;margin-top:14px;
     background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888);
@@ -348,7 +358,7 @@
   <!-- DISCLAIMER -->
   <div class="warn">
     <span class="stamp">OYE, PADHO!</span>
-    <div>Full imandaari (honesty): this is a <b>fan-made parody/satire tracker</b> compiled from <b>public news reports</b> (snapshot: <b>26 Aug 2026</b>) — numbers may be incomplete, outdated, or plain wrong. This is <b>NOT</b> an official government website and has <b>no affiliation with, or endorsement by</b>, FDA Maharashtra, the Government of Maharashtra, or Shri Tukaram Mundhe. <b>Important:</b> a suspended licence is usually restored after compliance — many establishments listed here may have already reopened; suspension ≠ permanent closure, and nothing here is a comment on their current status. Caricatures are artistic impressions. Spotted an error, or want something corrected/removed? DM us on Instagram <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener">@asakelapahije</a> — we act fast. Before quoting us at a dinner party, verify with <a href="https://fda.maharashtra.gov.in/" target="_blank">FDA Maharashtra</a> or <a href="https://fssai.gov.in/" target="_blank">FSSAI</a>.</div>
+    <div>Full imandaari (honesty): this is a <b>fan-made parody/satire tracker</b> compiled from <b>public news reports</b> (snapshot: <b>27 Aug 2026</b>) — numbers may be incomplete, outdated, or plain wrong. This is <b>NOT</b> an official government website and has <b>no affiliation with, or endorsement by</b>, FDA Maharashtra, the Government of Maharashtra, or Shri Tukaram Mundhe. <b>Important:</b> a suspended licence is usually restored after compliance — many establishments listed here may have already reopened; suspension ≠ permanent closure, and nothing here is a comment on their current status. Caricatures are artistic impressions. Spotted an error, or want something corrected/removed? DM us on Instagram <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener">@asakelapahije</a> — we act fast. Before quoting us at a dinner party, verify with <a href="https://fda.maharashtra.gov.in/" target="_blank">FDA Maharashtra</a> or <a href="https://fssai.gov.in/" target="_blank">FSSAI</a>.</div>
   </div>
 
   <!-- COMPLAINT CTA -->
@@ -406,9 +416,17 @@
     <div class="card"><div class="num" data-count="274">0</div><div class="lbl">illegal units — taala lagaa diya (sealed)</div></div>
   </div>
 
-    <div style="font-size:12.5px;color:#7a7060;font-family:'Rubik','Mukta',sans-serif;text-align:center;margin:8px 0 0">
-    Official cumulative figures cover <b>25 May – 31 Jul 2026</b> (FDA's last published totals). Every action after that date is tracked individually in <b>THE RAID REGISTER</b> below — <b id="postJulCount">0</b> entries logged since 1 Aug.
+    <div class="augbox">
+    <div class="aughead">AUGUST <span>SO FAR</span> — humchya register madhun (FDA che official cumulative figures 31 Jul paryantach aahet)</div>
+    <div class="augrow">
+      <div class="augcard"><div class="an" id="augActions">0</div><div class="al">documented actions logged since 1 Aug</div></div>
+      <div class="augcard"><div class="an" id="augPlaces">0</div><div class="al">named establishments / drives in Aug</div></div>
+      <div class="augcard"><div class="an">₹3.62 cr+</div><div class="al">goods seized in Aug (sum of reported figures)</div></div>
+      <div class="augcard"><div class="an">50+</div><div class="al">licences suspended in Aug drives (reported)</div></div>
+    </div>
+    <div class="augnote">Yeh humchi ginti aahe — FDA ne 31 Jul nantar navin cumulative total prasiddha kelela nahi. Har entry cha source register madhe aahe.</div>
   </div>
+
 
 <!-- SAAF LIST -->
   <div class="saaf">
@@ -449,7 +467,7 @@
   <!-- TABLE -->
   <div class="panel">
     <h2>THE RAID <span>REGISTER</span> — every documented visit</h2>
-    <div style="font-size:12px;color:#7a7060;margin:2px 0 10px">Status shown is <b>as reported on the date listed</b> (snapshot 26 Aug 2026) — suspensions are typically lifted after compliance, so an establishment's current status may be different. Always check the linked source and <a href="https://hygiene.fssai.gov.in/knowRating.php" target="_blank" style="color:#0f8b8d">official ratings</a>.</div>
+    <div style="font-size:12px;color:#7a7060;margin:2px 0 10px">Status shown is <b>as reported on the date listed</b> (snapshot 27 Aug 2026) — suspensions are typically lifted after compliance, so an establishment's current status may be different. Always check the linked source and <a href="https://hygiene.fssai.gov.in/knowRating.php" target="_blank" style="color:#0f8b8d">official ratings</a>.</div>
     <div class="controls">
       <input type="text" id="search" placeholder="🔍  Search: rat, kebab, ice-cream, gymkhana…">
       <select id="cityFilter"><option value="">All cities</option></select>
@@ -477,6 +495,8 @@
     <div class="un-ticker"><div class="un-track" id="unTrack">
       🔴 COURT ROOM: 98% pass hokar bhi band? HC ne FDA la ₹5 lakh cha dand thokla ⚖️ &nbsp;•&nbsp;
       🔴 DARK STORE, DARK SECRETS: 86 quick-commerce warehouses raided — 10-min delivery, 10-sec verdict 📦 &nbsp;•&nbsp;
+      🔴 AYUB'S BAND: Fort chi famous jaga suspend — ande room temperature var thevle 🥚 &nbsp;•&nbsp;
+      🔴 NAGPUR: 55,996 kg bhajlele supari zapt — ₹2.24 crore cha maal 🌰 &nbsp;•&nbsp;
       🔴 PANEER NAHI, ANALOGUE! McDonald's var 'GO Cheese Sauce' cha aarop — real cheese chya navavar 🧀 &nbsp;•&nbsp;
       🔴 NARIMAN POINT: karmacharyane swachh bhandyanvarach tondh dhutla — Status Restaurant suspend 😷 &nbsp;•&nbsp;
       🔴 GOLDEN ARCHES, GOLDEN FAIL: McDonald's Colaba — 20 pैki 18 parameter fail, licence suspend 🍟 &nbsp;•&nbsp;
@@ -583,8 +603,8 @@
     <div class="fcredit">★ A PROJECT BY ASA KELA PAHIJE ★</div>
     <div style="margin-bottom:8px"><a class="igf" href="https://www.instagram.com/asakelapahije/" target="_blank" rel="noopener">📸 Instagram var bhetuya → @asakelapahije</a></div>
     <div class="kalam">"Asa kela pahije" — this is how it should be done.</div><br>
-    Compiled 26 Aug 2026 from online news reports — accuracy not guaranteed, not an official government dashboard.<br>
-    The register lists only named, documented actions; official totals (165 suspensions / 3,137 inspections) are far bigger — the FDA doesn't publish an itemised public list.<br><br><b>Parody &amp; corrections policy:</b> This is a non-commercial fan/satire project protected as free expression. It is not affiliated with, sponsored, or endorsed by any government body or official. All raid information is drawn from the linked published news reports as of 26 Aug 2026; establishments may have remedied issues and reopened since — we welcome updates. Caricatures are artistic impressions. For corrections, updates, or removal requests, DM <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener" style="color:#0f8b8d">@asakelapahije</a> on Instagram — genuine requests are honoured promptly.
+    Compiled 27 Aug 2026 from online news reports — accuracy not guaranteed, not an official government dashboard.<br>
+    The register lists only named, documented actions; official totals (165 suspensions / 3,137 inspections) are far bigger — the FDA doesn't publish an itemised public list.<br><br><b>Parody &amp; corrections policy:</b> This is a non-commercial fan/satire project protected as free expression. It is not affiliated with, sponsored, or endorsed by any government body or official. All raid information is drawn from the linked published news reports as of 27 Aug 2026; establishments may have remedied issues and reopened since — we welcome updates. Caricatures are artistic impressions. For corrections, updates, or removal requests, DM <a href="https://www.instagram.com/asakelapahije" target="_blank" rel="noopener" style="color:#0f8b8d">@asakelapahije</a> on Instagram — genuine requests are honoured promptly.
   </footer>
 </div>
 
@@ -603,8 +623,10 @@ window.addEventListener("DOMContentLoaded", function(){
     var desc = newest.viol.length > 160 ? newest.viol.slice(0,157) + "..." : newest.viol;
     document.getElementById("tzDesc").innerHTML = desc + ' <a href="' + newest.url + '" target="_blank" rel="noopener">source ↗</a>';
     document.getElementById("taaza").style.display = "block";
-    var pj = DATA.filter(function(x){ return x.date >= "2026-08-01"; }).length;
-    var pjEl = document.getElementById("postJulCount"); if(pjEl) pjEl.textContent = pj;
+    var augArr = DATA.filter(function(x){ return x.date >= "2026-08-01"; });
+    var a1=document.getElementById("augActions"); if(a1) a1.textContent = augArr.length;
+    var places = augArr.filter(function(x){ return !/statewide|drive|division/i.test(x.name); }).length;
+    var a2=document.getElementById("augPlaces"); if(a2) a2.textContent = places;
   }catch(e){ console.error(e); }
 });
 /* live day counter — Mundhe Raj day count since 25 May 2026 */
@@ -659,6 +681,7 @@ const DATA = [
  {date:"2026-08-17", name:"Bollywood calling: SRK, Ajay Devgn, Tiger Shroff 🎬", city:"Mumbai (Mannat included)", type:"Celebrity notice", viol:"Show-cause notices over the Vimal Elaichi ad — FDA says it may be surrogate promotion of pan masala (banned in Maharashtra). Actors asked to explain; misleading-ad penalty can reach ₹10 lakh (Sec 24/53, FSS Act). Delivery address: Mannat.", outcome:"Show-cause notices", url:"https://bestmediainfo.com/mediainfo/mediainfo-marketing/maharashtra-fda-issues-notices-to-shah-rukh-khan-ajay-devgn-tiger-shroff-over-vimal-elaichi-ad-12266680"},
  {date:"2026-08-18", name:"HC fines FDA ₹5 lakh — Gurunanak Dairy & Sweets ⚖️", city:"Pune (Wadgaon-Sheri)", type:"Sweets shop", viol:"THE OTHER SIDE, part 2: licence suspended 12 Jun after a food-poisoning complaint (consumers hospitalised, sample declared unsafe); 13 Jul re-inspection found 98% compliance (35/36) but suspension continued. Bombay HC set it aside, allowed reopening, fined FDA ₹5 lakh payable in 30 days, calling it 'absolute strange policies'.", outcome:"Court fined FDA", url:"https://www.business-standard.com/india-news/maharashtra-fda-to-pay-5-lakh-after-bombay-hc-order-on-licence-suspension-126081800115_1.html"},
  {date:"2026-08-18", name:"Pink buddhi ke baal gone — colourless cotton candy 🍬", city:"Statewide", type:"Street food", viol:"After FDA action on banned synthetic colours, Maharashtra's iconic pink cotton candy has turned colourless. Bachpan ka rang gaya, par pet safe raha.", outcome:"Colour ban effect", url:"https://www.businesstoday.in/india/story/no-more-pink-buddhi-ke-baal-colourless-cotton-candy-takes-over-after-fda-action-in-maharashtra-549844-2026-08-18"},
+  {date:"2026-08-25", name:"Ayub's (Fort) shut + ₹2.24 cr seized statewide 🥚", city:"Mumbai (Fort) + statewide", type:"Mixed", viol:"South Mumbai's famous Ayub's suspended from 23 Aug after a 22 Aug inspection: eggs stored at room temperature, no raw/cooked segregation, unhygienic handling areas, open drains, stagnant water, houseflies, weak pest control, missing testing & traceability records. Same drive: 37 establishments inspected (12 Mumbai, 14 Pune, 7 Ch. Sambhajinagar, 4 Nagpur), 31 improvement notices, 4 licences suspended — also Sankalp Mahila Sanstha (Kurla), Burhampur Jalebi Centre & Step In Restaurant (both Nagpur). Seizures: 55,996 kg roasted arecanut in Nagpur (₹2.24 cr) + 4,317 kg from an unlicensed Pune business (₹7.27 lakh) + 396.8 kg suspect loose soybean oil in Jalgaon.", outcome:"4 licences suspended", url:"https://thefederal.com/category/states/west/maharashtra/mumbai-ayubs-shut-down-fda-suspends-licence-multiple-violations-254720"},
   {date:"2026-08-22", name:"Status Restaurant, Nariman Point — tondh dhutla... bhandyanvar 😷", city:"Mumbai (Nariman Point)", type:"Restaurant", viol:"An employee was caught washing his face directly over clean utensils. Inspectors also logged standing wastewater, unhygienic clothing, heavy grease deposits and direct cross-contamination risk between raw and cooked food. Licence suspended.", outcome:"Licence suspended", url:"https://aninews.in/news/national/general-news/maharashtra-fda-suspends-licences-of-7-mumbai-food-outlets-gutkha-adulterated-dairy-seized-statewide20260822084747/"},
  {date:"2026-08-22", name:"Khar Gymkhana — thawing, storage & sanitisation fails 🎾", city:"Mumbai (Khar)", type:"Elite club", viol:"Registration suspended: poor storage, no FIFO/FEFO compliance, no hot-water sanitisation facility, and improper thawing of frozen food. Third gymkhana in the crackdown.", outcome:"Registration suspended", url:"https://aninews.in/news/national/general-news/maharashtra-fda-suspends-licences-of-7-mumbai-food-outlets-gutkha-adulterated-dairy-seized-statewide20260822084747/"},
  {date:"2026-08-22", name:"Novaara (Malad W), Santacruz sweet shop & Andheri hotel", city:"Mumbai", type:"Mixed", viol:"Novaara: 14 of 25 previously flagged deficiencies unrectified — missing grease traps, no employee medical records, no mandatory cooking-oil display. Sweet shop (Santacruz W) & hotel (Andheri W): severe structural damage, rusted equipment, missing testing logs.", outcome:"Enforcement action", url:"https://aninews.in/news/national/general-news/maharashtra-fda-suspends-licences-of-7-mumbai-food-outlets-gutkha-adulterated-dairy-seized-statewide20260822084747/"},
@@ -760,8 +783,8 @@ new Chart(monthChart,{type:"bar",data:{labels:Object.keys(months),
   options:{plugins:{legend:{display:false}},scales:{y:{ticks:{stepSize:2}},x:{grid:{display:false}}},maintainAspectRatio:false}});
 
 new Chart(seizChart,{type:"bar",
-  data:{labels:["Unsafe food (official, to 31 Jul)","Gutka / pan masala (to 31 Jul)","Synthetic milk (Bhoom)","Jul 14–15 blitz","Aug 13 q-commerce drive","Amravati tobacco","Aug 18 one-day drive","Pune division seizures","Aug 19-20 dairy+gutkha","Parle warehouse"],
-  datasets:[{data:[55.72,15.11,9.21,1.90,0.4677,0.55,0.25,0.199,0.1959,0.01],backgroundColor:["#e2432e","#7c5cbf","#f7b32b","#0f8b8d","#c2185b","#3a9d5d","#ef6c00","#00838f","#6a1b9a","#5d4037"],borderColor:"#1d1a16",borderWidth:2.5,borderRadius:6,barThickness:20}]},
+  data:{labels:["Unsafe food (official, to 31 Jul)","Gutka / pan masala (to 31 Jul)","Synthetic milk (Bhoom)","Jul 14–15 blitz","Aug 13 q-commerce drive","Amravati tobacco","Aug 18 one-day drive","Pune division seizures","Aug 25 arecanut (Nagpur)","Aug 19-20 dairy+gutkha","Parle warehouse"],
+  datasets:[{data:[55.72,15.11,9.21,2.2461,1.90,0.4677,0.55,0.25,0.199,0.1959,0.01],backgroundColor:["#e2432e","#7c5cbf","#f7b32b","#8d6e63","#0f8b8d","#c2185b","#3a9d5d","#ef6c00","#00838f","#6a1b9a","#5d4037"],borderColor:"#1d1a16",borderWidth:2.5,borderRadius:6,barThickness:20}]},
   options:{indexAxis:"y",plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>"₹"+c.raw+" crore"}}},
   scales:{x:{title:{display:true,text:"₹ crore"}},y:{grid:{display:false}}},maintainAspectRatio:false}});
 </script>
