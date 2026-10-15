@@ -703,5 +703,85 @@ $('wForm').addEventListener('submit', async e=>{
 });
 </script>
 
+<!-- AKP mini water tanker -->
+<style>
+  #akpTanker{position:fixed;left:-140px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:9998;display:block;text-decoration:none;color:#1d1a16;-webkit-tap-highlight-color:transparent}
+  #akpTanker .tk{display:block;width:112px;height:auto;overflow:visible;filter:drop-shadow(3px 3px 0 rgba(29,26,22,.3))}
+  #akpTanker.flip .tk{transform:scaleX(-1)}
+  #akpTanker.moving .tkb{animation:tkbounce .35s ease-in-out infinite}
+  #akpTanker.moving .whl{animation:tkspin .5s linear infinite}
+  #akpTanker.flip.moving .whl{animation-direction:reverse}
+  #akpTanker .whl{transform-box:fill-box;transform-origin:center}
+  #akpTanker .drop{opacity:0}
+  #akpTanker.moving .drop{animation:tkdrip 1s ease-in infinite}
+  #akpTanker.moving .drop.d2{animation-delay:.5s}
+  #akpTanker .tkbub{position:absolute;bottom:100%;left:50%;transform:translateX(-50%) scale(.6);opacity:0;transition:opacity .2s,transform .2s;background:#fff;border:3px solid #1d1a16;border-radius:12px;padding:5px 10px;font:700 13px/1.3 'Rubik','Mukta',sans-serif;white-space:nowrap;box-shadow:3px 3px 0 #1d1a16;margin-bottom:6px;pointer-events:none}
+  #akpTanker.talk .tkbub{opacity:1;transform:translateX(-50%) scale(1)}
+  #akpTanker.bl .tkbub{left:0;transform:scale(.6);transform-origin:left bottom}
+  #akpTanker.bl.talk .tkbub{transform:scale(1)}
+  #akpTanker.br .tkbub{left:auto;right:0;transform:scale(.6);transform-origin:right bottom}
+  #akpTanker.br.talk .tkbub{transform:scale(1)}
+  @keyframes tkbounce{50%{transform:translateY(-2px)}}
+  @keyframes tkspin{to{transform:rotate(360deg)}}
+  @keyframes tkdrip{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(14px)}}
+  @media (max-width:600px){#akpTanker .tk{width:88px}#akpTanker .tkbub{font-size:12px}}
+</style>
+<a id="akpTanker" href="paani.html" aria-label="Paani Kiti Urla? tanker">
+  <span class="tkbub" id="akpTankerMsg"></span>
+  <svg class="tk" viewBox="0 0 120 64" aria-hidden="true">
+    <g class="tkb">
+      <rect x="4" y="12" width="74" height="30" rx="15" fill="#0f8b8d" stroke="#1d1a16" stroke-width="3"/>
+      <rect x="10" y="17" width="62" height="5" rx="2.5" fill="#3fb3b5"/>
+      <text x="41" y="37" text-anchor="middle" font-family="'Bebas Neue',Impact,sans-serif" font-size="13" letter-spacing="1" fill="#fffdf5">PAANI</text>
+      <rect x="34" y="7" width="12" height="6" rx="2" fill="#f7b32b" stroke="#1d1a16" stroke-width="2.5"/>
+      <path d="M80 44 V22 Q80 18 84 18 H100 Q104 18 107 22 L114 32 V44 Z" fill="#f7b32b" stroke="#1d1a16" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M88 22 H99 L105 31 H88 Z" fill="#d6f0ef" stroke="#1d1a16" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="2" y="42" width="114" height="5" rx="2" fill="#1d1a16"/>
+      <rect x="112" y="37" width="5" height="4" rx="1" fill="#e2432e"/>
+    </g>
+    <g class="whl"><circle cx="22" cy="50" r="8" fill="#1d1a16"/><circle cx="22" cy="50" r="3" fill="#cabfa9"/><rect x="21" y="43" width="2" height="5" fill="#cabfa9"/></g>
+    <g class="whl"><circle cx="48" cy="50" r="8" fill="#1d1a16"/><circle cx="48" cy="50" r="3" fill="#cabfa9"/><rect x="47" y="43" width="2" height="5" fill="#cabfa9"/></g>
+    <g class="whl"><circle cx="98" cy="50" r="8" fill="#1d1a16"/><circle cx="98" cy="50" r="3" fill="#cabfa9"/><rect x="97" y="43" width="2" height="5" fill="#cabfa9"/></g>
+    <path class="drop" d="M6 42 q-2 4 0 6 q2 -2 0 -6z" fill="#3fb3b5" stroke="#1d1a16" stroke-width="1"/>
+    <path class="drop d2" d="M11 43 q-2 4 0 6 q2 -2 0 -6z" fill="#3fb3b5" stroke="#1d1a16" stroke-width="1"/>
+  </svg>
+</a>
+<script>
+(function(){
+  var el=document.getElementById('akpTanker'), msg=document.getElementById('akpTankerMsg');
+  var onPaani=/paani/.test(location.pathname);
+  if(onPaani){ el.setAttribute('href','#game'); }
+  var MSGS = onPaani
+    ? ['Tanker aala! Fakt 20 bottles 🚚','Game khela, mag kalel 👇','Nal band kara re! 🚰','Marathwada la challoy 💨','Rang laava, tanker aala 🪣']
+    : ['Tanker aala! Tap kar 🚚','Paani kiti urla? Bagh na 👆','Marathwada la challoy 💨','Gaavat fakt 20 bottles 😟','Mi pan late aahe, sorry 🙏'];
+  function bottomOffset(){ var bar=document.querySelector('.mybar'); var b=bar?bar.offsetHeight+8:10; el.style.bottom='calc('+b+'px + env(safe-area-inset-bottom,0px))'; }
+  bottomOffset(); window.addEventListener('resize',bottomOffset);
+  var w=function(){return el.offsetWidth||112;};
+  var x=-140, mi=0;
+  el.style.left=x+'px';
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function talk(){ msg.textContent=MSGS[mi%MSGS.length]; mi++; var bw=msg.offsetWidth, r=el.getBoundingClientRect(), c=r.left+r.width/2; el.classList.toggle('bl', c-bw/2<6); el.classList.toggle('br', c+bw/2>innerWidth-6); el.classList.add('talk'); setTimeout(function(){el.classList.remove('talk');},2600); }
+  if(reduce){ el.style.left='12px'; setInterval(talk,6000); talk(); return; }
+  function drive(){
+    var vw=window.innerWidth, max=vw-w()-10, target;
+    if(Math.random()<0.18){ target = x<vw/2 ? vw+30 : -w()-30; }
+    else { target = 10+Math.random()*Math.max(10,max-10); }
+    var dx=target-x; if(Math.abs(dx)<60){ target = x<vw/2 ? max : 10; dx=target-x; }
+    var dur=Math.max(1.2,Math.abs(dx)/110);
+    el.classList.toggle('flip',dx<0); el.classList.add('moving');
+    el.style.transition='left '+dur+'s linear'; el.style.left=target+'px'; x=target;
+    setTimeout(function(){
+      el.classList.remove('moving');
+      if(x>vw||x<-w()){ el.style.transition='none'; x = x>0 ? -w()-20 : vw+20; el.style.left=x+'px'; setTimeout(drive,1200); return; }
+      if(Math.random()<0.7) talk();
+      setTimeout(drive, 2200+Math.random()*2500);
+    }, dur*1000);
+  }
+  setTimeout(drive,1500);
+  el.addEventListener('click',function(e){
+    if(onPaani){ var g=document.getElementById('game'); if(g){ e.preventDefault(); g.scrollIntoView({behavior:'smooth',block:'start'}); } }
+  });
+})();
+</script>
 </body>
 </html>
