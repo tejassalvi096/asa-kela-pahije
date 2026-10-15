@@ -533,7 +533,7 @@ function updateMine(){
   const n=$('myN'); n.textContent = fmt(s); n.classList.remove('pop'); void n.offsetWidth; n.classList.add('pop');
   $('myT').innerHTML = s ? 'bottles vachavle aaj<br><span class="x">= tanker gaavatlya ekala <b>'+(days>=1?fmt(days)+' divas':'ardha divas')+'</b> cha paani</span>' : 'bottles vachavle aaj<br><span class="x">Skip karayla suru kara 👆</span>';
   $('miniW').setAttribute('y', 48 - 44*Math.min(1,s/MAXSAVE));
-  $('cap').textContent = 'Aaj mi '+fmt(s||MAXSAVE)+' bottles paani vachavla 💧 Tumhi kiti? Tumchi bottle check kara → asakelapahije.com #PaaniKitiUrla @asakelapahije';
+  $('cap').textContent = 'Aaj mi '+fmt(s||MAXSAVE)+' bottles paani vachavla 💧 Tumhi kiti? Tumchi bottle check kara → asakelapahije.com/paani.html #PaaniKitiUrla @asakelapahije';
   clearTimeout(cardT); cardT=setTimeout(drawCard,120);
 }
 
@@ -567,7 +567,7 @@ function drawCard(){
   x.fillText('= '+(d>=1?fmt(d)+' divas':'ardha divas')+' cha paani,',60,780); x.fillText('tanker gaavatlya eka manasala',60,832);
   x.font="130px 'Bebas Neue',Impact,sans-serif"; x.fillStyle='#f7b32b'; x.fillText('TUMHI KITI?',66,1046); x.fillStyle='#1d1a16'; x.fillText('TUMHI KITI?',60,1040);
   x.fillStyle='#1d1a16'; x.fillRect(0,1190,W,160);
-  x.font="600 38px Rubik,sans-serif"; x.fillStyle='#f7b32b'; x.fillText('Paani Kiti Urla?  ·  asakelapahije.com',60,1285);
+  x.font="600 38px Rubik,sans-serif"; x.fillStyle='#f7b32b'; x.fillText('Paani Kiti Urla?  ·  asakelapahije.com/paani.html',60,1285);
   $('card').src=c.toDataURL('image/png');
 }
 $('copy').addEventListener('click',()=>{
