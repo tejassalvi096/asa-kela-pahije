@@ -231,6 +231,25 @@ h2{letter-spacing:.03em}
 .pulse{animation:pop .35s}
 @media (max-width:820px){.gwrap{grid-template-columns:1fr}.pool{position:sticky;top:0;z-index:5}.pool-h{flex-direction:row;align-items:baseline;gap:8px}.pool-h b{font-size:52px}.pool-b{grid-template-columns:repeat(20,1fr)}}
 @media (max-width:420px){.task{grid-template-columns:34px 1fr;}.task .step{grid-column:1/-1;justify-content:flex-end}.task .ti{font-size:26px}}
+
+/* ---- mobile: pills sit right above the bottle ---- */
+.bname{text-align:center;font-family:var(--f-display);font-size:22px;letter-spacing:.06em;margin:0 0 2px}
+.bname b{color:var(--teal);font-weight:400}
+.bname.bad b{color:var(--red)}
+@media (max-width:820px){
+  .hero{padding-block:20px 28px}
+  .hero .wrap{display:flex;flex-direction:column;gap:0}
+  .hero .txt{display:contents}
+  .hero h1{order:1;font-size:clamp(52px,15vw,72px);text-align:left;align-self:flex-start}
+  .hero .tag{order:2;font-size:16px;max-width:none}
+  .pills{order:3;margin-top:16px;gap:6px}
+  .pills button{font-size:15px;padding:5px 11px}
+  .bottlebox{order:4;max-width:none;margin-top:14px}
+  .bottlebox svg{max-width:190px;margin:0 auto}
+  .say{order:5;margin-top:12px;font-size:20px;text-align:center;max-width:none;min-height:0}
+  .updated{order:6;align-self:center;margin-top:10px}
+  .facts3{order:7}
+}
 </style>
 </head>
 <body>
@@ -248,6 +267,7 @@ h2{letter-spacing:.03em}
       <span class="updated"><i class="dot"></i><span id="upd"></span></span>
     </div>
     <div class="bottlebox">
+      <p class="bname" id="bName"></p>
       <svg id="bottle" viewBox="-20 -150 340 680" role="img" aria-label="Water bottle showing dam storage">
         <defs>
           <clipPath id="bclip"><path id="bodyPath" d="M118 70 H182 V118 Q182 150 214 170 Q240 186 240 220 V470 Q240 510 200 510 H100 Q60 510 60 470 V220 Q60 186 86 170 Q118 150 118 118 Z"/></clipPath>
@@ -502,6 +522,7 @@ function setReg(id){
   $('w2').setAttribute('fill', r.bad ? '#ff8a73' : '#3fb3b5');
   drawStraws(r.straws);
   $('say').innerHTML = r.say.replace('{d}', DAYS);
+  $('bName').innerHTML = '<b>'+r.n+'</b> chi bottle 👇'; $('bName').classList.toggle('bad', !!r.bad);
   $('upd').textContent = r.n+' · update: '+r.upd;
   $('hPeople').textContent = r.ppl;
   $('fLast').textContent = Math.round(r.last)+'%';
@@ -509,7 +530,7 @@ function setReg(id){
   $('pills').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.id===id));
 }
 $('pills').innerHTML = REG.map(r=>'<button data-id="'+r.id+'">'+r.n+'</button>').join('');
-$('pills').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>setReg(b.dataset.id)));
+$('pills').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ setReg(b.dataset.id); const pl=$('pills'), sy=$('say').getBoundingClientRect(); if(innerWidth<=820 && (pl.getBoundingClientRect().top<0 || sy.bottom>innerHeight-90)) scrollTo({top:scrollY+pl.getBoundingClientRect().top-12,behavior:reduce?'auto':'smooth'}); }));
 
 /* ---- CARDS ---- */
 const bots = n => '<div class="bots" aria-hidden="true">'+'<i></i>'.repeat(Math.min(n,160))+'</div>';
