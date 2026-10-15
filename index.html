@@ -703,6 +703,8 @@ onSnapshot(query(collection(db,"janta"), orderBy("t","desc"), limit(150)), snap 
   #akpTanker{position:fixed;left:-140px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:9998;display:block;text-decoration:none;color:#1d1a16;-webkit-tap-highlight-color:transparent}
   #akpTanker .tk{display:block;width:112px;height:auto;overflow:visible;filter:drop-shadow(3px 3px 0 rgba(29,26,22,.3))}
   #akpTanker.flip .tk{transform:scaleX(-1)}
+  #akpTanker .tktxt{transform-box:fill-box;transform-origin:center}
+  #akpTanker.flip .tktxt{transform:scaleX(-1)}
   #akpTanker.moving .tkb{animation:tkbounce .35s ease-in-out infinite}
   #akpTanker.moving .whl{animation:tkspin .5s linear infinite}
   #akpTanker.flip.moving .whl{animation-direction:reverse}
@@ -727,7 +729,7 @@ onSnapshot(query(collection(db,"janta"), orderBy("t","desc"), limit(150)), snap 
     <g class="tkb">
       <rect x="4" y="12" width="74" height="30" rx="15" fill="#0f8b8d" stroke="#1d1a16" stroke-width="3"/>
       <rect x="10" y="17" width="62" height="5" rx="2.5" fill="#3fb3b5"/>
-      <text x="41" y="37" text-anchor="middle" font-family="'Bebas Neue',Impact,sans-serif" font-size="13" letter-spacing="1" fill="#fffdf5">PAANI</text>
+      <text class="tktxt" x="41" y="37" text-anchor="middle" font-family="'Bebas Neue',Impact,sans-serif" font-size="13" letter-spacing="1" fill="#fffdf5">PAANI</text>
       <rect x="34" y="7" width="12" height="6" rx="2" fill="#f7b32b" stroke="#1d1a16" stroke-width="2.5"/>
       <path d="M80 44 V22 Q80 18 84 18 H100 Q104 18 107 22 L114 32 V44 Z" fill="#f7b32b" stroke="#1d1a16" stroke-width="3" stroke-linejoin="round"/>
       <path d="M88 22 H99 L105 31 H88 Z" fill="#d6f0ef" stroke="#1d1a16" stroke-width="2.5" stroke-linejoin="round"/>
