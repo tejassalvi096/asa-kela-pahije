@@ -453,6 +453,82 @@ h2{letter-spacing:.03em}
 })();
 </script>
 
+<section class="ex alt pudhe" id="pudhe">
+  <div class="wrap">
+    <span class="pd-tag">💡 PUDHCHA VARSHA</span>
+    <h2>Pudhe asa kela pahije</h2>
+    <p class="lead">Tanker ani dattak, he aajchya aagisathi. Pan dushkal dar don-teen varshani yeto. Pudhchya veli tayar asu, kiva dushkal yeuch naye, yasathi AKP che upay. Aamhi fakt sangtoy: <b>asa kela pahije.</b></p>
+    <div class="pd-grid" id="pdGrid"></div>
+    <div class="pd-vote">
+      <h3>Tumhala konta upay sarvat jast patla? 🗳️</h3>
+      <p class="pd-sub">Ek nivda, ani tumchya story var share kara. Collector, MLA, society secretary, sagalyanna tag kara.</p>
+      <div class="pd-opts" id="pdOpts"></div>
+      <div class="cap" id="pdCap"></div>
+      <div style="margin-top:12px"><button class="btn" id="pdCopy" type="button">Caption copy kara</button></div>
+    </div>
+    <p class="hk-note">Hiware Bazar chi mahiti: Down To Earth (April 2017). Water Cup chi mahiti: Paani Foundation. He AKP che suggestions aahet; AKP he upay swata chalvat nahi.</p>
+  </div>
+</section>
+<style>
+.pd-tag{display:inline-block;font-family:var(--f-display);font-size:15px;letter-spacing:.14em;background:var(--teal);color:#fff;padding:3px 12px;border-radius:4px;margin-bottom:10px}
+.pd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.pd-card{border:3px solid var(--ink);border-radius:10px;background:var(--paper);box-shadow:4px 4px 0 var(--ink);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pd-card .ico{font-size:36px;line-height:1}
+.pd-card h3{font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1;letter-spacing:.02em;margin:0}
+.pd-card .pb{font-size:15px;color:#4a4238}
+.pd-card .sol{font-size:16px;font-weight:600;border-left:4px solid var(--yellow);padding-left:10px}
+.pd-card .proof{font-size:14px;background:var(--mint);border-radius:8px;padding:8px 10px}
+.pd-card .proof b{color:var(--teal-deep)}
+.pd-who{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
+.pd-who span{font-family:var(--f-display);font-size:14px;letter-spacing:.08em;border:2px solid var(--ink);border-radius:999px;padding:1px 10px;background:var(--paper)}
+.pd-vote{margin-top:30px;border:3px solid var(--ink);border-radius:10px;background:var(--paper);box-shadow:var(--shadow);padding:20px}
+.pd-vote h3{font-family:var(--f-display);font-weight:400;font-size:clamp(28px,4.5vw,38px);margin:0}
+.pd-sub{font-size:15px;color:#4a4238;margin-top:4px}
+.pd-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pd-opts button{font-family:var(--f-display);font-size:17px;letter-spacing:.05em;border:2px solid var(--ink);background:var(--paper);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pd-opts button[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
+@media (max-width:900px){.pd-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.pd-grid{grid-template-columns:1fr}}
+</style>
+<script>
+(function(){
+  var U=[
+    {ico:'🚨',t:'Paani Alarm',pb:'Yandaa paus August madhech kami padla hota. Pan batmi zali tevha gaav tankervar hote.',
+     sol:'Pratyek district cha paani-saatha dar mahinyala public vhava. Danger line olandli ki lagech alarm, March chi waat nahi.',
+     pr:'<b>Pune</b> Collector ne aataach paani <b>31 August 2027</b> paryant purvaycha plan kela. Asa plan pratyek district madhe.',who:['Sarkar','Media']},
+    {ico:'📒',t:'Gaav cha paani budget',pb:'Paani kiti aahe he na mojta pik lavla jata. Mag March madhe vihiri koradya.',
+     sol:'Dar October la gram sabha paani mojel, ani tya hishobane konta pik lavaycha te tharvel.',
+     pr:'<b>Hiware Bazar</b> (Ahilyanagar) he kartay. Jamintle paani jawal-jawal 37 m varun 11–12 m var aala. 2015 madhe paus ~50% kami, tari pik utpadan kami zala nahi.',who:['Gaav','Gram sabha']},
+    {ico:'🌾',t:'Paani bagun pik',pb:'Kami pavsachya bhagat jast paanyache pik. Hishob kadhich jamat nahi.',
+     sol:'Pik paani bagun nivda, paani pik bagun nahi. Kami paanyachya pikanna support, ani drip sathi madat.',
+     pr:'<b>Hiware Bazar</b> ne us ani kapus band kela, khol borewell 1990 madhech band. Kami pavsachya varshi gahu aivaji bajri-jwari.',who:['Shetkari','Sarkar']},
+    {ico:'⛏️',t:'Pavsaadhi shramdaan',pb:'Paus padto, pan paani vahun jata. Jaminit murat nahi.',
+     sol:'April–May madhe gaav ani shaharatle tarun milun charya, bandh, vihir recharge kartil. Paus aala ki paani jaminit.',
+     pr:'<b>Paani Foundation Water Cup</b> (2016–19): hajaro gaav, 45 divas shramdaan, hajaro km charya ani bandh.',who:['Gaav','Tarun']},
+    {ico:'🤝',t:'Gaav ↔ Shahar jodi',pb:'Madat fakta dushkal aala ki yete. Mag 2 varsha sagla visarta.',
+     sol:'Pratyek society, college, company ne ek gaav varshbhar jodi mhanun ghyava. Chaangalya varshi recharge, vaait varshi madat.',
+     pr:'Jalna ne <b>Gaav Dattak Abhiyan</b> suru kela. Toch abhiyan varshbhar chalu rahila tar dushkalachi tayari aadhich hoil.',who:['Society','College','CSR']},
+    {ico:'🏢',t:'Society cha paus, society madhe',pb:'Shaharat sagla paus gatarat jato, ani unhalyat tanker magavtat.',
+     sol:'Pratyek society ne gachivarcha paus gola karava, borewell recharge karavi. Ani te bagnyasathi "Asa kela pahije" badge.',
+     pr:'Mumbai, Pune madhe kaahi societies aadhich he kartat. Ata saglyanni karaychi vel.',who:['Shahar','Society']}
+  ];
+  var g=document.getElementById('pdGrid');
+  g.innerHTML=U.map(function(u){return '<article class="pd-card"><div class="ico" aria-hidden="true">'+u.ico+'</div><h3>'+u.t+'</h3><p class="pb">'+u.pb+'</p><p class="sol">'+u.sol+'</p><p class="proof">'+u.pr+'</p><div class="pd-who">'+u.who.map(function(w){return '<span>'+w+'</span>';}).join('')+'</div></article>';}).join('');
+  var cur=1, o=document.getElementById('pdOpts'), cap=document.getElementById('pdCap');
+  function draw(){
+    o.innerHTML=U.map(function(u,i){return '<button type="button" data-i="'+i+'" aria-pressed="'+(i===cur)+'">'+u.ico+' '+u.t+'</button>';}).join('');
+    cap.textContent='Pudhcha dushkal thambvaycha asel tar: '+U[cur].t+' '+U[cur].ico+' Asa kela pahije! Tumhala konta upay patla? → asakelapahije.com/paani #AsaKelaPahije #PaaniKitiUrla';
+    o.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){cur=+b.dataset.i;draw();});});
+  }
+  draw();
+  document.getElementById('pdCopy').addEventListener('click',function(){
+    var b=this, done=function(){b.textContent='Copy zala ✓';setTimeout(function(){b.textContent='Caption copy kara';},1500);};
+    var sel=function(){var r=document.createRange();r.selectNodeContents(cap);var s=getSelection();s.removeAllRanges();s.addRange(r);};
+    try{navigator.clipboard.writeText(cap.textContent).then(done,sel);}catch(e){sel();}
+  });
+})();
+</script>
+
 <section class="ex alt" id="play">
   <div class="wrap">
     <h2>Karaycha ki skip karaycha? 🤔</h2>
