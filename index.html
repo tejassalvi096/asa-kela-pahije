@@ -398,6 +398,8 @@
     </div>
     <div class="pk-bot"><div id="pkHeroBottle"></div><span class="pk-tap">Bottle la tap kara 👆</span></div>
   </a>
+  <a class="pk-haak" href="paani.html#haak"><b>📣 Collector ne haak marli</b><span>Jalna madhe "Gaav Dattak Abhiyan", Dharashiv madhe madaticha aavahan. Tumhi kasa haat deu shakta →</span></a>
+  <style>.pk-haak{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:-12px 0 30px;padding:12px 16px;background:#1d1a16;color:#fdf3dc;border:3px solid #1d1a16;border-radius:10px;box-shadow:4px 4px 0 #e2432e;text-decoration:none;font-size:15px}.pk-haak b{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:22px;letter-spacing:.06em;color:#f7b32b}.pk-haak:hover{transform:translate(-1px,-1px)}</style>
   <div class="hero2">
     <div class="h2col">
       <h1>ASA KELA<br><span class="red">PAHIJE</span></h1>
@@ -750,7 +752,7 @@ onSnapshot(query(collection(db,"janta"), orderBy("t","desc"), limit(150)), snap 
   if(onPaani){ el.setAttribute('href','#game'); }
   var MSGS = onPaani
     ? ['Tanker aala! Fakt 20 bottles 🚚','Game khela, mag kalel 👇','Nal band kara re! 🚰','Marathwada la challoy 💨','Rang laava, tanker aala 🪣']
-    : ['Tanker aala! Tap kar 🚚','Paani kiti urla? Bagh na 👆','Marathwada la challoy 💨','Gaavat fakt 20 bottles 😟','Mi pan late aahe, sorry 🙏'];
+    : ['Tanker aala! Tap kar 🚚','Paani kiti urla? Bagh na 👆','Marathwada la challoy 💨','Gaavat fakt 20 bottles 😟','Mi pan late aahe, sorry 🙏','📣 Jalna: gaav dattak ghya!'];
   function bottomOffset(){ var bar=document.querySelector('.mybar'); var b=bar?bar.offsetHeight+8:10; el.style.bottom='calc('+b+'px + env(safe-area-inset-bottom,0px))'; }
   bottomOffset(); window.addEventListener('resize',bottomOffset);
   var w=function(){return el.offsetWidth||112;};
