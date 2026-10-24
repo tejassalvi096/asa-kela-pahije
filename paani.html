@@ -171,6 +171,7 @@ h2{letter-spacing:.03em}
 .mybar a{font-size:19px;border-radius:8px}
 .f3 small{font-size:14px;letter-spacing:.1em;color:var(--muted)}
 .updated{font-size:15px;letter-spacing:.1em}
+.disc{margin-top:10px;font-size:12.5px;line-height:1.45;color:var(--muted);max-width:46ch}
 .card,.f3,.h,.w,.share img,.cap{border-radius:10px}
 .card .q,.h .it,.w .lbl{font-family:'Rubik','Mukta',sans-serif;font-weight:800}
 .lead,.tag{color:#4a4238}
@@ -261,6 +262,7 @@ h2{letter-spacing:.03em}
   .bottlebox svg{max-width:190px;margin:0 auto}
   .say{order:5;margin-top:12px;font-size:20px;text-align:center;max-width:none;min-height:0}
   .updated{order:6;align-self:center;margin-top:10px}
+  .disc{order:6;text-align:center;margin-top:8px}
   .facts3{order:7}
 }
 </style>
@@ -278,6 +280,7 @@ h2{letter-spacing:.03em}
       <div class="pills" id="pills" role="group" aria-label="Pick a bottle"></div>
       <p class="say" id="say"></p>
       <span class="updated"><i class="dot"></i><span id="upd"></span></span>
+      <p class="disc">⚠️ <b>Disclaimer:</b> Hi mahiti sarkari (WRD) ani batmyanmadhe uplabdh asleli sagli mahiti ekatra karun ghetli aahe. Aamhi roj update karto, pan dharnancha <b>real-time live status</b> asel yachi guarantee nahi.</p>
     </div>
     <div class="bottlebox">
       <p class="bname" id="bName"></p>
@@ -718,11 +721,12 @@ h2{letter-spacing:.03em}
     <details>
       <summary>Data &amp; sources</summary>
       <ol>
+        <li id="srcLine" hidden></li>
         <li>State and division storage, 20 Oct 2026 (WRD) — <a href="https://www.tarunbharat.net/Encyc/2026/10/20/signs-of-a-water-crisis-in-the-state-water-crisis.html" target="_blank" rel="noopener">Tarun Bharat</a>. Last-year lines for Nashik, Amravati, Nagpur: 22 Sep 2025 (<a href="https://www.punenow.com/pune-water-storage-as-monsoon-prepares-to-leave-how-much-water-is-available-in-citys-reservoirs/" target="_blank" rel="noopener">Pune Now</a>).</li>
         <li>Rainfall deficit 2026 — <a href="https://www.freepressjournal.in/mumbai/maharashtra-ends-2026-monsoon-with-19-rainfall-deficit-marathwada-driest-at-40-below-normal" target="_blank" rel="noopener">FPJ / IMD</a>; drought in 265 talukas — <a href="https://www.downtoearth.org.in/natural-disasters/maharashtra-declares-drought-in-265-talukas-as-crop-losses-mount-after-weak-monsoon" target="_blank" rel="noopener">Down To Earth</a></li>
         <li>Hidden water figures: Water Footprint Network averages. Daily habit litres are rough estimates. 1 bottle = 1 litre. Straws are population, rounded (Census 2011, scaled to 2026).</li>
       </ol>
-      <p class="note" style="color:rgba(255,253,245,.7)">Full imandaari: dharnanche aakde public news reports madhun, tarkhe sakat. Savayinche aakde andaaz aahet. Bhintivarchya tips lokanchya aahet, team chya nahit. Official sarkari dashboard nahi. Correction hava? DM @asakelapahije.</p>
+      <p class="note" style="color:rgba(255,253,245,.7)">Full imandaari: dharnanche aakde public news reports madhun, tarkhe sakat. Savayinche aakde andaaz aahet. Bhintivarchya tips lokanchya aahet, team chya nahit. Official sarkari dashboard nahi. Aakde roj update hotat, pan real-time live status chi guarantee nahi. Correction hava? DM @asakelapahije.</p>
     </details>
     <p class="credit">A project by AsakelaPaije.com</p>
   </div>
@@ -742,7 +746,7 @@ h2{letter-spacing:.03em}
 const MONSOON = new Date('2027-06-10T00:00:00+05:30');
 const REG = [
   {id:'mh', n:'Pura Maharashtra', now:70.53, last:90.74, straws:13, ppl:'13 crore', upd:'20 Oct 2026',
-    say:'71%? Chill aahe na? 😌 <b>Thamba.</b> Aadhi Marathwada chi bottle bagha.'},
+    say:'{now}%? Chill aahe na? 😌 <b>Thamba.</b> Aadhi Marathwada chi bottle bagha.'},
   {id:'konkan', n:'Mumbai–Konkan', now:87.84, last:92.30, straws:3, ppl:'3.3 crore', upd:'20 Oct 2026',
     say:'Ajun bharlela. Mumbai cha paani ithunach yeta. Mhanun tar aapan 8-minute shower gheto. 🚿'},
   {id:'pune', n:'Pune', now:81.29, last:93.48, straws:3, ppl:'2.7 crore', upd:'20 Oct 2026',
@@ -750,11 +754,11 @@ const REG = [
   {id:'nashik', n:'Nashik', now:78.88, last:83.92, straws:2, ppl:'2.1 crore', upd:'20 Oct 2026',
     say:'Last year peksha thoda kami. Ajun thik-thak, pan roj khali jatay. 🤞'},
   {id:'mw', n:'Marathwada', now:41.84, last:88.12, straws:2, ppl:'2.2 crore', upd:'20 Oct 2026', bad:true,
-    say:'<b>Ardhi pan nahi.</b> Last year 88% hoti. Ani ajun {d} divas kadhayche aahet.'},
+    say:'<b>Ardhi pan nahi.</b> Last year {last}% hoti. Ani ajun {d} divas kadhayche aahet.'},
   {id:'amr', n:'Amravati', now:59.57, last:84.70, straws:1, ppl:'1.3 crore', upd:'20 Oct 2026', bad:true,
-    say:'Last year peksha <b>25 points</b> khali. Yavatmal madhe 16 taluke dushkalat.'},
+    say:'Last year peksha <b>{drop} points</b> khali. Yavatmal madhe 16 taluke dushkalat.'},
   {id:'ngp', n:'Nagpur', now:65.43, last:86.29, straws:1, ppl:'1.35 crore', upd:'20 Oct 2026', bad:true,
-    say:'Last year peksha <b>21 points</b> khali. Santryanna pan paani lagta. 🍊'}
+    say:'Last year peksha <b>{drop} points</b> khali. Santryanna pan paani lagta. 🍊'}
 ];
 /* a = litres if you do it, b = litres the smarter way; bottle = 1 L */
 const CARDS = [
@@ -831,7 +835,7 @@ function setReg(id){
   $('w1').setAttribute('fill', r.bad ? '#e2432e' : '#0f8b8d');
   $('w2').setAttribute('fill', r.bad ? '#ff8a73' : '#3fb3b5');
   drawStraws(r.straws);
-  $('say').innerHTML = r.say.replace('{d}', DAYS);
+  $('say').innerHTML = r.say.replace('{d}', DAYS).replace('{now}', Math.round(r.now)).replace('{last}', Math.round(r.last)).replace('{drop}', Math.round(r.last-r.now));
   $('bName').innerHTML = '<b>'+r.n+'</b> chi bottle 👇'; $('bName').classList.toggle('bad', !!r.bad);
   $('upd').textContent = r.n+' · update: '+r.upd;
   $('hPeople').textContent = r.ppl;
@@ -964,6 +968,12 @@ $('copy').addEventListener('click',()=>{
 $('bCity').innerHTML='<i></i>'.repeat(135); $('bVil').innerHTML='<i></i>'.repeat(20);
 $('fDays').textContent = DAYS;
 setReg('mh'); frame(); renderCards(); renderHid(); updateMine();
+/* daily data: paani-data.json overrides the numbers above */
+fetch('paani-data.json?v='+Date.now(),{cache:'no-store'}).then(function(x){return x.json();}).then(function(j){
+  REG.forEach(function(x){var v=j.r&&j.r[x.id]; if(v){x.now=+v[0]; x.last=+v[1];} if(j.upd) x.upd=j.upd;});
+  setReg(reg);
+  var s=$('srcLine'); if(s&&j.upd){ s.innerHTML='Latest storage: '+j.upd+(j.src&&j.src.url?' — <a href="'+encodeURI(j.src.url)+'" target="_blank" rel="noopener"></a>':''); if(j.src&&j.src.url) s.querySelector('a').textContent=j.src.name||'source'; s.hidden=false; }
+}).catch(function(){});
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(drawCard);
 })();
 </script>
