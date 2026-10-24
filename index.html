@@ -403,6 +403,7 @@
       <div class="pk-s">Maharashtra chya saglya dharnancha paani, ek bottle madhe. <b>13 crore log.</b> Ani pudhcha refill direct June 2027 la. 💧</div>
       <span class="pk-go">BOTTLE BAGHA →</span>
       <span class="pk-url">asakelapahije.com/paani</span>
+      <span class="pk-disc">Aakde sarkari (WRD) ani batmyanmadhun, roj update. Real-time live status chi guarantee nahi.</span>
     </div>
     <div class="pk-bot"><div id="pkHeroBottle"></div><span class="pk-tap">Bottle la tap kara 👆</span></div>
   </a>
@@ -543,6 +544,7 @@
   @keyframes pkwob{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
   @keyframes pkbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   @keyframes pkblink{50%{opacity:.2}}
+  .pk-disc{display:block;margin-top:8px;font-size:11.5px;line-height:1.4;color:#7a7060;font-family:Rubik,sans-serif}
   @media(max-width:700px){.pk-hero{grid-template-columns:1fr;text-align:left}.pk-bot{order:-1}.pk-bot svg{max-width:180px}}
 
   #pkFloat{position:fixed;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:9999;display:flex;align-items:flex-end;gap:6px;text-decoration:none;color:var(--ink);opacity:0;transform:translateY(20px);pointer-events:none;transition:opacity .3s,transform .3s}
@@ -601,6 +603,12 @@
     sp.addEventListener('click',function(e){if(e.target===sp)close();});
     document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   }
+  /* daily data from paani-data.json */
+  fetch('paani-data.json?v='+Date.now(),{cache:'no-store'}).then(function(x){return x.json();}).then(function(j){
+    var v=j.r&&j.r.mh; if(!v) return; NOW=+v[0]; LAST=+v[1];
+    if(h) h.innerHTML=bottle('pkh',NOW,{straws:true,ghost:true,label:true});
+    var m=document.getElementById('pkSplashMsg'); if(m&&/Last year/.test(m.textContent)) m.innerHTML='Last year aaj: <b>'+Math.round(LAST)+'%</b>';
+  }).catch(function(){});
 })();
 </script>
 
