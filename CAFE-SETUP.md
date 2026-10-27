@@ -53,6 +53,7 @@ Funding total = Σ confirmed contributions − Σ refunds, computed client-side 
 - Votes: doc ID must equal `{roundId}_{uid}`, uid must match the signed-in user, email must be verified, selection count ≤ round.maxSelections, no duplicates, only ideas in the round, round must be `open` and within opensAt/closesAt. Immutable after creation. This stops duplicate ballots per account; it does not stop one person using several email accounts — the FAQ says so plainly and results are advisory.
 - Spam: sign-in required, honeypot field, client rate-limit (60 s), server length limits on every field, email must equal the signed-in token's email.
 - PII (emails, phone, UTR, receipts) lives in admin-only collections/docs. Public ideas show the chosen display name only.
+- Admins can delete records (spam, test data); every admin write/delete should be visible in `cafe_audit`. The audit log itself is append-only for everyone.
 - Audit trail is written by the admin client on every write. Limitation: it is not tamper-proof without Cloud Functions (needs Blaze plan).
 
 ## 5. Environment / configuration
@@ -77,8 +78,24 @@ Same as the rest of the site: upload changed files to the repo via GitHub (drag-
 4. Contributions tab → record each receipt as it lands in the account (Confirmed) or Initiated; mark Confirmed later. Refunds reference a contribution ID. Tracker updates on next page load.
 5. Updates / Budget / Config tabs as needed. Everything is logged in Audit.
 
-## 8. Tests performed
-See the test log at the end of the session summary (items 1–14 of the brief). Local Playwright render test on mobile (390px) and desktop: no JS errors, all sections render, empty states shown, auth gate opens on protected actions.
+## 8. Tests performed (27 Oct 2026, live site, then purged)
+| # | Journey | Result |
+|---|---|---|
+| 1 | Visitor opens cafe.html (mobile 390px + desktop) | renders, no JS errors, empty states shown |
+| 2 | Visitor submits an idea (signed in via Google) | 3 ideas saved as `submitted`; email stored privately |
+| 3 | Admin reviews & shortlists | 3 ideas → Shortlisted with cost estimate, considerations, icon |
+| 4 | Admin opens a voting round | round `open`, ideas flipped to "Open for voting", visible publicly |
+| 5 | Visitor votes within rules | 2 of max 2 selected; 3rd selection blocked client-side; ballot saved |
+| 6 | Duplicate / manipulated votes | rejected by rules: same doc ID again, second ballot with other ID, random ID, over-limit, delete own vote, update own vote — all `permission-denied`; ballot count stayed 1 |
+| 7 | Results calculated | tally via server count queries: 1 ballot, 1/1/0 |
+| 8 | Admin publishes outcome | ranking, decisions, reasons, cost shown publicly; winners → `winner`, declined → `not_selected` with reason |
+| 9 | Visitor registers interest (₹500) | counted as "1 people · ₹500 indicated"; raised stayed ₹0 |
+| 10 | Visitor submits operator application + volunteer offer | both saved; visible to admin only |
+| 11 | Admin publishes a project update | shown in Updates + "Latest update" box |
+| 12 | Funding totals from records | ₹1,000 confirmed + ₹500 initiated → raised ₹1,000, initiated shown separately |
+| 13 | Refund | ₹300 refund → net ₹700 on hero, tracker and public ledger |
+| 14 | Unauthorised access | anonymous client: writes to contributions/config/ideas/votes and reads of interest/applications/submitted ideas/audit all `permission-denied`; public reads OK; non-admin sign-in sees the gate, not the dashboard |
+All test records were deleted afterwards (logged as `purge_test_data` in `cafe_audit`).
 
 ## 9. Known limitations
 - No payment gateway. `acceptingMoney` only flips the label; contributions are recorded manually by an admin from bank/UPI statements. A gateway (Razorpay/Instamojo) would need a server/Cloud Function to verify webhooks — not possible on the free Spark plan.
