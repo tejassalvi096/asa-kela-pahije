@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Aamcha Café — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rubik:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#fdf3dc;--ink:#1d1a16;--red:#e2432e;--yellow:#f7b32b;--teal:#0f8b8d;--green:#3a9d5d;--purple:#7c5cbf}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Rubik',sans-serif;color:var(--ink);background:var(--paper);padding:0 0 40px;font-size:14px;line-height:1.5}
+  .nav{position:sticky;top:0;z-index:50;background:#1d1a16;border-bottom:3px solid #f7b32b;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .nav a,.nav span{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;color:#fdf3dc;text-decoration:none;padding:5px 12px;border-radius:6px}
+  .nav a.brand{color:#f7b32b;border:2px solid #f7b32b}
+  .wrap{max-width:1200px;margin:0 auto;padding:14px}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;font-weight:400;line-height:1.05}
+  h2{font-size:30px;margin:10px 0 8px}h3{font-size:20px;margin:12px 0 6px}
+  .card{background:#fffdf5;border:3px solid var(--ink);border-radius:12px;padding:14px;box-shadow:4px 4px 0 var(--ink);margin-top:12px}
+  .btn{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;border:2.5px solid var(--ink);border-radius:8px;padding:7px 14px;cursor:pointer;background:var(--yellow);box-shadow:3px 3px 0 var(--ink);line-height:1.1}
+  .btn.red{background:var(--red);color:#fff}.btn.teal{background:var(--teal);color:#fff}.btn.ghost{background:#fff}.btn.sm{font-size:13px;padding:4px 9px;box-shadow:2px 2px 0 var(--ink)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  input,textarea,select{width:100%;font-family:inherit;font-size:14px;padding:7px 9px;border:2px solid var(--ink);border-radius:7px;background:#fff;margin-top:4px}
+  textarea{min-height:70px;resize:vertical}
+  label{display:block;font-weight:600;font-size:12.5px;margin-top:8px}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+  .tabs button{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.06em;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer}
+  .tabs button.on{background:var(--ink);color:#fff}
+  .pane{display:none}.pane.on{display:block}
+  table{width:100%;border-collapse:collapse;background:#fff;margin-top:10px;font-size:13px}
+  th,td{border:1.5px solid var(--ink);padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#fff3cd;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.05em;font-weight:400}
+  td.num{text-align:right}
+  .tag{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.1em;padding:2px 8px;border-radius:4px;background:var(--ink);color:#fff}
+  .tag.g{background:var(--green)}.tag.y{background:var(--yellow);color:var(--ink)}.tag.r{background:var(--red)}.tag.gr{background:#d9d2c0;color:#4a4238}
+  .muted{color:#7a7060;font-size:12.5px}
+  .item{border:2px solid var(--ink);border-radius:10px;padding:10px;margin-top:10px;background:#fff}
+  .item summary{cursor:pointer;font-weight:600}
+  .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:9px;border:2px solid var(--yellow);z-index:999;display:none;max-width:90vw}
+  .toast.on{display:block}
+  .warn{background:#fff3cd;border:2px dashed #b47a0b;border-radius:9px;padding:9px 12px;margin-top:8px}
+  code{background:#f0e9d6;padding:1px 5px;border-radius:4px}
+  .flex{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+</style>
+</head>
+<body>
+<div class="nav"><a class="brand" href="index.html">★ ASA KELA PAHIJE</a><span>☕ AAMCHA CAFÉ · ADMIN</span><a href="cafe.html" style="margin-left:auto">← public page</a></div>
+<div class="wrap">
+<div id="gate" class="card">
+  <h2>Admin sign-in</h2>
+  <p class="muted">Access is granted server-side: your account's UID must be listed in the <code>admins</code> collection. Signing in alone does not make you an admin.</p>
+  <div class="flex" style="margin-top:10px"><button class="btn" id="gGoogle">Continue with Google</button><input id="gEmail" type="email" placeholder="or email for a sign-in link" style="max-width:260px;margin:0"><button class="btn ghost" id="gLink">Email link</button></div>
+  <div id="gMsg" class="muted" style="margin-top:8px"></div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="flex" style="justify-content:space-between"><h2 style="margin:0">Aamcha Café — Admin</h2><div class="muted">Signed in as <b id="who"></b> · <a href="#" id="signout">sign out</a></div></div>
+  <div class="tabs" id="tabs"></div>
+
+  <div class="pane" data-pane="ideas">
+    <div class="flex" style="margin-top:10px"><select id="ideaStatusFilter" style="width:auto;margin:0"><option value="">All statuses</option></select><span class="muted" id="ideaN"></span></div>
+    <div id="ideaList"></div>
+  </div>
+
+  <div class="pane" data-pane="rounds">
+    <div class="card"><h3>New voting round</h3>
+      <div class="row"><label>Title<input id="rTitle"></label><label>Opens at<input id="rOpen" type="datetime-local"></label><label>Closes at<input id="rClose" type="datetime-local"></label><label>Results publish date<input id="rResults" type="date"></label><label>Selections per person<input id="rMax" type="number" value="3" min="1" max="10"></label><label>Interim results visible?<select id="rInterim"><option value="false">No — hide until closed</option><option value="true">Yes — show live counts</option></select></label></div>
+      <label>Description<textarea id="rDesc"></textarea></label>
+      <label>Shortlisted ideas to include <span class="muted">(ideas with status Shortlisted or Open)</span></label><div id="rIdeas" class="row" style="margin-top:4px"></div>
+      <div style="margin-top:10px"><button class="btn" id="rCreate">Create as draft</button></div>
+    </div>
+    <div id="roundList"></div>
+  </div>
+
+  <div class="pane" data-pane="apps"><div id="appList"></div></div>
+  <div class="pane" data-pane="people">
+    <div class="card"><div class="flex" style="justify-content:space-between"><h3 style="margin:0">Interest registrations</h3><button class="btn sm ghost" data-csv="cafe_interest">Export CSV</button></div><div id="intList"></div></div>
+    <div class="card"><div class="flex" style="justify-content:space-between"><h3 style="margin:0">Volunteers / resources</h3><button class="btn sm ghost" data-csv="cafe_volunteers">Export CSV</button></div><div id="volList"></div></div>
+  </div>
+
+  <div class="pane" data-pane="money">
+    <div class="warn"><b>Only record money that has actually been received</b> (status Confirmed) or a payment that was started but not yet seen in the account (Initiated). Expressions of interest are never entered here. Each save is written to the audit log.</div>
+    <div class="card"><h3>Record a contribution</h3>
+      <div class="row"><label>Date received<input id="cDate" type="date"></label><label>Amount (₹)<input id="cAmt" type="number" min="1"></label><label>Status<select id="cStatus"><option value="confirmed">Confirmed (in account)</option><option value="initiated">Initiated (not yet received)</option></select></label><label>Method<input id="cMethod" placeholder="UPI / bank / cash"></label><label>Public display name<input id="cName" placeholder="as the contributor wishes, or Anonymous"></label><label>Contributor email (private)<input id="cEmail" type="email"></label><label>Reference / UTR (private)<input id="cRef"></label></div>
+      <div style="margin-top:10px"><button class="btn red" id="cSave">Save contribution</button></div>
+    </div>
+    <div class="card"><h3>Record a refund</h3>
+      <div class="row"><label>Contribution ID<input id="fCid" placeholder="from the table below"></label><label>Amount (₹)<input id="fAmt" type="number" min="1"></label><label>Date issued<input id="fDate" type="date"></label><label>Reason (public)<input id="fReason"></label></div>
+      <div style="margin-top:10px"><button class="btn" id="fSave">Save refund</button></div>
+    </div>
+    <div class="card"><div class="flex" style="justify-content:space-between"><h3 style="margin:0">Ledger</h3><button class="btn sm ghost" id="csvLedger">Export CSV</button></div><div id="ledger"></div></div>
+  </div>
+
+  <div class="pane" data-pane="updates">
+    <div class="card"><h3>Publish an update</h3>
+      <div class="row"><label>Title<input id="uTitle"></label><label>Category<select id="uCat"><option>Funding</option><option>Budget</option><option>Expenditure</option><option>Location</option><option>Design & fit-out</option><option>Voting outcome</option><option>Operator selection</option><option>Launch prep</option><option>Operations</option><option>General</option></select></label><label>Date<input id="uDate" type="date"></label><label>Published?<select id="uPub"><option value="true">Yes</option><option value="false">Draft</option></select></label></div>
+      <label>Body<textarea id="uBody" style="min-height:120px"></textarea></label>
+      <div style="margin-top:10px"><button class="btn" id="uSave">Save update</button></div>
+    </div>
+    <div id="updList"></div>
+  </div>
+
+  <div class="pane" data-pane="budget">
+    <div class="card"><h3>Planned budget line</h3><div class="row"><label>Category<input id="bCat" placeholder="Rent deposit, Fit-out, Equipment…"></label><label>Planned (₹)<input id="bAmt" type="number"></label><label>Note<input id="bNote"></label></div><div style="margin-top:10px"><button class="btn" id="bSave">Save planned line</button></div></div>
+    <div class="card"><h3>Actual expense (against receipt)</h3><div class="row"><label>Date<input id="eDate" type="date"></label><label>Category<input id="eCat"></label><label>Amount (₹)<input id="eAmt" type="number"></label><label>Description (public, no personal data)<input id="eDesc"></label><label>Receipt ref (private)<input id="eRef"></label></div><div style="margin-top:10px"><button class="btn red" id="eSave">Save expense</button></div></div>
+    <div class="card"><h3>Entries</h3><div id="budgetList"></div></div>
+  </div>
+
+  <div class="pane" data-pane="config">
+    <div class="card"><h3>Campaign configuration</h3>
+      <div class="row"><label>Target (₹)<input id="kTarget" type="number"></label><label>Accepting money?<select id="kMoney"><option value="false">No — pre-launch</option><option value="true">Yes — contributions open</option></select></label></div>
+      <label>Accounting policy (shown publicly)<input id="kPolicy"></label>
+      <label>Note shown when contributions are open<input id="kOpenNote"></label>
+      <label>Milestones — one per line, prefix with [x] when done<textarea id="kMs" style="min-height:140px"></textarea></label>
+      <div class="warn">Switching "Accepting money" to Yes only changes the label. There is no payment gateway wired in; it must not be set to Yes until the legal entity, terms, refund rules and tax treatment are published.</div>
+      <div style="margin-top:10px"><button class="btn red" id="kSave">Save config</button></div>
+    </div>
+  </div>
+
+  <div class="pane" data-pane="audit"><div class="card"><div class="flex" style="justify-content:space-between"><h3 style="margin:0">Audit log (last 200)</h3><button class="btn sm ghost" data-csv="cafe_audit">Export CSV</button></div><div id="auditList"></div></div></div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, updateDoc, query, where, orderBy, limit, serverTimestamp, Timestamp, getCountFromServer, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+const app=initializeApp({ apiKey:"AIzaSyAnTiybUYG71e21bOG0vH1SyDq_h7x9Y9E", authDomain:"asa-kela-pahije.firebaseapp.com", projectId:"asa-kela-pahije", storageBucket:"asa-kela-pahije.firebasestorage.app", messagingSenderId:"1019509914936", appId:"1:1019509914936:web:b958a25a035a5ae6e8d5cd" });
+const auth=getAuth(app), db=getFirestore(app);
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const inr=n=>"₹"+Math.round(Number(n)||0).toLocaleString("en-IN");
+const fmtD=ts=>{const d=ts?.toDate?ts.toDate():(ts?new Date(ts):null);return d?d.toLocaleString("en-IN",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}):"—";};
+const tsFrom=v=>v?Timestamp.fromDate(new Date(v)):null;
+let tT; const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("on"),3000);};
+const STATUSES=["submitted","review","shortlisted","open","winner","planned","implemented","not_selected"];
+const SL={submitted:"Submitted",review:"Under review",shortlisted:"Shortlisted",open:"Open for voting",winner:"Winner",planned:"Planned",implemented:"Implemented",not_selected:"Not selected"};
+let user=null;
+
+/* auth gate */
+$("#gGoogle").onclick=async()=>{try{await signInWithPopup(auth,new GoogleAuthProvider());}catch(e){$("#gMsg").textContent=e.code||e.message;}};
+$("#gLink").onclick=async()=>{const em=$("#gEmail").value.trim();if(!em)return;try{await sendSignInLinkToEmail(auth,em,{url:location.origin+location.pathname,handleCodeInApp:true});localStorage.setItem("cafe_email_for_signin",em);$("#gMsg").textContent="Link sent to "+em;}catch(e){$("#gMsg").textContent=e.code||e.message;}};
+if(isSignInWithEmailLink(auth,location.href)){const em=localStorage.getItem("cafe_email_for_signin")||prompt("Confirm your email");if(em)signInWithEmailLink(auth,em,location.href).then(()=>history.replaceState(null,"",location.pathname)).catch(e=>$("#gMsg").textContent=e.code);}
+$("#signout").onclick=e=>{e.preventDefault();signOut(auth);};
+onAuthStateChanged(auth,async u=>{user=u;if(!u){$("#gate").style.display="";$("#app").style.display="none";return;}
+  let ok=false;try{const d=await getDoc(doc(db,"admins",u.uid));ok=d.exists();}catch(e){}
+  if(!ok){$("#gMsg").innerHTML=`Signed in as <b>${esc(u.email)}</b> but this account is <b>not an admin</b>. To grant access, the project owner adds a document with ID <code>${esc(u.uid)}</code> to the <code>admins</code> collection in Firestore. <a href="#" id="so2">Sign out</a>`;$("#so2").onclick=e=>{e.preventDefault();signOut(auth);};return;}
+  $("#gate").style.display="none";$("#app").style.display="";$("#who").textContent=u.email;boot();});
+
+/* audit */
+async function audit(action,col,docId,after,before){try{await addDoc(collection(db,"cafe_audit"),{uid:user.uid,email:user.email||"",action,col,docId:docId||"",before:before?JSON.stringify(before).slice(0,2000):"",after:after?JSON.stringify(after).slice(0,2000):"",at:serverTimestamp()});}catch(e){console.warn("audit",e);}}
+async function save(col,id,data,action){const before=id?(await getDoc(doc(db,col,id))).data():null;if(id){await updateDoc(doc(db,col,id),{...data,updatedAt:serverTimestamp()});}else{const r=await addDoc(collection(db,col),{...data,createdAt:serverTimestamp()});id=r.id;}await audit(action||(before?"update":"create"),col,id,data,before);return id;}
+
+/* tabs */
+const TABS=[["ideas","💡 Ideas"],["rounds","🗳️ Rounds"],["apps","👩‍🍳 Applications"],["people","🙋 Interest & volunteers"],["money","₹ Contributions"],["updates","📣 Updates"],["budget","📊 Budget"],["config","⚙️ Config"],["audit","🧾 Audit"]];
+$("#tabs").innerHTML=TABS.map(([k,l])=>`<button data-tab="${k}">${l}</button>`).join("");
+$$("[data-tab]").forEach(b=>b.onclick=()=>{$$("[data-tab]").forEach(x=>x.classList.toggle("on",x===b));$$(".pane").forEach(p=>p.classList.toggle("on",p.dataset.pane===b.dataset.tab));({ideas:loadIdeas,rounds:loadRounds,apps:loadApps,people:loadPeople,money:loadMoney,updates:loadUpdates,budget:loadBudget,config:loadConfig,audit:loadAudit})[b.dataset.tab]();});
+function boot(){$$("[data-tab]")[0].click();}
+
+/* ideas */
+$("#ideaStatusFilter").innerHTML+=STATUSES.map(s=>`<option value="${s}">${SL[s]}</option>`).join("");
+$("#ideaStatusFilter").onchange=loadIdeas;
+async function loadIdeas(){const f=$("#ideaStatusFilter").value;let q=query(collection(db,"cafe_ideas"),orderBy("createdAt","desc"),limit(300));if(f)q=query(collection(db,"cafe_ideas"),where("status","==",f),orderBy("createdAt","desc"),limit(300));const qs=await getDocs(q);const items=[];qs.forEach(d=>items.push({id:d.id,...d.data()}));$("#ideaN").textContent=items.length+" ideas";
+  $("#ideaList").innerHTML=items.map(x=>`<details class="item" data-id="${x.id}"><summary><span class="tag ${x.status==='submitted'?'y':x.status==='not_selected'?'gr':''}">${SL[x.status]||x.status}</span> ${esc(x.title)} <span class="muted">— ${esc(x.name)} · ${fmtD(x.createdAt)}</span></summary>
+    <p style="margin-top:8px"><b>Description:</b> ${esc(x.desc)}</p><p><b>Problem/experience:</b> ${esc(x.problem)}</p><p><b>Why here:</b> ${esc(x.why)}</p><p class="muted">Submitter cost guess: ${esc(x.cost||"—")} · link: ${x.link?`<a href="${esc(x.link)}" target="_blank" rel="noopener nofollow">${esc(x.link)}</a>`:"—"} · email: <span class="em muted">(load)</span> · uid ${esc(x.uid)}</p>
+    <div class="row"><label>Status<select class="st">${STATUSES.map(s=>`<option value="${s}" ${x.status===s?"selected":""}>${SL[s]}</option>`).join("")}</select></label><label>Cost estimate (public)<input class="ce" value="${esc(x.costEstimate||"")}"></label><label>Image URL (public)<input class="im" value="${esc(x.imageUrl||"")}"></label><label>Icon emoji<input class="ic" value="${esc(x.icon||"")}" maxlength="4"></label><label>Merged into (idea ID)<input class="mg" value="${esc(x.mergedInto||"")}"></label></div>
+    <label>Practical considerations (public)<textarea class="co">${esc(x.considerations||"")}</textarea></label>
+    <label>Admin note / reason for rejection or clarification request (public if Not selected)<textarea class="an">${esc(x.adminNote||"")}</textarea></label>
+    <div class="flex" style="margin-top:8px"><button class="btn sm" data-save-idea="${x.id}">Save</button><button class="btn sm ghost" data-email="${x.id}">Show email</button></div></details>`).join("")||'<p class="muted">No ideas.</p>';
+  $$("[data-save-idea]").forEach(b=>b.onclick=async()=>{const el=b.closest("details");const data={status:el.querySelector(".st").value,costEstimate:el.querySelector(".ce").value.trim(),imageUrl:el.querySelector(".im").value.trim(),icon:el.querySelector(".ic").value.trim(),mergedInto:el.querySelector(".mg").value.trim(),considerations:el.querySelector(".co").value.trim(),adminNote:el.querySelector(".an").value.trim()};if(data.imageUrl&&!/^https:\/\//.test(data.imageUrl))return toast("Image URL must be https");try{await save("cafe_ideas",b.dataset.saveIdea,data,"moderate_idea");toast("Saved");loadIdeas();}catch(e){toast("Error: "+(e.code||e.message));}});
+  $$("[data-email]").forEach(b=>b.onclick=async()=>{try{const d=await getDoc(doc(db,"cafe_ideas_private",b.dataset.email));b.closest("details").querySelector(".em").textContent=d.exists()?d.data().email:"(none)";}catch(e){toast(e.code);}});}
+
+/* rounds */
+async function loadRounds(){const sl=await getDocs(query(collection(db,"cafe_ideas"),where("status","in",["shortlisted","open"])));const ideas=[];sl.forEach(d=>ideas.push({id:d.id,...d.data()}));$("#rIdeas").innerHTML=ideas.map(i=>`<label style="font-weight:400"><input type="checkbox" value="${i.id}" style="width:auto"> ${esc(i.title)} <span class="muted">(${SL[i.status]})</span></label>`).join("")||'<span class="muted">No shortlisted ideas yet — shortlist some first.</span>';
+  const qs=await getDocs(query(collection(db,"cafe_rounds"),orderBy("createdAt","desc"),limit(50)));const rounds=[];qs.forEach(d=>rounds.push({id:d.id,...d.data()}));const all=await getDocs(collection(db,"cafe_ideas"));const byId={};all.forEach(d=>byId[d.id]=d.data());
+  $("#roundList").innerHTML=rounds.map(r=>`<div class="card" data-r="${r.id}"><div class="flex" style="justify-content:space-between"><h3 style="margin:0"><span class="tag ${r.status==='open'?'g':r.status==='published'?'':'gr'}">${r.status.toUpperCase()}</span> ${esc(r.title)}</h3><span class="muted">${r.id}</span></div>
+    <p class="muted">${fmtD(r.opensAt)} → ${fmtD(r.closesAt)} · max ${r.maxSelections} · interim ${r.showInterim?"visible":"hidden"} · results ${fmtD(r.resultsAt)}</p>
+    <div class="flex" style="margin-top:8px">${r.status==="draft"?`<button class="btn sm teal" data-ract="open" data-id="${r.id}">Open round</button>`:""}${r.status==="open"?`<button class="btn sm" data-ract="close" data-id="${r.id}">Close round</button>`:""}${r.status==="closed"?`<button class="btn sm red" data-ract="tally" data-id="${r.id}">Tally & prepare results</button>`:""}${r.status!=="published"?`<button class="btn sm ghost" data-ract="edit" data-id="${r.id}">Edit dates/limits</button>`:""}</div>
+    <div class="res" id="res_${r.id}">${r.results?`<p class="muted" style="margin-top:6px">Published ${fmtD(r.results.publishedAt)} · ${r.results.totalVotes} ballots</p>`:""}</div></div>`).join("")||'<p class="muted">No rounds yet.</p>';
+  $$("[data-ract]").forEach(b=>b.onclick=()=>roundAction(b.dataset.ract,b.dataset.id,rounds.find(r=>r.id===b.dataset.id),byId));}
+$("#rCreate").onclick=async()=>{const ids=$$("#rIdeas input:checked").map(i=>i.value);if(!$("#rTitle").value.trim()||!$("#rOpen").value||!$("#rClose").value)return toast("Title, open and close dates required");if(ids.length<2)return toast("Pick at least 2 ideas");
+  try{await save("cafe_rounds",null,{title:$("#rTitle").value.trim(),desc:$("#rDesc").value.trim(),opensAt:tsFrom($("#rOpen").value),closesAt:tsFrom($("#rClose").value),resultsAt:tsFrom($("#rResults").value),maxSelections:+$("#rMax").value||3,showInterim:$("#rInterim").value==="true",ideaIds:ids,status:"draft"},"create_round");toast("Draft round created");loadRounds();}catch(e){toast("Error: "+(e.code||e.message));}};
+async function roundAction(act,id,r,byId){
+  if(act==="open"){if(!confirm("Open this round for public voting? Included ideas will be marked 'Open for voting'."))return;const b=writeBatch(db);b.update(doc(db,"cafe_rounds",id),{status:"open",updatedAt:serverTimestamp()});r.ideaIds.forEach(i=>b.update(doc(db,"cafe_ideas",i),{status:"open"}));await b.commit();await audit("open_round","cafe_rounds",id,{ideaIds:r.ideaIds});toast("Round open");loadRounds();}
+  if(act==="close"){if(!confirm("Close voting now?"))return;await save("cafe_rounds",id,{status:"closed"},"close_round");toast("Closed");loadRounds();}
+  if(act==="edit"){const o=prompt("Closes at (YYYY-MM-DDTHH:MM)",r.closesAt?.toDate?.().toISOString().slice(0,16)||"");if(o===null)return;const m=prompt("Max selections",r.maxSelections);const si=confirm("Show interim results? OK = yes, Cancel = no");await save("cafe_rounds",id,{closesAt:tsFrom(o),maxSelections:+m||r.maxSelections,showInterim:si},"edit_round");toast("Saved");loadRounds();}
+  if(act==="tally"){const el=$("#res_"+id);el.innerHTML="Counting…";const total=(await getCountFromServer(query(collection(db,"cafe_votes"),where("roundId","==",id)))).data().count;const rows=[];for(const i of r.ideaIds){const c=(await getCountFromServer(query(collection(db,"cafe_votes"),where("roundId","==",id),where("ideaIds","array-contains",i)))).data().count;rows.push({ideaId:i,votes:c,title:byId[i]?.title||i,cost:byId[i]?.costEstimate||""});}rows.sort((a,b)=>b.votes-a.votes);
+    el.innerHTML=`<p><b>${total} valid ballots.</b> Set a decision for each idea, then publish. Winners get status Winner; ideas you mark 'Not possible' get status Not selected with your reason; the rest keep Shortlisted.</p><table><thead><tr><th>#</th><th>Idea</th><th class="num">Votes</th><th>Winner?</th><th>Cost est.</th><th>Decision</th><th>Reason (public)</th></tr></thead><tbody>${rows.map((x,i)=>`<tr data-i="${x.ideaId}"><td>${i+1}</td><td>${esc(x.title)}</td><td class="num">${x.votes}</td><td><input type="checkbox" class="w" style="width:auto" ${i<3?"checked":""}></td><td><input class="c" value="${esc(x.cost)}"></td><td><select class="d"><option value="approved">Approved for implementation</option><option value="needs_funding">Needs more funding</option><option value="evaluating">Further evaluation</option><option value="declined">Cannot be implemented</option></select></td><td><input class="r"></td></tr>`).join("")}</tbody></table><label>Note to the community<textarea class="n"></textarea></label><div style="margin-top:8px"><button class="btn red" id="pub_${id}">Publish results</button></div>`;
+    $("#pub_"+id).onclick=async()=>{if(!confirm("Publish final results? This is public and updates idea statuses."))return;const ranking=rows.map(x=>{const tr=el.querySelector(`tr[data-i="${x.ideaId}"]`);return{ideaId:x.ideaId,votes:x.votes,winner:tr.querySelector(".w").checked,cost:tr.querySelector(".c").value.trim(),decision:tr.querySelector(".d").value,reason:tr.querySelector(".r").value.trim()};});
+      const results={totalVotes:total,ranking,note:el.querySelector(".n").value.trim(),publishedAt:Timestamp.now()};const b=writeBatch(db);b.update(doc(db,"cafe_rounds",id),{status:"published",results,updatedAt:serverTimestamp()});ranking.forEach(x=>{const st=x.winner?"winner":(x.decision==="declined"?"not_selected":"shortlisted");const upd={status:st};if(x.decision==="declined"&&x.reason)upd.adminNote=x.reason;if(x.cost)upd.costEstimate=x.cost;b.update(doc(db,"cafe_ideas",x.ideaId),upd);});await b.commit();await audit("publish_results","cafe_rounds",id,results);toast("Published");loadRounds();};}}
+
+/* applications */
+const AST=["submitted","under_review","shortlisted","interview","selected","not_selected"];
+async function loadApps(){const qs=await getDocs(query(collection(db,"cafe_applications"),orderBy("createdAt","desc"),limit(200)));const a=[];qs.forEach(d=>a.push({id:d.id,...d.data()}));
+  $("#appList").innerHTML=a.map(x=>`<details class="item"><summary><span class="tag ${x.status==='selected'?'g':x.status==='not_selected'?'gr':'y'}">${esc(x.status)}</span> ${esc(x.name)} <span class="muted">· ${esc(x.email)} · ${fmtD(x.createdAt)}</span></summary><p class="muted" style="margin-top:6px">Phone: ${esc(x.phone||"—")} · Availability: ${esc(x.availability)}</p><p><b>Experience:</b> ${esc(x.experience)}</p><p><b>Motivation:</b> ${esc(x.motivation)}</p><p><b>Plan:</b> ${esc(x.plan)}</p><p><b>Sustainability:</b> ${esc(x.sustain)}</p><p><b>Other:</b> ${esc(x.other||"—")}</p><div class="row"><label>Status<select class="st">${AST.map(s=>`<option value="${s}" ${x.status===s?"selected":""}>${s}</option>`).join("")}</select></label><label>Internal note<input class="nt" value="${esc(x.note||"")}"></label></div><div style="margin-top:8px"><button class="btn sm" data-save-app="${x.id}">Save</button></div></details>`).join("")||'<p class="muted">No applications yet.</p>';
+  $$("[data-save-app]").forEach(b=>b.onclick=async()=>{const el=b.closest("details");try{await save("cafe_applications",b.dataset.saveApp,{status:el.querySelector(".st").value,note:el.querySelector(".nt").value.trim()},"review_application");toast("Saved");loadApps();}catch(e){toast(e.code||e.message);}});}
+
+/* people */
+async function loadPeople(){const i=await getDocs(query(collection(db,"cafe_interest"),orderBy("createdAt","desc"),limit(500)));let rows=[],sum=0;i.forEach(d=>{const x=d.data();sum+=Number(x.amount)||0;rows.push(x);});$("#intList").innerHTML=`<p class="muted">${rows.length} registrations · ${inr(sum)} indicated (not money)</p><table><thead><tr><th>Date</th><th>Name</th><th>Email</th><th class="num">Amount</th><th>Message</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${fmtD(x.createdAt)}</td><td>${esc(x.name)}</td><td>${esc(x.email)}</td><td class="num">${inr(x.amount)}</td><td>${esc(x.message||"")}</td></tr>`).join("")}</tbody></table>`;
+  const v=await getDocs(query(collection(db,"cafe_volunteers"),orderBy("createdAt","desc"),limit(500)));const vr=[];v.forEach(d=>vr.push(d.data()));$("#volList").innerHTML=`<table><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Offer</th><th>Availability</th></tr></thead><tbody>${vr.map(x=>`<tr><td>${fmtD(x.createdAt)}</td><td>${esc(x.name)}</td><td>${esc(x.email)}</td><td>${esc(x.offer)}</td><td>${esc(x.availability||"")}</td></tr>`).join("")||'<tr><td colspan="5" class="muted">None yet.</td></tr>'}</tbody></table>`;}
+
+/* money */
+$("#cSave").onclick=async()=>{const amt=+$("#cAmt").value,date=$("#cDate").value;if(!(amt>0)||!date)return toast("Amount and date required");const email=$("#cEmail").value.trim();
+  try{const id=await save("cafe_contributions",null,{amount:Math.round(amt),date:tsFrom(date),status:$("#cStatus").value,method:$("#cMethod").value.trim(),displayName:$("#cName").value.trim()||"Anonymous",contributorKey:email?btoa(unescape(encodeURIComponent(email.toLowerCase()))).slice(0,24):""},"record_contribution");await setDoc(doc(db,"cafe_contributions_private",id),{email,reference:$("#cRef").value.trim(),recordedBy:user.email,createdAt:serverTimestamp()});toast("Recorded "+id);["cAmt","cDate","cMethod","cName","cEmail","cRef"].forEach(i=>$("#"+i).value="");loadMoney();}catch(e){toast("Error: "+(e.code||e.message));}};
+$("#fSave").onclick=async()=>{const amt=+$("#fAmt").value,cid=$("#fCid").value.trim(),date=$("#fDate").value;if(!(amt>0)||!cid||!date)return toast("All fields required");const c=await getDoc(doc(db,"cafe_contributions",cid));if(!c.exists())return toast("No such contribution");if(amt>c.data().amount)return toast("Refund exceeds contribution");
+  try{await save("cafe_refunds",null,{contributionId:cid,amount:Math.round(amt),date:tsFrom(date),reason:$("#fReason").value.trim()},"record_refund");toast("Refund recorded");["fAmt","fCid","fDate","fReason"].forEach(i=>$("#"+i).value="");loadMoney();}catch(e){toast("Error: "+(e.code||e.message));}};
+let ledgerRows=[];
+async function loadMoney(){const c=await getDocs(query(collection(db,"cafe_contributions"),orderBy("date","desc")));const r=await getDocs(query(collection(db,"cafe_refunds"),orderBy("date","desc")));ledgerRows=[];let conf=0,init=0,ref=0;c.forEach(d=>{const x=d.data();ledgerRows.push({id:d.id,kind:"contribution",...x});if(x.status==="confirmed")conf+=x.amount;else init+=x.amount;});r.forEach(d=>{const x=d.data();ledgerRows.push({id:d.id,kind:"refund",...x});ref+=x.amount;});
+  $("#ledger").innerHTML=`<p><b>Confirmed ${inr(conf)}</b> · initiated ${inr(init)} · refunds ${inr(ref)} · <b>net ${inr(conf-ref)}</b></p><table><thead><tr><th>ID</th><th>Kind</th><th>Date</th><th>Name / reason</th><th class="num">Amount</th><th>Status</th><th></th></tr></thead><tbody>${ledgerRows.map(x=>`<tr><td><code>${x.id}</code></td><td>${x.kind}</td><td>${fmtD(x.date)}</td><td>${esc(x.kind==="refund"?x.reason:x.displayName)}</td><td class="num">${x.kind==="refund"?"−":""}${inr(x.amount)}</td><td>${x.kind==="refund"?"—":esc(x.status)}</td><td>${x.kind==="contribution"&&x.status==="initiated"?`<button class="btn sm teal" data-confirm="${x.id}">Mark confirmed</button>`:""}</td></tr>`).join("")||'<tr><td colspan="7" class="muted">Nothing recorded.</td></tr>'}</tbody></table>`;
+  $$("[data-confirm]").forEach(b=>b.onclick=async()=>{if(!confirm("Confirm this payment was received in the account?"))return;await save("cafe_contributions",b.dataset.confirm,{status:"confirmed"},"confirm_contribution");toast("Confirmed");loadMoney();});}
+$("#csvLedger").onclick=()=>csv("ledger",ledgerRows.map(x=>({id:x.id,kind:x.kind,date:fmtD(x.date),name_or_reason:x.kind==="refund"?x.reason:x.displayName,amount:x.amount,status:x.status||"",contributionId:x.contributionId||""})));
+
+/* updates */
+async function loadUpdates(){const qs=await getDocs(query(collection(db,"cafe_updates"),orderBy("date","desc"),limit(100)));const u=[];qs.forEach(d=>u.push({id:d.id,...d.data()}));$("#updList").innerHTML=u.map(x=>`<details class="item"><summary><span class="tag ${x.published?'g':'gr'}">${x.published?"PUBLISHED":"DRAFT"}</span> ${esc(x.title)} <span class="muted">· ${esc(x.category)} · ${fmtD(x.date)}</span></summary><div class="row"><label>Title<input class="t" value="${esc(x.title)}"></label><label>Published<select class="p"><option value="true" ${x.published?"selected":""}>Yes</option><option value="false" ${!x.published?"selected":""}>Draft</option></select></label></div><label>Body<textarea class="b">${esc(x.body)}</textarea></label><div style="margin-top:8px"><button class="btn sm" data-save-upd="${x.id}">Save</button></div></details>`).join("")||'<p class="muted">No updates.</p>';
+  $$("[data-save-upd]").forEach(b=>b.onclick=async()=>{const el=b.closest("details");await save("cafe_updates",b.dataset.saveUpd,{title:el.querySelector(".t").value.trim(),body:el.querySelector(".b").value.trim(),published:el.querySelector(".p").value==="true"},"edit_update");toast("Saved");loadUpdates();});}
+$("#uSave").onclick=async()=>{if(!$("#uTitle").value.trim()||!$("#uBody").value.trim()||!$("#uDate").value)return toast("Title, body, date required");try{await save("cafe_updates",null,{title:$("#uTitle").value.trim(),body:$("#uBody").value.trim(),category:$("#uCat").value,date:tsFrom($("#uDate").value),published:$("#uPub").value==="true"},"publish_update");toast("Saved");["uTitle","uBody"].forEach(i=>$("#"+i).value="");loadUpdates();}catch(e){toast(e.code||e.message);}};
+
+/* budget */
+$("#bSave").onclick=async()=>{if(!$("#bCat").value.trim()||!(+$("#bAmt").value>=0))return toast("Category and amount");await save("cafe_budget",null,{category:$("#bCat").value.trim(),planned:+$("#bAmt").value,note:$("#bNote").value.trim()},"budget_line");toast("Saved");loadBudget();};
+$("#eSave").onclick=async()=>{if(!$("#eCat").value.trim()||!(+$("#eAmt").value>0)||!$("#eDate").value)return toast("Date, category, amount");const id=await save("cafe_expenses",null,{category:$("#eCat").value.trim(),amount:+$("#eAmt").value,date:tsFrom($("#eDate").value),desc:$("#eDesc").value.trim()},"record_expense");await setDoc(doc(db,"cafe_expenses_private",id),{receipt:$("#eRef").value.trim(),recordedBy:user.email,createdAt:serverTimestamp()});toast("Saved");loadBudget();};
+async function loadBudget(){const b=await getDocs(collection(db,"cafe_budget"));const e=await getDocs(query(collection(db,"cafe_expenses"),orderBy("date","desc")));let h="<h3>Planned</h3><table><thead><tr><th>Category</th><th class='num'>Planned</th><th>Note</th></tr></thead><tbody>";b.forEach(d=>{const x=d.data();h+=`<tr><td>${esc(x.category)}</td><td class="num">${inr(x.planned)}</td><td>${esc(x.note||"")}</td></tr>`;});h+="</tbody></table><h3>Actual expenses</h3><table><thead><tr><th>Date</th><th>Category</th><th class='num'>Amount</th><th>Description</th></tr></thead><tbody>";e.forEach(d=>{const x=d.data();h+=`<tr><td>${fmtD(x.date)}</td><td>${esc(x.category)}</td><td class="num">${inr(x.amount)}</td><td>${esc(x.desc||"")}</td></tr>`;});$("#budgetList").innerHTML=h+"</tbody></table>";}
+
+/* config */
+async function loadConfig(){const d=await getDoc(doc(db,"cafe_config","main"));const c=d.exists()?d.data():{};$("#kTarget").value=c.target||2500000;$("#kMoney").value=String(!!c.acceptingMoney);$("#kPolicy").value=c.policy||"";$("#kOpenNote").value=c.openNote||"";$("#kMs").value=(c.milestones||[]).map(m=>(m.done?"[x] ":"[ ] ")+m.label).join("\n");}
+$("#kSave").onclick=async()=>{const ms=$("#kMs").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>({done:/^\[x\]/i.test(l),label:l.replace(/^\[[ x]\]\s*/i,"")}));const data={target:+$("#kTarget").value||2500000,acceptingMoney:$("#kMoney").value==="true",policy:$("#kPolicy").value.trim(),openNote:$("#kOpenNote").value.trim(),milestones:ms};if(data.acceptingMoney&&!confirm("You are marking contributions as OPEN. Have the legal entity, terms, refund rules and tax treatment been published?"))return;const before=(await getDoc(doc(db,"cafe_config","main"))).data();await setDoc(doc(db,"cafe_config","main"),{...data,updatedAt:serverTimestamp()},{merge:true});await audit("update_config","cafe_config","main",data,before);toast("Config saved");};
+
+/* audit + csv */
+async function loadAudit(){const qs=await getDocs(query(collection(db,"cafe_audit"),orderBy("at","desc"),limit(200)));let h="<table><thead><tr><th>When</th><th>Who</th><th>Action</th><th>Collection</th><th>Doc</th><th>After</th></tr></thead><tbody>";qs.forEach(d=>{const x=d.data();h+=`<tr><td>${fmtD(x.at)}</td><td>${esc(x.email)}</td><td>${esc(x.action)}</td><td>${esc(x.col)}</td><td><code>${esc(x.docId)}</code></td><td class="muted">${esc((x.after||"").slice(0,160))}</td></tr>`;});$("#auditList").innerHTML=h+"</tbody></table>";}
+function csv(name,rows){if(!rows.length)return toast("Nothing to export");const cols=[...new Set(rows.flatMap(r=>Object.keys(r)))];const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;const out=[cols.join(",")].concat(rows.map(r=>cols.map(c=>q(typeof r[c]==="object"&&r[c]?.toDate?fmtD(r[c]):(typeof r[c]==="object"?JSON.stringify(r[c]):r[c]))).join(","))).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([out],{type:"text/csv"}));a.download=name+"-"+new Date().toISOString().slice(0,10)+".csv";a.click();audit("export_csv",name,"",{rows:rows.length});}
+$$("[data-csv]").forEach(b=>b.onclick=async()=>{const qs=await getDocs(query(collection(db,b.dataset.csv),limit(2000)));const rows=[];qs.forEach(d=>rows.push({id:d.id,...d.data()}));csv(b.dataset.csv,rows);});
+</script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aamcha Café — a pay-what-you-wish community café for Mumbai, shaped by the people who will use it. Suggest ideas, vote, volunteer, apply to run it. A project by Asa Kela Pahije.">
+<meta property="og:title" content="Aamcha Café — Mumbai's pay-what-you-wish community café ☕">
+<meta property="og:description" content="₹25 lakh target. Ideas from the community. Votes decide the features. No equity, no returns — just a café that belongs to everyone.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://asakelapahije.com/cafe.html">
+<link rel="canonical" href="https://asakelapahije.com/cafe.html">
+<title>Aamcha Café — community café by Asa Kela Pahije</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Mukta:wght@400;700;800&family=Rubik:ital,wght@0,400;0,500;0,600;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#fdf3dc; --ink:#1d1a16; --red:#e2432e; --yellow:#f7b32b; --teal:#0f8b8d; --purple:#7c5cbf; --green:#3a9d5d; --brown:#6b3f1d; --shadow:6px 6px 0 var(--ink); }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Rubik',sans-serif;color:var(--ink);line-height:1.55;padding:0 0 20px;background-color:var(--paper);background-image:radial-gradient(rgba(29,26,22,.08) 1.2px, transparent 1.2px);background-size:22px 22px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 14px}
+  a{color:var(--teal)}
+  .nav{position:sticky;top:0;z-index:500;background:#1d1a16;border-bottom:3px solid #f7b32b;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+  .nav a{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;color:#fdf3dc;text-decoration:none;padding:5px 12px;border-radius:6px}
+  .nav a:hover{background:rgba(247,179,58,.16);color:#f7b32b}
+  .nav a.brand{color:#f7b32b;font-size:19px;border:2px solid #f7b32b}
+  .nav a.on{background:#f7b32b;color:#1d1a16}
+  .bebas{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;line-height:1.05;font-weight:400}
+  h2{font-size:clamp(30px,6vw,44px);margin:0 0 6px}
+  h2 span{color:var(--red)}
+  h3{font-size:22px}
+  .sub{color:#5a5248;font-size:15.5px;max-width:720px}
+  section{margin:34px 0}
+  .card{background:#fffdf5;border:3px solid var(--ink);border-radius:14px;padding:18px;box-shadow:5px 5px 0 var(--ink)}
+  .card.soft{box-shadow:none;background:#fff8e6}
+  .btn{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;border:3px solid var(--ink);border-radius:10px;padding:10px 20px;cursor:pointer;background:var(--yellow);color:var(--ink);box-shadow:4px 4px 0 var(--ink);text-decoration:none;transition:transform .1s;line-height:1.1}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .btn.red{background:var(--red);color:#fff}.btn.teal{background:var(--teal);color:#fff}.btn.ghost{background:#fff}.btn.sm{font-size:15px;padding:7px 14px;box-shadow:3px 3px 0 var(--ink)}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .tag{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:.12em;padding:3px 10px;border-radius:4px;background:var(--ink);color:#fff;vertical-align:middle}
+  .tag.y{background:var(--yellow);color:var(--ink)}.tag.r{background:var(--red)}.tag.t{background:var(--teal)}.tag.g{background:var(--green)}.tag.p{background:var(--purple)}.tag.gr{background:#d9d2c0;color:#4a4238}
+  input,textarea,select{width:100%;font-family:'Rubik','Mukta',sans-serif;font-size:15px;padding:10px 12px;border:2.5px solid var(--ink);border-radius:9px;background:#fff;margin-top:6px}
+  textarea{min-height:90px;resize:vertical}
+  label{display:block;font-weight:600;font-size:14px;margin-top:12px}
+  label small{font-weight:400;color:#7a7060}
+  .chk{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px}
+  .chk input{width:auto;margin:3px 0 0}
+  .muted{color:#7a7060;font-size:13px}
+  .err{background:#fde8e5;border:2px solid var(--red);border-radius:8px;padding:8px 12px;font-size:14px;margin-top:10px;display:none}
+  .ok{background:#e4f5ea;border:2px solid var(--green);border-radius:8px;padding:8px 12px;font-size:14px;margin-top:10px;display:none}
+  .err.on,.ok.on{display:block}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;padding:28px 0 8px}
+  @media(max-width:820px){.hero{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(44px,10vw,84px);line-height:.95;text-shadow:4px 4px 0 var(--yellow),7px 7px 0 var(--ink)}
+  .hero h1 .r{color:var(--red)}
+  .hero p{font-size:17px;color:#4a4238;margin-top:14px;max-width:560px}
+  .hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .cup{background:#fff;border:4px solid var(--ink);border-radius:16px;box-shadow:var(--shadow);padding:18px;text-align:center}
+  .cup .big{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,64px);line-height:1;color:var(--red)}
+  .cup .lbl{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#7a7060}
+  .status-pill{display:inline-block;margin-top:10px;background:#fff3cd;border:2px dashed var(--brown);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;color:var(--brown)}
+
+  /* tracker */
+  .tracker{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+  @media(max-width:820px){.tracker{grid-template-columns:1fr}}
+  .bar{height:22px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:10px 0 6px}
+  .bar div{height:100%;background:repeating-linear-gradient(45deg,var(--yellow) 0 10px,#e9a21e 10px 20px);width:0%;transition:width .8s}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:10px;text-align:center}
+  .stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
+  .stat span{font-size:11.5px;color:#7a7060;text-transform:uppercase;letter-spacing:.06em}
+  .ledger{font-size:13.5px;border-top:2px dashed #cfc4ae;margin-top:12px;padding-top:10px}
+  .ledger div{display:flex;justify-content:space-between;padding:3px 0}
+  .ms{list-style:none;margin-top:8px}
+  .ms li{padding:7px 0;border-bottom:1px dashed #cfc4ae;display:flex;gap:10px;align-items:flex-start;font-size:14px}
+  .ms li .dot{width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;flex:none;margin-top:4px;background:#fff}
+  .ms li.done .dot{background:var(--green)}
+
+  /* pwyw */
+  .pw{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:720px){.pw{grid-template-columns:1fr}}
+  .pw .card{padding:16px}
+  .pw .ic{font-size:30px}
+
+  /* participate */
+  .ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+  .ways .card{cursor:pointer;transition:transform .1s}
+  .ways .card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .ways .ic{font-size:28px}
+  .ways h3{margin:6px 0 4px}
+
+  /* ideas */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:14px}
+  .idea{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:0;overflow:hidden;box-shadow:4px 4px 0 var(--ink);display:flex;flex-direction:column}
+  .idea .img{height:130px;background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:44px;border-bottom:3px solid var(--ink);background-size:cover;background-position:center}
+  .idea .bd{padding:14px;flex:1;display:flex;flex-direction:column;gap:6px}
+  .idea h3{font-size:21px}
+  .idea p{font-size:14px;color:#4a4238}
+  .idea .meta{font-size:12.5px;color:#7a7060;display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+  .idea .votes{font-family:'Bebas Neue',sans-serif;font-size:22px}
+  .idea .act{padding:0 14px 14px}
+  .idea.sel{outline:4px solid var(--teal);outline-offset:-4px}
+  .idea.sel .act .btn{background:var(--teal);color:#fff}
+  details{margin-top:6px}
+  summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--teal)}
+
+  /* voting */
+  .vbox{background:#fff;border:3px solid var(--ink);border-radius:14px;padding:16px;box-shadow:4px 4px 0 var(--ink);margin-top:14px}
+  .vbar{position:sticky;bottom:12px;z-index:50;margin-top:14px;background:var(--ink);color:#fdf3dc;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:3px solid var(--yellow)}
+  .vbar b{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em}
+  .rules{background:#fff8e6;border:2px dashed var(--brown);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:10px}
+  .rules li{margin-left:18px}
+  .rank{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed #cfc4ae;font-size:14.5px}
+  .rank .n{font-family:'Bebas Neue',sans-serif;font-size:22px;width:28px;color:var(--red)}
+  .rank .bar2{flex:1;height:12px;border:2px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}
+  .rank .bar2 div{height:100%;background:var(--teal)}
+
+  /* updates */
+  .upd{border-left:4px solid var(--yellow);padding:10px 14px;margin-top:12px;background:#fff;border-radius:0 10px 10px 0;border-top:2px solid var(--ink);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .upd .d{font-size:12px;color:#7a7060;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .upd h3{margin:2px 0 4px}
+  .upd p{font-size:14.5px;white-space:pre-wrap}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px;background:#fff}
+  th,td{border:2px solid var(--ink);padding:7px 9px;text-align:left}
+  th{background:#fff3cd;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.06em;font-weight:400}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+
+  /* faq */
+  .faq details{background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:10px 14px;margin-top:8px}
+  .faq summary{font-size:15.5px;color:var(--ink)}
+  .faq p{margin-top:8px;font-size:14.5px;color:#4a4238}
+
+  /* modal */
+  .mwrap{position:fixed;inset:0;background:rgba(20,14,10,.6);z-index:1000;display:none;align-items:flex-end;justify-content:center;padding:0}
+  .mwrap.on{display:flex}
+  .modal{background:#fffdf5;border:4px solid var(--ink);border-radius:18px 18px 0 0;width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:20px 18px 28px;position:relative}
+  @media(min-width:720px){.mwrap{align-items:center;padding:20px}.modal{border-radius:18px;box-shadow:8px 8px 0 var(--ink)}}
+  .mclose{position:absolute;right:12px;top:12px;border:2px solid var(--ink);background:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-weight:800}
+  .modal h2{font-size:30px}
+  .amts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .amts button{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;border:2.5px solid var(--ink);background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer}
+  .amts button.on{background:var(--yellow)}
+  .auth{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .who{font-size:13px;color:#7a7060}
+  .hp{position:absolute;left:-9999px;opacity:0;height:0}
+  footer{margin-top:30px;background:var(--ink);color:#cfc4ae;border-radius:8px;padding:24px;text-align:center;font-size:12.5px}
+  footer .fcredit{font-family:'Bebas Neue',sans-serif;color:var(--yellow);font-size:24px;letter-spacing:.06em;margin-bottom:8px}
+  footer a{color:#f7b32b}
+  .empty{padding:18px;border:2px dashed #cfc4ae;border-radius:12px;text-align:center;color:#7a7060;font-size:14.5px;margin-top:12px;background:#fff}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;border:2px solid var(--yellow);z-index:2000;font-size:14px;display:none;max-width:90vw}
+  .toast.on{display:block}
+</style>
+</head>
+<body>
+<div class="nav">
+  <a class="brand" href="index.html">★ ASA KELA PAHIJE</a>
+  <a href="index.html">HOME</a>
+  <a href="fda.html">SEASON 1: FDA TRACKER</a>
+  <a href="changle-lok.html">🦸 CHANGLE LOK</a>
+  <a class="on" href="cafe.html">☕ AAMCHA CAFÉ</a>
+  <a href="https://www.instagram.com/asakelapahije/" target="_blank" rel="noopener">📸 INSTAGRAM</a>
+</div>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <span class="tag y">COMMUNITY PROJECT · MUMBAI</span>
+    <h1 style="margin-top:10px">AAMCHA<br><span class="r">CAFÉ</span></h1>
+    <p>A permanent <b>pay-what-you-wish</b> café for Mumbai — funded by the people who'll sit in it, and shaped by their ideas. No equity, no returns, no VIP table. Just a place that belongs to everyone who helped build it.</p>
+    <div class="cta">
+      <a class="btn red" href="#contribute" id="ctaContribute">🤝 Help fund it</a>
+      <a class="btn" href="#ideas">💡 Suggest an idea</a>
+      <a class="btn ghost" href="#vote">🗳️ Vote</a>
+    </div>
+  </div>
+  <div class="cup">
+    <div class="lbl">Fundraising target</div>
+    <div class="big">₹25,00,000</div>
+    <div class="lbl" style="margin-top:6px">Raised so far (verified)</div>
+    <div class="big" id="heroRaised" style="color:var(--teal)">₹0</div>
+    <div class="status-pill" id="heroStatus">⏳ Pre-launch — not accepting money yet</div>
+    <div class="muted" style="margin-top:8px">Campaign stays open until the target is reached. No deadline, no fake countdown.</div>
+  </div>
+</div>
+
+<!-- TRACKER -->
+<section id="tracker">
+  <h2>Funding <span>tracker</span></h2>
+  <p class="sub">Every number here is computed from recorded contributions. Expressions of interest are counted separately and are <b>not</b> money.</p>
+  <div class="tracker" style="margin-top:14px">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">
+        <div><b class="bebas" style="font-size:30px" id="tRaised">₹0</b> <span class="muted">of ₹25,00,000</span></div>
+        <div class="bebas" style="font-size:22px;color:var(--red)" id="tPct">0%</div>
+      </div>
+      <div class="bar"><div id="tBar"></div></div>
+      <div class="stats">
+        <div class="stat"><b id="tContrib">0</b><span>Verified contributors</span></div>
+        <div class="stat"><b id="tInterest">0</b><span>Interest registrations</span></div>
+        <div class="stat"><b id="tIdeas">0</b><span>Ideas submitted</span></div>
+      </div>
+      <div class="ledger">
+        <div><span>1. Expressions of interest (not money)</span><b id="lInterest">0 people · ₹0 indicated</b></div>
+        <div><span>2. Unpaid pledges</span><b id="lPledge">not supported</b></div>
+        <div><span>3. Payments initiated (unconfirmed)</span><b id="lInit">₹0</b></div>
+        <div><span>4. Confirmed funds received</span><b id="lConf">₹0</b></div>
+        <div><span>5. Refunds issued</span><b id="lRef">−₹0</b></div>
+        <div style="border-top:2px solid var(--ink);margin-top:4px;padding-top:6px"><span><b>Net funding (4 − 5)</b></span><b id="lNet">₹0</b></div>
+      </div>
+      <p class="muted" style="margin-top:8px" id="tPolicy">Accounting policy: only confirmed receipts count; refunds are deducted on the date issued. Full ledger below in Transparency.</p>
+    </div>
+    <div class="card soft">
+      <h3>Milestones</h3>
+      <ul class="ms" id="msList"></ul>
+      <h3 style="margin-top:14px">Latest update</h3>
+      <div id="latestUpd" class="muted">No updates yet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PWYW -->
+<section id="pwyw">
+  <h2>Pay what <span>you wish</span></h2>
+  <p class="sub">The café will list an honest suggested price for every item. You pay what you can — more, less, or exactly that. Nobody checks, nobody judges.</p>
+  <div class="pw">
+    <div class="card"><div class="ic">🏷️</div><h3>Honest prices</h3><p class="muted" style="font-size:14px">Every item shows what it actually costs us to make and serve. Pay that, or pay what feels right today.</p></div>
+    <div class="card"><div class="ic">⚖️</div><h3>It balances out</h3><p class="muted" style="font-size:14px">Some days you pay more, some days less. Across the community it has to cover rent, wages and ingredients — that's the sustainability goal, and we'll publish the numbers.</p></div>
+    <div class="card"><div class="ic">🚫</div><h3>No VIP, no tips-for-favours</h3><p class="muted" style="font-size:14px">What you pay never changes how you're treated. Contributing to the fund gives you no ownership, no equity and no say beyond the same vote everyone gets.</p></div>
+  </div>
+</section>
+
+<!-- PARTICIPATE -->
+<section id="participate">
+  <h2>How you can <span>take part</span></h2>
+  <p class="sub">Money is one way. It is not the only way, and it isn't the most important one.</p>
+  <div class="ways">
+    <div class="card" data-go="#ideas"><div class="ic">💡</div><h3>Suggest an idea</h3><p class="muted" style="font-size:14px">What would make this café useful or memorable? Anything goes — we'll review it.</p></div>
+    <div class="card" data-go="#vote"><div class="ic">🗳️</div><h3>Vote</h3><p class="muted" style="font-size:14px">Shortlisted ideas go to a public round. Up to 3 votes per person, verified by sign-in.</p></div>
+    <div class="card" data-go="#contribute"><div class="ic">🤝</div><h3>Contribute</h3><p class="muted" style="font-size:14px">₹100 to whatever you like. Pre-launch: register interest, no money moves yet.</p></div>
+    <div class="card" data-open="volunteer"><div class="ic">🙋</div><h3>Volunteer / offer resources</h3><p class="muted" style="font-size:14px">Time, skills, furniture, a space lead, a coffee machine — tell us.</p></div>
+    <div class="card" data-open="operator"><div class="ic">👩‍🍳</div><h3>Apply to run it</h3><p class="muted" style="font-size:14px">One eligible person will operate the café under a separate agreement. Contributing doesn't help your chances.</p></div>
+  </div>
+</section>
+
+<!-- IDEAS -->
+<section id="ideas">
+  <h2>Ideas from the <span>community</span></h2>
+  <p class="sub">Starter examples are below to get you thinking. The best idea is the one we haven't thought of.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center">
+    <button class="btn" id="btnSubmitIdea">💡 Submit an idea</button>
+    <select id="ideaFilter" style="width:auto;margin:0"><option value="all">All public ideas</option><option value="shortlisted">Shortlisted</option><option value="open">Open for voting</option><option value="winner">Winners</option><option value="planned">Planned</option><option value="implemented">Implemented</option><option value="not_selected">Not selected</option></select>
+    <span class="muted" id="ideaCount"></span>
+  </div>
+  <div class="grid" id="ideaGrid"></div>
+  <div class="empty" id="ideaEmpty" style="display:none">No public ideas yet. Submitted ideas appear here once reviewed.</div>
+  <div class="card soft" style="margin-top:14px">
+    <h3>Starter examples (not yet decided)</h3>
+    <div class="grid" style="margin-top:8px" id="starterGrid"></div>
+    <p class="muted" style="margin-top:10px">These are prompts, not promises. They enter the register only if someone submits them and they pass review like any other idea.</p>
+  </div>
+</section>
+
+<!-- VOTING -->
+<section id="vote">
+  <h2>You decide <span>the café</span></h2>
+  <p class="sub">Shortlisted ideas go to a public voting round. Votes guide the project team; they are not legally binding — safety, cost, legality and feasibility are still ours to carry.</p>
+  <div id="roundArea"></div>
+  <div id="pastRounds"></div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section id="contribute">
+  <h2>Help <span>fund it</span></h2>
+  <div class="card" id="contribCard">
+    <div id="prelaunchNote">
+      <span class="tag r">PRE-LAUNCH</span>
+      <p style="margin-top:8px">We are <b>not accepting money yet</b>. Before a single rupee is taken, the project will publish: the legal entity that holds the funds, what the money may be used for, refund rules, what happens if the café can't open, how any surplus is handled, and tax treatment. Until then you can <b>register interest</b> — it's a signal, not a payment, and it creates no obligation either way.</p>
+    </div>
+    <div style="margin-top:12px"><b>Suggested amounts</b></div>
+    <div class="amts" id="amts"><button data-a="100">₹100</button><button data-a="500">₹500</button><button data-a="1000">₹1,000</button><button data-a="2500">₹2,500</button><button data-a="custom">Custom</button></div>
+    <div style="margin-top:12px"><button class="btn red" id="btnInterest">🤝 Register interest</button> <span class="muted">No card, no UPI, nothing is charged.</span></div>
+    <p class="muted" style="margin-top:12px">Contributions are gifts to a community project. They do not buy equity, profit share, returns, ownership, a job, or a better chance of being selected as operator. Any non-financial thank-you (a name on a wall, say) will be described in writing and reviewed before it's offered. We will not claim tax benefits unless confirmed.</p>
+  </div>
+</section>
+
+<!-- OPERATOR -->
+<section id="operator">
+  <h2>Run the <span>café</span></h2>
+  <div class="card">
+    <p>One eligible applicant may be selected to operate the café under a separately defined agreement. Selection criteria and the process will be published before anyone is chosen. Being selected means running it — it does not mean owning it, and contributing to the fund does not improve anyone's chances.</p>
+    <div style="margin-top:12px"><button class="btn teal" id="btnOperator">👩‍🍳 Apply to operate</button></div>
+  </div>
+</section>
+
+<!-- UPDATES & TRANSPARENCY -->
+<section id="updates">
+  <h2>Updates & <span>transparency</span></h2>
+  <p class="sub">What's happening, what we planned to spend, what we actually spent. Planned budgets and verified actuals are kept apart on purpose.</p>
+  <div id="updList"></div>
+  <div class="empty" id="updEmpty" style="display:none">No project updates published yet.</div>
+  <div class="card" style="margin-top:16px">
+    <h3>Budget — planned vs actual</h3>
+    <table id="budgetTbl"><thead><tr><th>Category</th><th class="num">Planned (proposed)</th><th class="num">Actual (verified)</th></tr></thead><tbody></tbody></table>
+    <p class="muted" style="margin-top:8px" id="budgetNote">Planned figures are proposals and will change. Actual figures are only entered against receipts.</p>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Contribution ledger (public)</h3>
+    <table id="ledgerTbl"><thead><tr><th>Date</th><th>From</th><th class="num">Amount</th><th>Status</th></tr></thead><tbody></tbody></table>
+    <p class="muted" style="margin-top:8px">Names appear only as the contributor chose. Refunds are listed in the same table.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <h2>Questions <span>people ask</span></h2>
+  <details><summary>Is this a donation, an investment or a loan?</summary><p>A contribution to a community project. It is not an investment, not a loan, and not a purchase of shares. You get no equity, profit share, interest or ownership rights. If any non-financial thank-you is ever offered, it will be described in writing first.</p></details>
+  <details><summary>Are you taking money right now?</summary><p>No. The page is in pre-launch. We will only switch on real payments after publishing the receiving entity, use-of-funds rules, refund rules, what happens if the café cannot proceed, surplus handling and tax treatment. Until then you can register interest, which costs nothing and commits you to nothing.</p></details>
+  <details><summary>Can I get a refund?</summary><p>Refund and cancellation rules will be published before payments open and will apply to every contribution made after that. Any refund issued is shown in the public ledger and deducted from the total.</p></details>
+  <details><summary>Who decides what gets built?</summary><p>You suggest, the team reviews for safety, legality and cost, the community votes on the shortlist, and the team implements what the votes and the budget allow. Votes are advisory: a winning idea that turns out to be unsafe, illegal or unaffordable will be explained, not quietly dropped.</p></details>
+  <details><summary>How do you stop duplicate votes?</summary><p>You sign in with Google or an email link before voting, and the database allows exactly one ballot per person per round. That's enforced on the server by Firestore security rules, not by the page. It isn't perfect — someone with many email addresses could vote more than once — so results are published with that caveat and the team retains judgement.</p></details>
+  <details><summary>Does contributing help me become the operator?</summary><p>No. The operator is selected under a separate, published process. Contributing has no bearing on it.</p></details>
+  <details><summary>What if the café can't open?</summary><p>That is a real risk — rent, licences and permissions in Mumbai are not simple. The published campaign terms will say exactly what happens to funds in that case before any money is accepted.</p></details>
+  <details><summary>What do you do with my data?</summary><p>Your email is used to confirm your submission, prevent duplicate votes and contact you about things you opted into. It is not published, sold or shared. Ideas you submit are published with the display name you chose.</p></details>
+</section>
+
+<footer>
+  <div class="fcredit">★ A PROJECT BY ASA KELA PAHIJE ★</div>
+  <div style="margin-bottom:8px"><a href="https://www.instagram.com/asakelapahije/" target="_blank" rel="noopener">📸 Instagram var bhetuya → @asakelapahije</a></div>
+  Aamcha Café is a community project in its planning stage. No payments are being accepted. Nothing on this page is an offer of securities, a loan or an investment. Figures shown as "verified" come from recorded contributions; everything else is planned or indicative.<br><br>
+  Questions, corrections or data requests: DM @asakelapahije on Instagram. <a href="cafe-admin.html" style="color:#9c917c">admin</a>
+</footer>
+</div>
+
+<!-- MODALS -->
+<div class="mwrap" id="mAuth"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Sign in to continue</h2>
+  <p class="muted">One sign-in covers ideas, votes, interest and applications. We use it only to confirm it's you and stop duplicate votes.</p>
+  <div class="auth"><button class="btn" id="btnGoogle">Continue with Google</button></div>
+  <label>Or get a sign-in link by email<input type="email" id="authEmail" placeholder="you@example.com"></label>
+  <div style="margin-top:10px"><button class="btn ghost sm" id="btnEmailLink">Email me a link</button></div>
+  <div class="ok" id="authOk"></div><div class="err" id="authErr"></div>
+</div></div>
+
+<div class="mwrap" id="mIdea"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Submit an idea</h2>
+  <p class="muted who" id="ideaWho"></p>
+  <form id="ideaForm" novalidate>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+    <label>Idea title *<input name="title" maxlength="80" required placeholder="e.g. The Stranger's Table"></label>
+    <label>Describe it *<textarea name="desc" maxlength="1200" required placeholder="What is it, how does it work day to day?"></textarea></label>
+    <label>What problem does it solve, or what experience does it create? *<textarea name="problem" maxlength="800" required></textarea></label>
+    <label>Why does it belong in this café? *<textarea name="why" maxlength="800" required></textarea></label>
+    <label>Estimated cost <small>(optional — leave blank if you don't know)</small><input name="cost" maxlength="60" placeholder="e.g. ₹15,000 one-time, or 'no idea'"></label>
+    <label>Image or reference link <small>(optional)</small><input name="link" type="url" maxlength="300" placeholder="https://"></label>
+    <label>Display name *<input name="name" maxlength="40" required placeholder="How you'd like to be credited"></label>
+    <label class="chk" style="margin-top:14px"><input type="checkbox" name="consent" required><span>I agree the idea may be published with my display name, edited for clarity, merged with similar ideas, or declined with a short reason. I confirm it's my own or freely shareable. My email stays private.</span></label>
+    <div class="err" id="ideaErr"></div><div class="ok" id="ideaOk"></div>
+    <div style="margin-top:14px"><button class="btn red" type="submit" id="ideaSubmit">Submit idea</button></div>
+  </form>
+</div></div>
+
+<div class="mwrap" id="mInterest"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Register interest</h2>
+  <p class="muted who" id="intWho"></p>
+  <p style="font-size:14px;margin-top:8px"><b>This is not a payment.</b> You're telling us roughly what you might contribute once terms are published. You can change your mind; we'll email you once when payments open.</p>
+  <form id="intForm" novalidate>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+    <label>Name *<input name="name" maxlength="60" required></label>
+    <label>Amount you're considering (₹) *<input name="amount" type="number" min="1" max="10000000" required></label>
+    <label>Anything to add? <small>(optional)</small><textarea name="message" maxlength="400"></textarea></label>
+    <label class="chk" style="margin-top:14px"><input type="checkbox" name="consent" required><span>I understand this is an expression of interest, not a contribution, creates no obligation, and that contributions (when open) carry no equity, returns or ownership.</span></label>
+    <div class="err" id="intErr"></div><div class="ok" id="intOk"></div>
+    <div style="margin-top:14px"><button class="btn red" type="submit" id="intSubmit">Register interest</button></div>
+  </form>
+</div></div>
+
+<div class="mwrap" id="mVolunteer"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Volunteer or offer resources</h2>
+  <p class="muted who" id="volWho"></p>
+  <form id="volForm" novalidate>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+    <label>Name *<input name="name" maxlength="60" required></label>
+    <label>What can you offer? *<textarea name="offer" maxlength="800" required placeholder="Time, a skill, furniture, equipment, a space lead, design help…"></textarea></label>
+    <label>Availability <small>(optional)</small><input name="availability" maxlength="120"></label>
+    <label class="chk" style="margin-top:14px"><input type="checkbox" name="consent" required><span>I'm happy to be contacted about this by email.</span></label>
+    <div class="err" id="volErr"></div><div class="ok" id="volOk"></div>
+    <div style="margin-top:14px"><button class="btn teal" type="submit" id="volSubmit">Send</button></div>
+  </form>
+</div></div>
+
+<div class="mwrap" id="mOperator"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Apply to operate the café</h2>
+  <p class="muted who" id="opWho"></p>
+  <p style="font-size:14px;margin-top:8px">Selection criteria will be published before any decision. Being selected means operating the café under an agreement — not owning it. Contributing money has no effect on this application.</p>
+  <form id="opForm" novalidate>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+    <label>Full name *<input name="name" maxlength="80" required></label>
+    <label>Phone <small>(optional)</small><input name="phone" maxlength="20"></label>
+    <label>Relevant experience *<textarea name="experience" maxlength="1500" required placeholder="Food, hospitality, community work, running anything…"></textarea></label>
+    <label>Availability *<input name="availability" maxlength="200" required placeholder="e.g. full-time from Jan 2027"></label>
+    <label>Why do you want to run this café? *<textarea name="motivation" maxlength="1200" required></textarea></label>
+    <label>Brief operational plan *<textarea name="plan" maxlength="2000" required placeholder="Hours, staffing, sourcing, menu approach, how pay-what-you-wish works at the counter…"></textarea></label>
+    <label>How would you keep it financially sustainable? *<textarea name="sustain" maxlength="1500" required></textarea></label>
+    <label>Anything else we should know? <small>(optional)</small><textarea name="other" maxlength="800"></textarea></label>
+    <label class="chk" style="margin-top:14px"><input type="checkbox" name="consent" required><span>I confirm the information is accurate, understand selection is not guaranteed and does not confer ownership, and agree to be contacted about this application.</span></label>
+    <div class="err" id="opErr"></div><div class="ok" id="opOk"></div>
+    <div style="margin-top:14px"><button class="btn teal" type="submit" id="opSubmit">Submit application</button></div>
+  </form>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, query, where, orderBy, limit, serverTimestamp, getCountFromServer, documentId } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const app = initializeApp({ apiKey:"AIzaSyAnTiybUYG71e21bOG0vH1SyDq_h7x9Y9E", authDomain:"asa-kela-pahije.firebaseapp.com", projectId:"asa-kela-pahije", storageBucket:"asa-kela-pahije.firebasestorage.app", messagingSenderId:"1019509914936", appId:"1:1019509914936:web:b958a25a035a5ae6e8d5cd" });
+const auth = getAuth(app), db = getFirestore(app);
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const inr = n => "₹" + Math.round(Number(n)||0).toLocaleString("en-IN");
+const fmtD = ts => { const d = ts?.toDate ? ts.toDate() : (ts ? new Date(ts) : null); return d ? d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "—"; };
+const TARGET_DEFAULT = 2500000;
+const PUBLIC_STATUSES = ["shortlisted","open","winner","planned","implemented","not_selected"];
+const STATUS_LABEL = { submitted:"Submitted", review:"Under review", shortlisted:"Shortlisted", open:"Open for voting", winner:"Winner", planned:"Planned", implemented:"Implemented", not_selected:"Not selected" };
+const STATUS_CLS = { shortlisted:"t", open:"y", winner:"r", planned:"p", implemented:"g", not_selected:"gr" };
+let toastT; const toast = m => { const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("on"),3200); };
+const showErr = (id,m) => { const e=$(id); e.textContent=m; e.classList.add("on"); };
+const hideMsgs = ids => ids.forEach(i => $(i).classList.remove("on"));
+
+/* ---------- modals ---------- */
+const open = id => { $(id).classList.add("on"); document.body.style.overflow="hidden"; };
+const close = () => { $$(".mwrap").forEach(m=>m.classList.remove("on")); document.body.style.overflow=""; };
+$$("[data-close]").forEach(b=>b.addEventListener("click",close));
+$$(".mwrap").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m) close(); }));
+$$(".ways .card").forEach(c=>c.addEventListener("click",()=>{ if(c.dataset.go) location.hash=c.dataset.go; else if(c.dataset.open==="volunteer") requireAuth(()=>openForm("#mVolunteer","#volWho")); else if(c.dataset.open==="operator") requireAuth(()=>openForm("#mOperator","#opWho")); }));
+
+/* ---------- auth ---------- */
+let user = null; let pendingAction = null;
+const requireAuth = fn => { if(user) fn(); else { pendingAction = fn; open("#mAuth"); } };
+function openForm(id, whoSel){ $(whoSel).innerHTML = `Signed in as <b>${esc(user.email)}</b> · <a href="#" id="so">sign out</a>`; $(whoSel).querySelector("#so").onclick = e=>{e.preventDefault(); signOut(auth); close();}; open(id); }
+$("#btnGoogle").addEventListener("click", async ()=>{ hideMsgs(["#authOk","#authErr"]); try{ await signInWithPopup(auth, new GoogleAuthProvider()); }catch(e){ showErr("#authErr", "Google sign-in didn't complete: "+(e.code||e.message)); } });
+$("#btnEmailLink").addEventListener("click", async ()=>{ hideMsgs(["#authOk","#authErr"]); const em=$("#authEmail").value.trim(); if(!/.+@.+\..+/.test(em)) return showErr("#authErr","Enter a valid email.");
+  try{ await sendSignInLinkToEmail(auth, em, { url: location.origin + location.pathname + "#signin", handleCodeInApp:true }); localStorage.setItem("cafe_email_for_signin", em); $("#authOk").textContent="Link sent. Open it on this device to finish signing in."; $("#authOk").classList.add("on"); }
+  catch(e){ showErr("#authErr","Couldn't send the link: "+(e.code||e.message)); } });
+if (isSignInWithEmailLink(auth, location.href)) { let em = localStorage.getItem("cafe_email_for_signin") || prompt("Confirm your email to finish signing in"); if(em){ signInWithEmailLink(auth, em, location.href).then(()=>{ localStorage.removeItem("cafe_email_for_signin"); history.replaceState(null,"",location.pathname); toast("Signed in ✓"); }).catch(e=>toast("Sign-in link failed: "+(e.code||e.message))); } }
+onAuthStateChanged(auth, u => { user = u; if(u && pendingAction){ const f=pendingAction; pendingAction=null; close(); f(); } renderVoteState(); });
+
+/* ---------- config / tracker ---------- */
+let cfg = { target: TARGET_DEFAULT, acceptingMoney:false, milestones:[ {label:"Publish campaign terms, receiving entity & refund policy",done:false},{label:"Open contributions",done:false},{label:"₹5 lakh — location scouting begins",done:false},{label:"₹12.5 lakh — lease & fit-out budget locked",done:false},{label:"₹25 lakh — target reached, fit-out starts",done:false},{label:"Operator selected under published process",done:false},{label:"Opening day",done:false} ] };
+async function loadConfig(){ try{ const d=await getDoc(doc(db,"cafe_config","main")); if(d.exists()) cfg={...cfg,...d.data()}; }catch(e){} 
+  $("#msList").innerHTML = (cfg.milestones||[]).map(m=>`<li class="${m.done?'done':''}"><span class="dot"></span><span>${esc(m.label)}</span></li>`).join("");
+  if(cfg.acceptingMoney){ $("#heroStatus").textContent="✅ Contributions open"; $("#prelaunchNote").innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the published terms before you contribute.")}</p>`; }
+  if(cfg.policy) $("#tPolicy").textContent="Accounting policy: "+cfg.policy; }
+
+async function loadTracker(){
+  let conf=0, init=0, ref=0, contributors=new Set(), rows=[];
+  try{ const cs=await getDocs(query(collection(db,"cafe_contributions"),orderBy("date","desc"))); cs.forEach(d=>{ const x=d.data(); rows.push({...x,id:d.id,kind:"c"}); if(x.status==="confirmed"){conf+=Number(x.amount)||0; contributors.add(x.contributorKey||d.id);} else if(x.status==="initiated") init+=Number(x.amount)||0; }); }catch(e){ console.warn("contrib",e); }
+  try{ const rs=await getDocs(query(collection(db,"cafe_refunds"),orderBy("date","desc"))); rs.forEach(d=>{ const x=d.data(); rows.push({...x,id:d.id,kind:"r"}); ref+=Number(x.amount)||0; }); }catch(e){ console.warn("refunds",e); }
+  let iCount=0,iSum=0; try{ const is=await getDocs(collection(db,"cafe_interest_public")); is.forEach(d=>{iCount++; iSum+=Number(d.data().amount)||0;}); }catch(e){ console.warn("interest",e); }
+  const net=Math.max(0,conf-ref), target=cfg.target||TARGET_DEFAULT, pct=Math.min(100,Math.round(net/target*1000)/10);
+  $("#heroRaised").textContent=inr(net); $("#tRaised").textContent=inr(net); $("#tPct").textContent=pct+"%"; $("#tBar").style.width=pct+"%";
+  $("#tContrib").textContent=contributors.size; $("#tInterest").textContent=iCount;
+  $("#lInterest").textContent=`${iCount} people · ${inr(iSum)} indicated`; $("#lInit").textContent=inr(init); $("#lConf").textContent=inr(conf); $("#lRef").textContent="−"+inr(ref); $("#lNet").textContent=inr(net);
+  rows.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0));
+  const tb=$("#ledgerTbl tbody"); tb.innerHTML = rows.length ? rows.map(r=>`<tr><td>${fmtD(r.date)}</td><td>${esc(r.kind==="r"?"Refund"+(r.reason?" — "+r.reason:""):(r.displayName||"Anonymous"))}</td><td class="num">${r.kind==="r"?"−":""}${inr(r.amount)}</td><td>${r.kind==="r"?'<span class="tag gr">REFUND</span>':(r.status==="confirmed"?'<span class="tag g">CONFIRMED</span>':'<span class="tag y">INITIATED</span>')}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">No contributions recorded. Pre-launch.</td></tr>`;
+}
+
+/* ---------- ideas ---------- */
+const STARTERS = [
+  {t:"Pay-It-Forward Wall",d:"Prepay a chai, coffee or meal for someone who needs it. A token goes on the wall; anyone can take one.",ic:"🧱"},
+  {t:"The Stranger's Table",d:"One communal table where sitting down means you're open to a conversation with whoever else is there.",ic:"🪑"},
+  {t:"Take a Book, Leave a Book",d:"A shelf that runs itself. No library card, no late fees.",ic:"📚"},
+  {t:"The People's Gallery",d:"One wall, rotating every month, for local artists who've never had a show.",ic:"🖼️"},
+  {t:"The Neighbourhood Board",d:"Local events, services, skills, collaborators — a physical board, not an app.",ic:"📌"},
+  {t:"One Hour, One Talent",d:"A weekly slot for poetry, music, storytelling, anything performable, by anyone.",ic:"🎤"},
+  {t:"The Honest Menu",d:"Every item shows its real cost next to the pay-what-you-wish line.",ic:"🧾"},
+  {t:"The Community Classroom",d:"Small workshops taught by people from the neighbourhood, for the neighbourhood.",ic:"🧑‍🏫"}
+];
+$("#starterGrid").innerHTML = STARTERS.map((s,i)=>`<div class="idea"><div class="img">${s.ic}</div><div class="bd"><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p><div class="meta"><span class="tag gr">EXAMPLE</span></div></div><div class="act"><button class="btn sm ghost" data-starter="${i}">Propose this one →</button></div></div>`).join("");
+$$("[data-starter]").forEach(b=>b.addEventListener("click",()=>{ const s=STARTERS[+b.dataset.starter]; requireAuth(()=>{ openForm("#mIdea","#ideaWho"); const f=$("#ideaForm"); f.title.value=s.t; f.desc.value=s.d; }); }));
+$("#btnSubmitIdea").addEventListener("click",()=>requireAuth(()=>{ $("#ideaForm").reset(); openForm("#mIdea","#ideaWho"); }));
+
+let ideasCache=[];
+function ideaCard(x,opts={}){ const id=x.id; const img = x.imageUrl ? `style="background-image:url('${esc(x.imageUrl)}')"` : ""; const ic = x.imageUrl ? "" : (x.icon||"💡");
+  const vote = opts.vote ? `<div class="act"><button class="btn sm ${opts.selected?'teal':''}" data-vote="${id}">${opts.selected?'✓ Selected':'Vote for this'}</button></div>` : "";
+  const cnt = (opts.count!=null) ? `<span class="votes">${opts.count} vote${opts.count===1?'':'s'}</span>` : "";
+  return `<div class="idea ${opts.selected?'sel':''}" data-id="${id}"><div class="img" ${img}>${ic}</div><div class="bd"><h3>${esc(x.title)}</h3><p>${esc(x.desc)}</p>
+    <details><summary>More</summary><p style="margin-top:6px"><b>Solves / creates:</b> ${esc(x.problem)}</p><p style="margin-top:4px"><b>Why here:</b> ${esc(x.why)}</p>${x.considerations?`<p style="margin-top:4px"><b>Practical notes (team):</b> ${esc(x.considerations)}</p>`:""}${x.link?`<p style="margin-top:4px"><a href="${esc(x.link)}" target="_blank" rel="noopener nofollow">Reference ↗</a></p>`:""}${x.adminNote&&x.status==="not_selected"?`<p style="margin-top:4px"><b>Why not selected:</b> ${esc(x.adminNote)}</p>`:""}</details>
+    <div class="meta"><span class="tag ${STATUS_CLS[x.status]||''}">${esc(STATUS_LABEL[x.status]||x.status)}</span><span>by ${esc(x.name||"Anonymous")}</span>${x.costEstimate?`<span>· est. ${esc(x.costEstimate)}</span>`:(x.cost?`<span>· ${esc(x.cost)}</span>`:"")}${cnt}</div></div>${vote}</div>`; }
+async function loadIdeas(){ try{ const qs=await getDocs(query(collection(db,"cafe_ideas"),where("status","in",PUBLIC_STATUSES),orderBy("createdAt","desc"),limit(200))); ideasCache=[]; qs.forEach(d=>ideasCache.push({id:d.id,...d.data()})); }catch(e){ console.warn("ideas",e); ideasCache=[]; } renderIdeas(); $("#tIdeas").textContent=ideasCache.length; $("#tIdeas").nextElementSibling.textContent="Ideas published"; }
+function renderIdeas(){ const f=$("#ideaFilter").value; const list=ideasCache.filter(x=>f==="all"||x.status===f); $("#ideaGrid").innerHTML=list.map(x=>ideaCard(x)).join(""); $("#ideaEmpty").style.display=list.length?"none":"block"; $("#ideaCount").textContent=list.length?list.length+" shown":""; }
+$("#ideaFilter").addEventListener("change",renderIdeas);
+
+$("#ideaForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#ideaErr","#ideaOk"]); if(f.website.value) return; if(!user) return showErr("#ideaErr","Please sign in first.");
+  const v=k=>f[k].value.trim(); if(v("title").length<4||v("desc").length<20||v("problem").length<10||v("why").length<10||v("name").length<2) return showErr("#ideaErr","Please fill the required fields with a little more detail (title 4+, description 20+ characters).");
+  if(!f.consent.checked) return showErr("#ideaErr","Please accept the submission terms."); if(v("link")&&!/^https?:\/\//i.test(v("link"))) return showErr("#ideaErr","Reference link must start with http:// or https://");
+  const last=+(localStorage.getItem("cafe_idea_t")||0); if(Date.now()-last<60000) return showErr("#ideaErr","Please wait a minute between submissions.");
+  $("#ideaSubmit").disabled=true;
+  try{ const ref=await addDoc(collection(db,"cafe_ideas"),{ title:v("title").slice(0,80), desc:v("desc").slice(0,1200), problem:v("problem").slice(0,800), why:v("why").slice(0,800), cost:v("cost").slice(0,60), link:v("link").slice(0,300), name:v("name").slice(0,40), uid:user.uid, status:"submitted", createdAt:serverTimestamp() });
+    await setDoc(doc(db,"cafe_ideas_private",ref.id),{ email:user.email||"", uid:user.uid, createdAt:serverTimestamp() });
+    localStorage.setItem("cafe_idea_t",Date.now()); f.reset(); $("#ideaOk").textContent="Thank you — received. It's now 'Submitted' and will be reviewed; you'll see it here if shortlisted. Confirmation goes to "+user.email+"."; $("#ideaOk").classList.add("on"); toast("Idea submitted ✓"); }
+  catch(err){ showErr("#ideaErr","Couldn't save: "+(err.code||err.message)); }
+  $("#ideaSubmit").disabled=false; });
+
+/* ---------- voting ---------- */
+let currentRound=null, roundIdeas=[], myVote=null, selected=new Set(), tallies={};
+async function loadRounds(){ let rounds=[]; try{ const qs=await getDocs(query(collection(db,"cafe_rounds"),where("status","in",["open","closed","published"]),orderBy("opensAt","desc"),limit(20))); qs.forEach(d=>rounds.push({id:d.id,...d.data()})); }catch(e){ console.warn("rounds",e); }
+  const now=Date.now(); currentRound = rounds.find(r=>r.status==="open" && (!r.opensAt||r.opensAt.toMillis()<=now) && (!r.closesAt||r.closesAt.toMillis()>now)) || null;
+  const past = rounds.filter(r=>r!==currentRound);
+  if(currentRound){ roundIdeas = await fetchIdeas(currentRound.ideaIds||[]); await loadTallies(currentRound, roundIdeas, !!currentRound.showInterim); await renderVoteState(); }
+  else { $("#roundArea").innerHTML = `<div class="empty">No voting round is open right now. ${rounds.length?"Past rounds are below.":"The first round opens once enough ideas are shortlisted."}</div>`; }
+  $("#pastRounds").innerHTML = past.length ? `<h3 style="margin-top:20px">Past rounds</h3>` + past.map(r=>pastRoundHtml(r)).join("") : "";
+  for(const r of past){ if(r.status==="closed"){ const ids=await fetchIdeas(r.ideaIds||[]); await loadTallies(r,ids,true); const el=document.getElementById("pr_"+r.id); if(el) el.innerHTML=rankingHtml(ids.map(i=>({ideaId:i.id,title:i.title,votes:tallies[r.id+"_"+i.id]||0})), Object.values(tallies).length?null:0, "Round closed — results awaiting publication"); } else if(r.status==="published"&&r.results){ const ids=await fetchIdeas(r.ideaIds||[]); const el=document.getElementById("pr_"+r.id); if(el) el.innerHTML=publishedHtml(r,ids); } }
+}
+async function fetchIdeas(ids){ if(!ids.length) return []; const out=[]; for(let i=0;i<ids.length;i+=30){ const qs=await getDocs(query(collection(db,"cafe_ideas"),where(documentId(),"in",ids.slice(i,i+30)))); qs.forEach(d=>out.push({id:d.id,...d.data()})); } return ids.map(id=>out.find(o=>o.id===id)).filter(Boolean); }
+async function loadTallies(round, ideas, visible){ if(!visible) return; for(const i of ideas){ try{ const c=await getCountFromServer(query(collection(db,"cafe_votes"),where("roundId","==",round.id),where("ideaIds","array-contains",i.id))); tallies[round.id+"_"+i.id]=c.data().count; }catch(e){ tallies[round.id+"_"+i.id]=null; } } }
+async function renderVoteState(){ if(!currentRound) return; const r=currentRound; myVote=null; if(user){ try{ const d=await getDoc(doc(db,"cafe_votes",r.id+"_"+user.uid)); if(d.exists()) myVote=d.data(); }catch(e){} }
+  const max=r.maxSelections||3; const voted=!!myVote; if(voted) selected=new Set(myVote.ideaIds);
+  const interim=!!r.showInterim;
+  $("#roundArea").innerHTML = `<div class="vbox"><span class="tag y">ROUND OPEN</span> <span class="tag">closes ${fmtD(r.closesAt)}</span><h3 style="margin-top:8px">${esc(r.title)}</h3><p style="font-size:14.5px;margin-top:4px">${esc(r.desc||"")}</p>
+    <div class="rules"><b>Rules of this round</b><ul><li>Pick up to <b>${max}</b> ideas. One ballot per person; you can't change it after submitting.</li><li>You must be signed in (Google or email link). The database allows one ballot per account per round — enforced server-side.</li><li>${interim?"Interim counts are visible while voting is open.":"Counts stay hidden until the round closes."} Final results publish on ${fmtD(r.resultsAt)||"a date the team will announce"}.</li><li>Votes are advisory. Ideas that prove unsafe, unlawful or unaffordable will be explained, not quietly dropped.</li></ul></div>
+    ${voted?`<div class="ok on" style="margin-top:10px">You voted in this round (${myVote.ideaIds.length} idea${myVote.ideaIds.length===1?"":"s"}). Thank you — your ballot is locked.</div>`:""}
+    <div class="grid" id="voteGrid">${roundIdeas.map(i=>ideaCard(i,{vote:!voted,selected:selected.has(i.id),count:interim?(tallies[r.id+"_"+i.id]??null):null})).join("")}</div>
+    ${voted?"":`<div class="vbar"><div><b>${selected.size} / ${max} selected</b> <span style="font-size:13px;opacity:.8">· tap cards to choose</span></div><button class="btn" id="castVote" ${selected.size?"":"disabled"}>${user?"Cast my ballot":"Sign in to vote"}</button></div>`}
+  </div>`;
+  $$("[data-vote]").forEach(b=>b.addEventListener("click",()=>{ const id=b.dataset.vote; if(selected.has(id)) selected.delete(id); else { if(selected.size>=max) return toast(`Max ${max} ideas.`); selected.add(id); } renderVoteState(); }));
+  const cv=$("#castVote"); if(cv) cv.addEventListener("click",()=>requireAuth(castVote));
+}
+async function castVote(){ const r=currentRound; if(!selected.size) return; if(!confirm(`Cast ballot for ${selected.size} idea(s)? You can't change it afterwards.`)) return;
+  try{ await setDoc(doc(db,"cafe_votes",r.id+"_"+user.uid),{ roundId:r.id, uid:user.uid, ideaIds:[...selected], createdAt:serverTimestamp() }); toast("Ballot recorded ✓"); if(r.showInterim) await loadTallies(r,roundIdeas,true); await renderVoteState(); }
+  catch(e){ const msg = /permission|denied/i.test(e.code||e.message) ? "Rejected by the server — you may already have voted in this round, or the round is closed." : (e.code||e.message); toast("Vote not accepted: "+msg); } }
+function rankingHtml(rows,total,note){ const max=Math.max(1,...rows.map(x=>x.votes||0)); rows=rows.slice().sort((a,b)=>(b.votes||0)-(a.votes||0)); return `<p class="muted">${esc(note||"")}${total!=null?` · ${total} valid ballots`:""}</p>`+rows.map((x,i)=>`<div class="rank"><span class="n">${i+1}</span><span style="flex:1;min-width:120px">${esc(x.title)}</span><div class="bar2"><div style="width:${Math.round((x.votes||0)/max*100)}%"></div></div><b style="width:60px;text-align:right">${x.votes??"—"}</b></div>`).join(""); }
+function pastRoundHtml(r){ return `<div class="vbox"><span class="tag ${r.status==="published"?"g":"gr"}">${r.status==="published"?"RESULTS PUBLISHED":"CLOSED"}</span> <span class="muted">${fmtD(r.opensAt)} → ${fmtD(r.closesAt)}</span><h3 style="margin-top:6px">${esc(r.title)}</h3><div id="pr_${r.id}" class="muted">Loading…</div></div>`; }
+function publishedHtml(r,ideas){ const res=r.results; const byId=Object.fromEntries(ideas.map(i=>[i.id,i])); const rows=(res.ranking||[]).map(x=>({...x,title:byId[x.ideaId]?.title||x.ideaId}));
+  const dec = d => ({approved:'<span class="tag g">APPROVED</span>',needs_funding:'<span class="tag y">NEEDS FUNDING</span>',evaluating:'<span class="tag t">FURTHER EVALUATION</span>',declined:'<span class="tag gr">NOT POSSIBLE</span>'}[d]||'');
+  return rankingHtml(rows,res.totalVotes,"Final results · published "+fmtD(res.publishedAt)) + `<table style="margin-top:12px"><thead><tr><th>Idea</th><th class="num">Votes</th><th>Cost est.</th><th>Decision</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.title)}${x.winner?' 🏆':''}</td><td class="num">${x.votes}</td><td>${esc(x.cost||byId[x.ideaId]?.costEstimate||"—")}</td><td>${dec(x.decision)}${x.reason?`<div class="muted">${esc(x.reason)}</div>`:""}</td></tr>`).join("")}</tbody></table>${res.note?`<p style="margin-top:10px;font-size:14px">${esc(res.note)}</p>`:""}`; }
+
+/* ---------- interest / volunteer / operator ---------- */
+let amount=null; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; }));
+$("#btnInterest").addEventListener("click",()=>requireAuth(()=>{ openForm("#mInterest","#intWho"); if(amount&&amount!=="custom") $("#intForm").amount.value=amount; }));
+$("#intForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#intErr","#intOk"]); if(f.website.value) return; if(!user) return showErr("#intErr","Please sign in first."); const amt=Number(f.amount.value); if(!(amt>=1)) return showErr("#intErr","Enter an amount."); if(!f.consent.checked) return showErr("#intErr","Please tick the understanding box."); if(f.name.value.trim().length<2) return showErr("#intErr","Name please.");
+  $("#intSubmit").disabled=true; try{ const ref=await addDoc(collection(db,"cafe_interest"),{ uid:user.uid, email:user.email||"", name:f.name.value.trim().slice(0,60), amount:Math.round(amt), message:f.message.value.trim().slice(0,400), createdAt:serverTimestamp() }); await setDoc(doc(db,"cafe_interest_public",ref.id),{ amount:Math.round(amt), uid:user.uid, createdAt:serverTimestamp() }); f.reset(); $("#intOk").textContent="Registered. This is noted as interest only — nothing has been charged. We'll email you once when terms are published and contributions open."; $("#intOk").classList.add("on"); toast("Interest registered ✓"); loadTracker(); }catch(err){ showErr("#intErr","Couldn't save: "+(err.code||err.message)); } $("#intSubmit").disabled=false; });
+$("#volForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#volErr","#volOk"]); if(f.website.value) return; if(!user) return showErr("#volErr","Please sign in first."); if(f.offer.value.trim().length<10||f.name.value.trim().length<2) return showErr("#volErr","Tell us a little more."); if(!f.consent.checked) return showErr("#volErr","Please tick the consent box.");
+  $("#volSubmit").disabled=true; try{ await addDoc(collection(db,"cafe_volunteers"),{ uid:user.uid, email:user.email||"", name:f.name.value.trim().slice(0,60), offer:f.offer.value.trim().slice(0,800), availability:f.availability.value.trim().slice(0,120), createdAt:serverTimestamp() }); f.reset(); $("#volOk").textContent="Thank you. We'll be in touch by email."; $("#volOk").classList.add("on"); toast("Sent ✓"); }catch(err){ showErr("#volErr","Couldn't save: "+(err.code||err.message)); } $("#volSubmit").disabled=false; });
+$("#btnOperator").addEventListener("click",()=>requireAuth(()=>openForm("#mOperator","#opWho")));
+$("#opForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#opErr","#opOk"]); if(f.website.value) return; if(!user) return showErr("#opErr","Please sign in first."); const v=k=>f[k].value.trim(); for(const k of ["name","experience","availability","motivation","plan","sustain"]) if(v(k).length<(k==="name"||k==="availability"?2:30)) return showErr("#opErr","Please complete all required fields — plan, motivation, experience and sustainability need at least a few sentences."); if(!f.consent.checked) return showErr("#opErr","Please confirm the declaration.");
+  $("#opSubmit").disabled=true; try{ await addDoc(collection(db,"cafe_applications"),{ uid:user.uid, email:user.email||"", name:v("name").slice(0,80), phone:v("phone").slice(0,20), experience:v("experience").slice(0,1500), availability:v("availability").slice(0,200), motivation:v("motivation").slice(0,1200), plan:v("plan").slice(0,2000), sustain:v("sustain").slice(0,1500), other:v("other").slice(0,800), status:"submitted", createdAt:serverTimestamp() }); f.reset(); $("#opOk").textContent="Application received. Status: Submitted. We'll contact you by email as the published process moves forward."; $("#opOk").classList.add("on"); toast("Application submitted ✓"); }catch(err){ showErr("#opErr","Couldn't save: "+(err.code||err.message)); } $("#opSubmit").disabled=false; });
+
+/* ---------- updates / budget ---------- */
+async function loadUpdates(){ let ups=[]; try{ const qs=await getDocs(query(collection(db,"cafe_updates"),where("published","==",true),orderBy("date","desc"),limit(50))); qs.forEach(d=>ups.push({id:d.id,...d.data()})); }catch(e){ console.warn("updates",e); }
+  $("#updList").innerHTML=ups.map(u=>`<div class="upd"><div class="d">${fmtD(u.date)} · ${esc(u.category||"Update")}</div><h3>${esc(u.title)}</h3><p>${esc(u.body)}</p></div>`).join(""); $("#updEmpty").style.display=ups.length?"none":"block";
+  if(ups[0]) $("#latestUpd").innerHTML=`<b>${esc(ups[0].title)}</b><div class="muted">${fmtD(ups[0].date)}</div>`;
+  let planned={}, actual={}; try{ (await getDocs(collection(db,"cafe_budget"))).forEach(d=>{const x=d.data(); planned[x.category]=(planned[x.category]||0)+(Number(x.planned)||0);}); }catch(e){} try{ (await getDocs(collection(db,"cafe_expenses"))).forEach(d=>{const x=d.data(); actual[x.category]=(actual[x.category]||0)+(Number(x.amount)||0);}); }catch(e){}
+  const cats=[...new Set([...Object.keys(planned),...Object.keys(actual)])]; const tb=$("#budgetTbl tbody"); tb.innerHTML = cats.length ? cats.map(c=>`<tr><td>${esc(c)}</td><td class="num">${inr(planned[c]||0)}</td><td class="num">${inr(actual[c]||0)}</td></tr>`).join("")+`<tr><th>Total</th><th class="num">${inr(Object.values(planned).reduce((a,b)=>a+b,0))}</th><th class="num">${inr(Object.values(actual).reduce((a,b)=>a+b,0))}</th></tr>` : `<tr><td colspan="3" class="muted">No budget published yet. A proposed allocation will appear here before contributions open.</td></tr>`; }
+
+/* ---------- boot ---------- */
+(async()=>{ await loadConfig(); await Promise.all([loadTracker(), loadIdeas(), loadRounds(), loadUpdates()]); })();
+</script>
+</body>
+</html>

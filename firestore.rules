@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function verified() { return signedIn() && request.auth.token.email_verified == true; }
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function d() { return request.resource.data; }
+    function str(f, n) { return d()[f] is string && d()[f].size() <= n; }
+    function round(id) { return get(/databases/$(database)/documents/cafe_rounds/$(id)).data; }
+
+    // ---- admin registry: readable only by the account itself; written only via console ----
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // ---- existing site features ----
+    match /janta/{doc} {
+      allow read: if true;
+      allow create: if d().keys().hasOnly(['name','msg','t']) && d().msg is string && d().msg.size() > 0 && d().msg.size() <= 60 && d().name is string && d().name.size() <= 25 && d().t == request.time;
+      allow update, delete: if false;
+    }
+    match /visits/{doc} {
+      allow read: if true;
+      allow create: if d().keys().hasOnly(['t']) && d().t == request.time;
+      allow update, delete: if false;
+    }
+    match /noms/{doc} {
+      allow read: if true;
+      allow create: if d().keys().hasOnly(['who','what','dist','t']) && d().who is string && d().who.size() > 0 && d().who.size() <= 60 && d().what is string && d().what.size() > 0 && d().what.size() <= 200 && d().dist is string && d().dist.size() <= 30 && d().t == request.time;
+      allow update, delete: if false;
+    }
+
+    // ---- Aamcha Café ----
+    match /cafe_config/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /cafe_ideas/{id} {
+      allow read: if resource.data.status in ['shortlisted','open','winner','planned','implemented','not_selected']
+                  || isAdmin()
+                  || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if verified()
+                  && d().uid == request.auth.uid
+                  && d().status == 'submitted'
+                  && d().keys().hasOnly(['title','desc','problem','why','cost','link','name','uid','status','createdAt'])
+                  && str('title',80) && d().title.size() >= 4
+                  && str('desc',1200) && d().desc.size() >= 20
+                  && str('problem',800) && str('why',800) && str('cost',60) && str('link',300)
+                  && str('name',40) && d().name.size() >= 2
+                  && d().createdAt == request.time;
+      allow update, delete: if isAdmin();
+    }
+    match /cafe_ideas_private/{id} {
+      allow read: if isAdmin();
+      allow create: if verified() && d().uid == request.auth.uid && d().keys().hasOnly(['email','uid','createdAt']) && str('email',120);
+      allow update, delete: if false;
+    }
+
+    match /cafe_rounds/{id} {
+      allow read: if resource.data.status in ['open','closed','published'] || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /cafe_votes/{id} {
+      allow read: if isAdmin()
+                  || (signedIn() && resource.data.uid == request.auth.uid)
+                  || round(resource.data.roundId).showInterim == true
+                  || round(resource.data.roundId).status in ['closed','published'];
+      allow create: if verified()
+                  && d().keys().hasOnly(['roundId','uid','ideaIds','createdAt'])
+                  && d().uid == request.auth.uid
+                  && id == d().roundId + '_' + request.auth.uid
+                  && d().ideaIds is list
+                  && d().ideaIds.size() >= 1
+                  && d().ideaIds.size() <= round(d().roundId).maxSelections
+                  && d().ideaIds.toSet().size() == d().ideaIds.size()
+                  && round(d().roundId).ideaIds.toSet().hasAll(d().ideaIds.toSet())
+                  && round(d().roundId).status == 'open'
+                  && request.time >= round(d().roundId).opensAt
+                  && request.time <= round(d().roundId).closesAt
+                  && d().createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /cafe_interest/{id} {
+      allow read: if isAdmin();
+      allow create: if verified() && d().uid == request.auth.uid && d().email == request.auth.token.email
+                  && d().keys().hasOnly(['uid','email','name','amount','message','createdAt'])
+                  && str('name',60) && str('message',400) && d().amount is int && d().amount >= 1 && d().amount <= 10000000
+                  && d().createdAt == request.time;
+      allow update, delete: if false;
+    }
+    match /cafe_interest_public/{id} {
+      allow read: if true;
+      allow create: if verified() && d().uid == request.auth.uid && d().keys().hasOnly(['amount','uid','createdAt'])
+                  && d().amount is int && d().amount >= 1 && d().amount <= 10000000 && d().createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /cafe_volunteers/{id} {
+      allow read: if isAdmin();
+      allow create: if verified() && d().uid == request.auth.uid && d().email == request.auth.token.email
+                  && d().keys().hasOnly(['uid','email','name','offer','availability','createdAt'])
+                  && str('name',60) && str('offer',800) && str('availability',120) && d().createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    match /cafe_applications/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if verified() && d().uid == request.auth.uid && d().email == request.auth.token.email && d().status == 'submitted'
+                  && d().keys().hasOnly(['uid','email','name','phone','experience','availability','motivation','plan','sustain','other','status','createdAt'])
+                  && str('name',80) && str('phone',20) && str('experience',1500) && str('availability',200) && str('motivation',1200) && str('plan',2000) && str('sustain',1500) && str('other',800)
+                  && d().createdAt == request.time;
+      allow update: if isAdmin();
+      allow delete: if false;
+    }
+
+    match /cafe_contributions/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /cafe_contributions_private/{id} { allow read, write: if isAdmin(); }
+    match /cafe_refunds/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /cafe_updates/{id} { allow read: if resource.data.published == true || isAdmin(); allow write: if isAdmin(); }
+    match /cafe_budget/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /cafe_expenses/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /cafe_expenses_private/{id} { allow read, write: if isAdmin(); }
+
+    match /cafe_audit/{id} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() && d().uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+  }
+}
