@@ -32,6 +32,12 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    match /paani/{doc} {
+      allow read: if true;
+      allow create: if d().keys().hasOnly(['msg','t']) && d().msg is string && d().msg.size() >= 4 && d().msg.size() <= 140 && d().t == request.time;
+      allow update, delete: if false;
+    }
+
     // ---- Aamcha Café ----
     match /cafe_config/{doc} {
       allow read: if true;
