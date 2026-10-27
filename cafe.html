@@ -11,9 +11,9 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Aamcha Café — ₹100 each, one café for Mumbai, one of us runs it. A community-funded café by Asa Kela Pahije: contribute, pitch to operate it, vote on what goes in.">
-<meta property="og:title" content="Aamcha Café — ₹100, ek café, ek nava malak ☕">
-<meta property="og:description" content="₹25 lakh funds one café. One contributor is selected on merit to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh = one more café, one more operator.">
+<meta name="description" content="Aamcha Café — we fund one café for Mumbai together, and one of us runs it. A community-funded café by Asa Kela Pahije: contribute, pitch to operate it, vote on what goes in.">
+<meta property="og:title" content="Aamcha Café — Aapan milun ek café. Ek nava malak. ☕">
+<meta property="og:description" content="Thousands of us fund one café in Mumbai. One of us — chosen on merit — runs it in partnership with Asa Kela Pahije. Every extra ₹25 lakh = one more café, one more operator.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://asakelapahije.com/cafe.html">
 <link rel="canonical" href="https://asakelapahije.com/cafe.html">
@@ -156,6 +156,13 @@
   .pstep{background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:10px}
   .pstep b{display:block;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.04em}
   .pstep span{font-size:13px;color:#4a4238}
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:8px}
+  .tiers button{font-family:'Rubik',sans-serif;text-align:left;border:2.5px solid var(--ink);background:#fff;border-radius:12px;padding:12px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .1s}
+  .tiers button:hover{transform:translate(-1px,-1px)}
+  .tiers button.on{background:var(--yellow)}
+  .tiers b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
+  .tiers span{display:block;font-weight:600;font-size:14px;margin-top:4px}
+  .tiers small{display:block;font-size:12px;color:#7a7060;margin-top:2px}
   .terms{background:#fff8e6;border:2px dashed var(--brown);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:12px}
   .terms li{margin-left:18px;margin-top:4px}
   /* modal */
@@ -196,10 +203,10 @@
 <div class="hero">
   <div>
     <span class="tag y">COMMUNITY-FUNDED · MUMBAI</span>
-    <h1 style="margin-top:10px">₹100.<br>EK <span class="r">CAFÉ.</span><br>EK NAVA MALAK.</h1>
-    <p>Thousands of us put in ₹100 or more. That funds one café in Mumbai. Then <b>one of us</b> — chosen on merit, not by luck — gets to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh after that: one more café, one more person's dream.</p>
+    <h1 style="margin-top:10px">AAPAN MILUN<br>EK <span class="r">CAFÉ.</span><br>EK NAVA MALAK.</h1>
+    <p>Thousands of us chip in — whatever a café is worth to us. That funds one café in Mumbai. Then <b>one of us</b> — chosen on merit, not by luck — gets to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh after that: one more café, one more person's dream.</p>
     <div class="cta">
-      <a class="btn red" href="#contribute">🤝 Contribute ₹100+</a>
+      <a class="btn red" href="#contribute">🤝 Contribute</a>
       <a class="btn" href="#operator">👩‍🍳 I want to run it</a>
       <a class="btn ghost" href="#ideas">💡 Ideas & votes</a>
     </div>
@@ -222,14 +229,14 @@
     <div class="mathrow">
       <div class="mcell"><b>40 lakh</b><span>views on the reel that started this</span></div>
       <div class="mop">→</div>
-      <div class="mcell"><b>₹100</b><span>minimum contribution</span></div>
+      <div class="mcell"><b>₹500</b><span>average contribution (say)</span></div>
       <div class="mop">→</div>
-      <div class="mcell"><b id="mWhatIf">₹1 crore</b><span>if 1 in 4 viewers contributed</span></div>
+      <div class="mcell"><b id="mWhatIf">₹1 crore</b><span>if just 1 in 200 viewers contributed</span></div>
       <div class="mop">=</div>
       <div class="mcell"><b id="mCafes">4 cafés</b><span>4 operators, 4 neighbourhoods</span></div>
     </div>
     <div class="mathlive"><span class="tag t">RIGHT NOW</span> <b id="mNow">0 contributors · ₹0</b> <span class="muted">— that's the real number; everything to the left is arithmetic.</span></div>
-    <label style="margin-top:14px">Try it: if <input type="number" id="mInput" value="10000" min="0" style="width:120px;display:inline-block;margin:0 6px"> people contribute ₹100…</label>
+    <label style="margin-top:14px">Try it: if <input type="number" id="mInput" value="5000" min="0" style="width:110px;display:inline-block;margin:0 6px"> people give an average of ₹<input type="number" id="mAvg" value="500" min="100" style="width:90px;display:inline-block;margin:0 6px">…</label>
     <div class="muted" id="mOut" style="margin-top:6px"></div>
   </div>
 </section>
@@ -272,9 +279,9 @@
 <!-- PARTICIPATE -->
 <section id="participate">
   <h2>How to <span>take part</span></h2>
-  <p class="sub">It starts with ₹100. Everything else is optional.</p>
+  <p class="sub">It starts with a contribution. Everything else is optional.</p>
   <div class="steps">
-    <div class="step" data-go="#contribute"><div class="sn">1</div><div><h3>Contribute ₹100 or more</h3><p>Pick an amount, pay on the secure page. That's it — you've helped build a café. Your name goes on the public ledger (or stays anonymous, your call).</p></div></div>
+    <div class="step" data-go="#contribute"><div class="sn">1</div><div><h3>Contribute what the café is worth to you</h3><p>A tray of cups, a table, a whole corner — pick what you can stand behind and pay on the secure page. Your name goes on the public ledger (or stays anonymous, your call).</p></div></div>
     <div class="step" data-go="#operator"><div class="sn">2</div><div><h3>Want to run it? Pitch.</h3><p>Any contributor can apply with a plan. A named panel reviews every application, shortlists, and invites finalists to a <b>presentation day</b>. One person is selected on merit and operates the café in partnership with Asa Kela Pahije.</p></div></div>
     <div class="step" data-go="#ideas"><div class="sn">3</div><div><h3>Shape it: ideas & votes</h3><p>Suggest what the café should have. Shortlisted ideas go to a public vote. The operator builds what the community picked.</p></div></div>
     <div class="step" data-open="volunteer"><div class="sn">4</div><div><h3>Give time or things</h3><p>Design, furniture, a coffee machine, a space lead. Not everything is money.</p></div></div>
@@ -309,21 +316,29 @@
 
 <!-- CONTRIBUTE -->
 <section id="contribute">
-  <h2>Contribute — <span>₹100 minimum</span></h2>
+  <h2>Contribute — <span>what's your piece of it?</span></h2>
   <div class="card" id="contribCard">
     <div id="prelaunchNote">
       <span class="tag r">PAYMENTS OPEN SOON</span>
       <p style="margin-top:8px">The receiving entity, the no-refund terms and the "what if the café can't open" clause are being finalised and will be printed right here before the first rupee is taken. Until then, <b>register interest</b> — it costs nothing and we'll message you once when payments open.</p>
     </div>
     <div id="openNote" style="display:none"></div>
-    <div style="margin-top:12px"><b>Amount</b></div>
-    <div class="amts" id="amts"><button data-a="100" class="on">₹100</button><button data-a="500">₹500</button><button data-a="1000">₹1,000</button><button data-a="2500">₹2,500</button><button data-a="custom">Custom</button></div>
+    <div style="margin-top:12px"><b>Pick your piece of the café</b></div>
+    <div class="tiers" id="amts">
+      <button data-a="500" class="on"><b>₹500</b><span>☕ Ek tray of cups</span><small>the most common choice</small></button>
+      <button data-a="1000"><b>₹1,000</b><span>🪑 Ek khurchi</span><small>a chair with your story</small></button>
+      <button data-a="2500"><b>₹2,500</b><span>🍽️ Ek table</span><small>where strangers meet</small></button>
+      <button data-a="5000"><b>₹5,000</b><span>📚 Ek shelf</span><small>books, board games, zines</small></button>
+      <button data-a="10000"><b>₹10,000</b><span>🧱 Ek corner</span><small>a whole corner built on you</small></button>
+      <button data-a="custom"><b>Custom</b><span>🙏 Tumchi marzi</span><small>any amount from ₹100</small></button>
+    </div>
+    <p class="muted" style="margin-top:8px">The café needs ₹25 lakh. 5,000 people at ₹500 gets there; 25,000 at ₹100 does too — but the first is a lot more likely. Give what you'd happily explain to a friend.</p>
     <div class="terms" id="termsBox">
       <b>Read before you pay</b>
       <ul>
-        <li><b>No refunds.</b> Every contribution is final. Please contribute only what you're comfortable giving.</li>
+        <li><b>No refunds.</b> Every contribution is final (minimum ₹100). Please contribute only what you're comfortable giving.</li>
         <li>This is a contribution to a community project, not a purchase, loan or investment. You receive <b>no equity, profit share, interest or ownership</b>.</li>
-        <li>Contributing makes you <b>eligible to apply</b> to run the café. It does not improve your chances: selection is on merit by a published panel and a presentation day.</li>
+        <li>Contributing makes you <b>eligible to apply</b> to run the café. The amount does not improve your chances: selection is on merit by a published panel and a presentation day.</li>
         <li>Funds are received and held by <b id="tEntity">[entity name — to be published]</b> and used only for the café project as described on this page.</li>
         <li>If a café cannot open: <b id="tFailure">[policy to be published before payments open]</b>.</li>
         <li>Nothing here is tax-deductible unless stated in writing by the entity.</li>
@@ -343,7 +358,7 @@
   <p class="sub">The café gets built by the crowd. It gets run by one person from that crowd — the one with the best plan, not the biggest wallet.</p>
   <div class="card">
     <div class="process">
-      <div class="pstep"><b>1 · Contribute</b><span>₹100 or more makes you eligible. ₹1,00,000 makes you exactly as eligible.</span></div>
+      <div class="pstep"><b>1 · Contribute</b><span>Any contribution makes you eligible. A bigger one makes you exactly as eligible.</span></div>
       <div class="pstep"><b>2 · Apply</b><span>Experience, availability, a short operational plan, how you'd keep it sustainable.</span></div>
       <div class="pstep"><b>3 · Panel review</b><span>A named panel (published before selection) scores every application on the published criteria.</span></div>
       <div class="pstep"><b>4 · Presentation day</b><span>Shortlisted applicants present in person. The community is invited to watch.</span></div>
@@ -375,13 +390,13 @@
 <!-- FAQ -->
 <section id="faq" class="faq">
   <h2>Questions <span>people ask</span></h2>
-  <details><summary>What do I get for my ₹100?</summary><p>A café that exists because of you, your name on the public ledger if you want it, a vote on what goes inside, and the right to apply to run it. You do not get equity, profit, interest or ownership — and we say that everywhere so nobody is misled.</p></details>
+  <details><summary>What do I get for my contribution?</summary><p>A café that exists because of you, your name on the public ledger if you want it, a vote on what goes inside, and the right to apply to run it. You do not get equity, profit, interest or ownership — and we say that everywhere so nobody is misled.</p></details>
   <details><summary>Is there a refund?</summary><p>No. Contributions are final. The only "refund" lines you'll ever see in the ledger are payment-gateway reversals or duplicate-charge corrections. Please contribute only what you're comfortable giving.</p></details>
   <details><summary>Who picks the person who runs the café?</summary><p>A panel whose names and scoring criteria are published before selection. Applicants are shortlisted on the written plan and invited to a presentation day. The selection is on merit — it is not a draw, and contributing more does not help.</p></details>
   <details><summary>Does the selected person own the café?</summary><p>No. The café is owned by the Asa Kela Pahije entity that received the funds. The selected person operates it under a partnership agreement whose key terms (duration, revenue share, responsibilities, exit) are published.</p></details>
   <details><summary>Who holds the money?</summary><p>A registered entity, named on this page before payments open, in a ring-fenced account used only for the café project. Every rupee received and every rupee spent appears in the public ledger and expense table.</p></details>
   <details><summary>What if the café can't open?</summary><p>That is a real risk — rent, licences and permissions in Mumbai are not simple. The policy for that case will be printed in the terms before any money is taken. Until it is, payments stay closed.</p></details>
-  <details><summary>Is "₹1 crore, 4 cafés" real?</summary><p>No — it's arithmetic. The reel got about 40 lakh views; if one in four viewers contributed ₹100 that would be ₹1 crore, which funds four cafés at ₹25 lakh each. The only real number is the live counter above.</p></details>
+  <details><summary>Is "₹1 crore, 4 cafés" real?</summary><p>No — it's arithmetic. The reel got about 40 lakh views; if one in 200 viewers gave an average of ₹500, that would be ₹1 crore, which funds four cafés at ₹25 lakh each. The only real number is the live counter above.</p></details>
   <details><summary>How do you stop duplicate votes?</summary><p>You sign in (Google or email link) and the database allows one ballot per account per round, enforced on the server. Someone with many email accounts could still vote more than once — so results are advisory and the team retains judgement.</p></details>
   <details><summary>What do you do with my data?</summary><p>Email is used to confirm submissions, stop duplicate votes, match applications to contributions and tell you when things happen. It is not published, sold or shared. Card details never touch our site — payment happens on Razorpay's page.</p></details>
 </section>
@@ -498,7 +513,7 @@ const close = () => { $$(".mwrap").forEach(m=>m.classList.remove("on")); documen
 $$("[data-close]").forEach(b=>b.addEventListener("click",close));
 $$(".mwrap").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m) close(); }));
 $$(".step").forEach(c=>c.addEventListener("click",()=>{ if(c.dataset.go) location.hash=c.dataset.go; else if(c.dataset.open==="volunteer") requireAuth(()=>openForm("#mVolunteer","#volWho")); }));
-const mathOut=()=>{ const n=Math.max(0,+$("#mInput").value||0); const amt=n*100; const cafes=Math.floor(amt/2500000); $("#mOut").textContent = n.toLocaleString("en-IN")+" × ₹100 = "+inr(amt)+" → "+cafes+" café"+(cafes===1?"":"s")+(cafes?"" :" (first café needs 25,000 people at ₹100)"); }; $("#mInput").addEventListener("input",mathOut); mathOut();
+const mathOut=()=>{ const n=Math.max(0,+$("#mInput").value||0), a=Math.max(0,+$("#mAvg").value||0); const amt=n*a; const cafes=Math.floor(amt/2500000); const need=a?Math.ceil(2500000/a):0; $("#mOut").textContent = n.toLocaleString("en-IN")+" × "+inr(a)+" = "+inr(amt)+" → "+cafes+" café"+(cafes===1?"":"s")+(cafes?"" :" (at "+inr(a)+" each, the first café needs "+need.toLocaleString("en-IN")+" people)"); }; $("#mInput").addEventListener("input",mathOut); $("#mAvg").addEventListener("input",mathOut); mathOut();
 
 /* ---------- auth ---------- */
 let user = null; let pendingAction = null;
@@ -517,7 +532,7 @@ async function loadConfig(){ try{ const d=await getDoc(doc(db,"cafe_config","mai
   $("#msList").innerHTML = (cfg.milestones||[]).map(m=>`<li class="${m.done?'done':''}"><span class="dot"></span><span>${esc(m.label)}</span></li>`).join("");
   if(cfg.entityName) $("#tEntity").textContent=cfg.entityName; if(cfg.failurePolicy) $("#tFailure").textContent=cfg.failurePolicy;
   const canPay = !!(cfg.acceptingMoney && cfg.razorpayPageUrl && /^https:\/\/(pages\.razorpay\.com|rzp\.io)\//.test(cfg.razorpayPageUrl) && cfg.entityName && cfg.failurePolicy);
-  if(canPay){ $("#heroStatus").textContent="✅ Contributions open · ₹100 minimum · no refunds"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay on Razorpay's secure page.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").href=cfg.razorpayPageUrl; $("#btnInterest").style.display="none"; }
+  if(canPay){ $("#heroStatus").textContent="✅ Contributions open · no refunds"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay on Razorpay's secure page.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").href=cfg.razorpayPageUrl; $("#btnInterest").style.display="none"; }
   else if(cfg.acceptingMoney){ $("#heroStatus").textContent="⏳ Opening shortly — terms incomplete"; }
   if(cfg.policy) $("#tPolicy").textContent="Accounting policy: "+cfg.policy; }
 
@@ -605,7 +620,7 @@ function publishedHtml(r,ideas){ const res=r.results; const byId=Object.fromEntr
   return rankingHtml(rows,res.totalVotes,"Final results · published "+fmtD(res.publishedAt)) + `<table style="margin-top:12px"><thead><tr><th>Idea</th><th class="num">Votes</th><th>Cost est.</th><th>Decision</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.title)}${x.winner?' 🏆':''}</td><td class="num">${x.votes}</td><td>${esc(x.cost||byId[x.ideaId]?.costEstimate||"—")}</td><td>${dec(x.decision)}${x.reason?`<div class="muted">${esc(x.reason)}</div>`:""}</td></tr>`).join("")}</tbody></table>${res.note?`<p style="margin-top:10px;font-size:14px">${esc(res.note)}</p>`:""}`; }
 
 /* ---------- interest / volunteer / operator ---------- */
-let amount="100"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; const p=$("#btnPay"); if(p.style.display!=="none"&&amount!=="custom"){ const u=new URL(cfg.razorpayPageUrl); u.searchParams.set("amount",amount); p.href=u.toString(); } }));
+let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; const p=$("#btnPay"); if(p.style.display!=="none"&&amount!=="custom"){ const u=new URL(cfg.razorpayPageUrl); u.searchParams.set("amount",amount); p.href=u.toString(); } }));
 $("#btnInterest").addEventListener("click",()=>requireAuth(()=>{ openForm("#mInterest","#intWho"); if(amount&&amount!=="custom") $("#intForm").amount.value=amount; }));
 $("#intForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#intErr","#intOk"]); if(f.website.value) return; if(!user) return showErr("#intErr","Please sign in first."); const amt=Number(f.amount.value); if(!(amt>=1)) return showErr("#intErr","Enter an amount."); if(!f.consent.checked) return showErr("#intErr","Please tick the understanding box."); if(f.name.value.trim().length<2) return showErr("#intErr","Name please.");
   $("#intSubmit").disabled=true; try{ const ref=await addDoc(collection(db,"cafe_interest"),{ uid:user.uid, email:user.email||"", name:f.name.value.trim().slice(0,60), amount:Math.round(amt), message:f.message.value.trim().slice(0,400), createdAt:serverTimestamp() }); await setDoc(doc(db,"cafe_interest_public",ref.id),{ amount:Math.round(amt), uid:user.uid, createdAt:serverTimestamp() }); f.reset(); $("#intOk").textContent="Registered. This is noted as interest only — nothing has been charged. We'll email you once when terms are published and contributions open."; $("#intOk").classList.add("on"); toast("Interest registered ✓"); loadTracker(); }catch(err){ showErr("#intErr","Couldn't save: "+(err.code||err.message)); } $("#intSubmit").disabled=false; });
