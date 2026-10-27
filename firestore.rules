@@ -122,8 +122,8 @@ service cloud.firestore {
     match /cafe_applications/{id} {
       allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
       allow create: if verified() && d().uid == request.auth.uid && d().email == request.auth.token.email && d().status == 'submitted'
-                  && d().keys().hasOnly(['uid','email','name','phone','experience','availability','motivation','plan','sustain','other','status','createdAt'])
-                  && str('name',80) && str('phone',20) && str('experience',1500) && str('availability',200) && str('motivation',1200) && str('plan',2000) && str('sustain',1500) && str('other',800)
+                  && d().keys().hasOnly(['uid','email','name','phone','payEmail','experience','availability','motivation','plan','sustain','other','status','createdAt'])
+                  && str('name',80) && str('phone',20) && str('payEmail',120) && str('experience',1500) && str('availability',200) && str('motivation',1200) && str('plan',2000) && str('sustain',1500) && str('other',800)
                   && d().createdAt == request.time;
       allow update, delete: if isAdmin();
     }

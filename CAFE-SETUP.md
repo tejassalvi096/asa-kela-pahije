@@ -105,6 +105,13 @@ All test records were deleted afterwards (logged as `purge_test_data` in `cafe_a
 - Duplicate-vote prevention is per verified account, not per human.
 - All totals are computed in the browser from public ledger documents; fine at this scale, would need aggregation docs beyond a few thousand records.
 
+## 9a. Model change (27 Oct, evening) — contribution-first, merit-selected operator
+- Pay-what-you-wish removed. Minimum contribution ₹100, **no refunds** (stated in hero, terms box, FAQ, footer).
+- One contributor is selected to operate the café **on merit**: contribute → apply → panel review → presentation day → partnership agreement with the AKP entity (operates, does not own). Never random, never for sale — this keeps it a skill competition, not a lottery (Lotteries (Regulation) Act / Maharashtra ban; Razorpay prohibits prize/chance schemes).
+- "The math" section: 40 lakh views × ₹100 arithmetic, explicitly labelled a what-if, with the live real number beside it and an interactive calculator.
+- Payments: Razorpay **Payment Page** (hosted; no server needed). The Pay button only renders when config has `acceptingMoney=true`, `entityName`, `failurePolicy` and a valid `razorpayPageUrl` (pages.razorpay.com / rzp.io). Admin imports Razorpay's payment CSV (`captured` only, idempotent by payment id) so the tracker shows only money that landed.
+- Operator application now records the contribution email (`payEmail`) for matching.
+
 ## 10. Needs your approval before real fundraising opens
 1. Legal entity that receives and holds the funds (and its bank account).
 2. Permitted use of funds.
