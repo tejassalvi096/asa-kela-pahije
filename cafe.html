@@ -355,7 +355,7 @@
   <div class="card soft" style="margin-top:14px">
     <h3>Starter examples (not yet decided)</h3>
     <div class="grid" style="margin-top:8px" id="starterGrid"></div>
-    <p class="muted" style="margin-top:10px">These are prompts, not promises. They enter the register only if someone submits them and they pass review like any other idea.</p>
+    <p class="muted" style="margin-top:10px">One click proposes it under your sign-in name, subject to the same terms as any idea (may be published with your name, edited, merged, or declined with a reason). Prompts, not promises — they go through review like everything else.</p>
   </div>
 </section>
 
@@ -636,17 +636,23 @@ async function loadTracker(){
 
 /* ---------- ideas ---------- */
 const STARTERS = [
-  {t:"Pay-It-Forward Wall",d:"Prepay a chai, coffee or meal for someone who needs it. A token goes on the wall; anyone can take one.",ic:"🧱"},
-  {t:"The Stranger's Table",d:"One communal table where sitting down means you're open to a conversation with whoever else is there.",ic:"🪑"},
-  {t:"Take a Book, Leave a Book",d:"A shelf that runs itself. No library card, no late fees.",ic:"📚"},
-  {t:"The People's Gallery",d:"One wall, rotating every month, for local artists who've never had a show.",ic:"🖼️"},
-  {t:"The Neighbourhood Board",d:"Local events, services, skills, collaborators — a physical board, not an app.",ic:"📌"},
-  {t:"One Hour, One Talent",d:"A weekly slot for poetry, music, storytelling, anything performable, by anyone.",ic:"🎤"},
-  {t:"The Honest Menu",d:"Every item shows its real cost next to the pay-what-you-wish line.",ic:"🧾"},
-  {t:"The Community Classroom",d:"Small workshops taught by people from the neighbourhood, for the neighbourhood.",ic:"🧑‍🏫"}
+  {t:"Pay-It-Forward Wall",d:"Prepay a chai, coffee or meal for someone who needs it. A token goes on the wall; anyone can take one.",ic:"🧱",p:"Lets generosity be anonymous and dignified — nobody has to ask.",w:"A community-funded café should let the community keep funding each other, one cup at a time."},
+  {t:"The Stranger's Table",d:"One communal table where sitting down means you're open to a conversation with whoever else is there.",ic:"🪑",p:"Big-city loneliness; makes meeting new people low-stakes and optional.",w:"The café exists because strangers chipped in together — one table should keep that going."},
+  {t:"Take a Book, Leave a Book",d:"A shelf that runs itself. No library card, no late fees.",ic:"📚",p:"Books sit unread at home; here they circulate.",w:"Zero running cost, instant character, gives people a reason to linger."},
+  {t:"The People's Gallery",d:"One wall, rotating every month, for local artists who've never had a show.",ic:"🖼️",p:"First-time artists rarely get wall space; a café wall is the easiest gallery in the city.",w:"Keeps the room changing every month and brings the artist's friends through the door."},
+  {t:"The Neighbourhood Board",d:"Local events, services, skills, collaborators — a physical board, not an app.",ic:"📌",p:"Local information is scattered across WhatsApp groups; a board everyone passes fixes that.",w:"Makes the café the neighbourhood's notice board, which is what a community café should be."},
+  {t:"One Hour, One Talent",d:"A weekly slot for poetry, music, storytelling, anything performable, by anyone.",ic:"🎤",p:"People with something to perform have nowhere small enough to start.",w:"A weekly reason to come back, and it costs nothing but a chair and a corner."},
+  {t:"The Honest Menu",d:"Every item shows what it actually costs to make and serve, next to the price.",ic:"🧾",p:"Nobody knows why a coffee costs what it costs; showing it builds trust.",w:"A café funded in public should price in public too."},
+  {t:"The Community Classroom",d:"Small workshops taught by people from the neighbourhood, for the neighbourhood.",ic:"🧑‍🏫",p:"Skills exist locally but have no room to be shared.",w:"Weekday evenings are quiet anyway — turn them into something useful."}
 ];
 $("#starterGrid").innerHTML = STARTERS.map((s,i)=>`<div class="idea"><div class="img">${s.ic}</div><div class="bd"><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p><div class="meta"><span class="tag gr">EXAMPLE</span></div></div><div class="act"><button class="btn sm ghost" data-starter="${i}">Propose this one →</button></div></div>`).join("");
-$$("[data-starter]").forEach(b=>b.addEventListener("click",()=>{ const s=STARTERS[+b.dataset.starter]; requireAuth(()=>{ openForm("#mIdea","#ideaWho"); const f=$("#ideaForm"); f.title.value=s.t; f.desc.value=s.d; }); }));
+const markProposed=()=>{ $$("[data-starter]").forEach(b=>{ if(localStorage.getItem("cafe_starter_"+b.dataset.starter)){ b.textContent="Proposed ✓ (under review)"; b.disabled=true; } }); }; markProposed();
+$$("[data-starter]").forEach(b=>b.addEventListener("click",()=>{ const i=+b.dataset.starter, st=STARTERS[i]; requireAuth(async()=>{ if(localStorage.getItem("cafe_starter_"+i)) return; b.disabled=true; b.textContent="Proposing…";
+  try{ const nm=(user.displayName||(user.email||"").split("@")[0]||"Contributor").slice(0,40);
+    const ref=await addDoc(collection(db,"cafe_ideas"),{ title:st.t, desc:st.d, problem:st.p, why:st.w, cost:"", link:"", name:nm, uid:user.uid, status:"submitted", createdAt:serverTimestamp() });
+    await setDoc(doc(db,"cafe_ideas_private",ref.id),{ email:user.email||"", uid:user.uid, createdAt:serverTimestamp() });
+    localStorage.setItem("cafe_starter_"+i,"1"); b.textContent="Proposed ✓ (under review)"; toast("Proposed as "+nm+" ✓ — it goes to review, then to the vote."); }
+  catch(e){ b.disabled=false; b.textContent="Propose this one →"; toast("Couldn't propose: "+(e.code||e.message)); } }); }));
 $("#btnSubmitIdea").addEventListener("click",()=>requireAuth(()=>{ $("#ideaForm").reset(); openForm("#mIdea","#ideaWho"); }));
 
 let ideasCache=[];
