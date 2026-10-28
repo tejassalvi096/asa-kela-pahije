@@ -74,6 +74,16 @@
   /* tracker */
   .tracker{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
   @media(max-width:820px){.tracker{grid-template-columns:1fr}}
+  .cupwrap{display:flex;gap:14px;align-items:center;margin:10px 0 6px}
+  .cupsvg{width:84px;flex:none}
+  .clock{background:var(--ink);color:#fdf3dc;border:3px solid var(--yellow);border-radius:16px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .ck-t{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.06em;line-height:1}.ck-t span{color:var(--yellow)}
+  .ck-s{font-size:13.5px;color:#cfc4ae;margin-top:4px;max-width:420px}
+  .ck-r{display:flex;gap:10px}
+  .ck-r div{background:#2a2520;border:2px solid var(--yellow);border-radius:10px;padding:8px 12px;min-width:72px;text-align:center}
+  .ck-r b{display:block;font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;color:var(--yellow)}
+  .ck-r span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#cfc4ae}
+  .badge{font-size:11.5px;background:#fff3cd;border:1.5px solid var(--ink);border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:600;white-space:nowrap}
   .bar{height:22px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:10px 0 6px}
   .bar div{height:100%;background:repeating-linear-gradient(45deg,var(--yellow) 0 10px,#e9a21e 10px 20px);width:0%;transition:width .8s}
   .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
@@ -234,13 +244,21 @@
   </div>
 </div>
 
-<!-- TOP CONTRIBUTORS -->
+<!-- CLOCK -->
+<section id="clock">
+  <div class="clock">
+    <div class="ck-l"><div class="ck-t">365-DAY <span>CLOCK</span></div><div class="ck-s" id="ckSub">Starts ticking with the first contribution. Target not reached in time → everyone refunded.</div></div>
+    <div class="ck-r" id="ckDigits"><div><b>—</b><span>days</span></div><div><b>—</b><span>hours</span></div><div><b>—</b><span>mins</span></div></div>
+  </div>
+</section>
+
+<!-- WALL OF BUILDERS -->
 <section id="top">
-  <h2>Top <span>contributors</span></h2>
-  <p class="sub">Ranked by total given — contribute again any time and your rank climbs. Names as each person chose; updated from confirmed payments.</p>
+  <h2>Wall of <span>builders</span></h2>
+  <p class="sub">The 15 people who've put the most into this café — so far. Contribute again any time and your name climbs. Names as each person chose.</p>
   <div class="card">
     <div id="topList" class="topgrid"></div>
-    <div class="empty" id="topEmpty" style="display:none">The board is empty — the first name on it is yours for the taking.</div>
+    <div class="empty" id="topEmpty" style="display:none">The wall is bare. The first brick has a name on it — could be yours. 🧱</div>
   </div>
 </section>
 
@@ -265,7 +283,7 @@
 
 <!-- TRACKER -->
 <section id="tracker">
-  <h2>Funding <span>tracker</span></h2>
+  <h2>Kiti <span>jamla?</span></h2>
   <p class="sub">Every number here is computed from payments that actually landed in the account. Nothing is simulated.</p>
   <div class="tracker" style="margin-top:14px">
     <div class="card">
@@ -273,7 +291,7 @@
         <div><b class="bebas" style="font-size:30px" id="tRaised">₹0</b> <span class="muted">of ₹25,00,000</span></div>
         <div class="bebas" style="font-size:22px;color:var(--red)" id="tPct">0%</div>
       </div>
-      <div class="bar"><div id="tBar"></div></div>
+      <div class="cupwrap"><svg viewBox="0 0 120 110" class="cupsvg" aria-hidden="true"><defs><clipPath id="cupclip"><path d="M18 18 H88 V78 Q88 96 70 96 H36 Q18 96 18 78 Z"/></clipPath></defs><path d="M18 18 H88 V78 Q88 96 70 96 H36 Q18 96 18 78 Z" fill="#fff" stroke="#1d1a16" stroke-width="4"/><rect id="cupFill" x="18" y="96" width="70" height="0" fill="#6b3f1d" clip-path="url(#cupclip)"/><path d="M88 32 Q112 32 112 52 Q112 72 88 72" fill="none" stroke="#1d1a16" stroke-width="4"/><path d="M40 10 q4 -6 0 -10 M55 10 q4 -6 0 -10 M70 10 q4 -6 0 -10" fill="none" stroke="#9c917c" stroke-width="2.5" stroke-linecap="round"/><rect x="10" y="98" width="100" height="5" rx="2" fill="#1d1a16"/></svg><div style="flex:1"><div class="bar"><div id="tBar"></div></div><div class="muted" id="cupLine">Cup is empty. Pahila ghot tumcha?</div></div></div>
       <div class="stats">
         <div class="stat"><b id="tContrib">0</b><span>Verified contributors</span></div>
         <div class="stat"><b id="tInterest">0</b><span>Interest registrations</span></div>
@@ -295,7 +313,7 @@
       <h3 style="margin-top:14px">Refund guarantee</h3>
       <div class="guar" id="guarBox">
         <div><span>Held untouched, refundable</span><b id="gHeld">₹0</b></div>
-        <div><span>Target deadline</span><b id="gOuter">—</b></div>
+        <div><span>Target deadline (365 days from first contribution)</span><b id="gOuter">—</b></div>
         <div><span>Opening deadline</span><b id="gOpen">—</b></div>
       </div>
       <p class="muted" style="margin-top:6px">Not a rupee is spent before the target is reached. Miss a deadline → everyone is refunded within 15 days, net of gateway charges (~2–3%).</p>
@@ -307,7 +325,7 @@
 
 <!-- PARTICIPATE -->
 <section id="participate">
-  <h2>How to <span>take part</span></h2>
+  <h2>Kasa <span>bhag ghyaycha?</span></h2>
   <p class="sub">It starts with a contribution. Everything else is optional.</p>
   <div class="steps">
     <div class="step" data-go="#contribute"><div class="sn">1</div><div><h3>Contribute what the café is worth to you</h3><p>A tray of cups, a table, a whole corner — pick what you can stand behind and pay on the secure page. <b>40% comes back as café credit</b> when we open. Your name goes on the public ledger (or stays anonymous, your call).</p></div></div>
@@ -345,7 +363,7 @@
 
 <!-- CONTRIBUTE -->
 <section id="contribute">
-  <h2>Contribute — <span>what's your piece of it?</span></h2>
+  <h2>Tumcha tukda — <span>which piece is yours?</span></h2>
   <div class="card" id="contribCard">
     <div id="prelaunchNote">
       <span class="tag r">PAYMENTS OPEN SOON</span>
@@ -367,7 +385,7 @@
       <ul>
         <li><b>Café credit:</b> 40% of your contribution comes back as credit for food and drink at the café — non-transferable, not cashable, usable for up to 50% of any bill, valid 12 months from opening day. You'll see it under "My café credit" after signing in with the email you paid with.</li>
         <li><b>No refunds for change of mind.</b> Minimum ₹100.</li>
-        <li><b>Full refund if we don't deliver:</b> if the café does not open within <b>365 days</b> of the ₹25 lakh target being reached, or the target is not reached within <b>18 months</b> of launch (<span id="tOuter">date to be published</span>), every contribution is refunded <b>net of the payment-gateway charge</b> (about 2–3%, kept by Razorpay/banks, not by us) within 15 days, by the method you paid.</li>
+        <li><b>Full refund if we don't deliver:</b> if the café does not open within <b>365 days</b> of the ₹25 lakh target being reached, or the target is not reached within <b>365 days of the first contribution</b> (deadline: <span id="tOuter">starts with the first contribution</span>), every contribution is refunded <b>net of the payment-gateway charge</b> (about 2–3%, kept by Razorpay/banks, not by us) within 15 days, by the method you paid.</li>
         <li>Until the target is reached, funds are <b>held untouched</b> in a separate account of <b id="tEntity">[entity name — to be published]</b>. Scouting and early costs are borne by Asa Kela Pahije, not the fund.</li>
         <li>This is a contribution to a community project, not a purchase, loan or investment. You receive <b>no equity, profit share, interest or ownership</b>.</li>
         <li>Contributing makes you <b>eligible to apply</b> to run the café. The amount does not improve your chances: selection is on merit by a published panel and a presentation day.</li>
@@ -412,7 +430,7 @@
 
 <!-- UPDATES & TRANSPARENCY -->
 <section id="updates">
-  <h2>Updates & <span>transparency</span></h2>
+  <h2>Hishob — <span>updates & transparency</span></h2>
   <p class="sub">What's happening, what we planned to spend, what we actually spent. Planned budgets and verified actuals are kept apart on purpose.</p>
   <div id="updList"></div>
   <div class="empty" id="updEmpty" style="display:none">No project updates published yet.</div>
@@ -430,10 +448,10 @@
 
 <!-- FAQ -->
 <section id="faq" class="faq">
-  <h2>Questions <span>people ask</span></h2>
+  <h2>Prashna — <span>questions people ask</span></h2>
   <details><summary>What do I get for my contribution?</summary><p>40% of it back as café credit when the doors open (e.g. ₹2,500 → ₹1,000), your name on the public ledger if you want it, a vote on what goes inside, the right to apply to run it — and a café that exists because of you. You do not get equity, profit, interest or ownership.</p></details>
   <details><summary>How does the café credit work?</summary><p>It's a closed-loop credit usable only at the café: up to 50% of any bill, valid 12 months from opening day, non-transferable, never cashable. Sign in with the email you paid with and it shows under "My café credit". GST on what you order is included at the counter like any customer.</p></details>
-  <details><summary>Is there a refund?</summary><p>Not for change of mind. But if the café doesn't open within 365 days of the target being reached, or the target isn't reached within 18 months of launch, every contribution is refunded within 15 days, net of the payment-gateway charge (about 2–3%, which Razorpay and the banks keep — we don't). Until the target is hit the money sits untouched, so it's always there to give back.</p></details>
+  <details><summary>Is there a refund?</summary><p>Not for change of mind. But if the café doesn't open within 365 days of the target being reached, or the target isn't reached within 365 days of the first contribution, every contribution is refunded within 15 days, net of the payment-gateway charge (about 2–3%, which Razorpay and the banks keep — we don't). Until the target is hit the money sits untouched, so it's always there to give back.</p></details>
   <details><summary>Who picks the person who runs the café?</summary><p>A panel whose names and scoring criteria are published before selection. Applicants are shortlisted on the written plan and invited to a presentation day. The selection is on merit — it is not a draw, and contributing more does not help.</p></details>
   <details><summary>Does the selected person own the café?</summary><p>No. The café is owned by the Asa Kela Pahije entity that received the funds. The selected person operates it under a partnership agreement whose key terms (duration, revenue share, responsibilities, exit) are published.</p></details>
   <details><summary>Who holds the money?</summary><p>Our Dreamwork (a sole proprietorship of Tejas Salvi), in a separate account used only for the café. Nothing is spent before the target is reached. Every rupee received and every rupee spent appears in the public ledger and expense table.</p></details>
@@ -575,7 +593,7 @@ async function loadConfig(){ try{ const d=await getDoc(doc(db,"cafe_config","mai
   if(cfg.entityName) $("#tEntity").textContent=cfg.entityName; if(cfg.failurePolicy) $("#tFailure").textContent=cfg.failurePolicy;
   const ld = cfg.launchDate?.toDate ? cfg.launchDate.toDate() : (cfg.launchDate?new Date(cfg.launchDate):null); const tr = cfg.targetReachedAt?.toDate ? cfg.targetReachedAt.toDate() : (cfg.targetReachedAt?new Date(cfg.targetReachedAt):null);
   const dleft = d => { const n=Math.ceil((d-Date.now())/86400000); return n>=0 ? n+" days left" : "passed"; };
-  if(ld){ const outer=new Date(ld); outer.setMonth(outer.getMonth()+18); $("#tOuter").textContent=fmtD(outer); $("#gOuter").textContent=fmtD(outer)+" · "+dleft(outer); } else { $("#gOuter").textContent="set at launch"; }
+  window.__tr=tr; window.__ld=ld; window.__dleft=dleft;
   if(tr){ const open=new Date(tr.getTime()+365*86400000); $("#gOpen").textContent=fmtD(open)+" · "+dleft(open); } else { $("#gOpen").textContent="365 days after target"; }
   const canPay = !!(cfg.acceptingMoney && cfg.razorpayPageUrl && /^https:\/\/(pages\.razorpay\.com|rzp\.io)\//.test(cfg.razorpayPageUrl) && cfg.entityName && cfg.failurePolicy);
   if(canPay){ $("#heroStatus").textContent="✅ Contributions open · no refunds"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay on Razorpay's secure page.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").href=cfg.razorpayPageUrl; $("#btnInterest").style.display="none"; }
@@ -588,12 +606,22 @@ async function loadTracker(){
   try{ const rs=await getDocs(query(collection(db,"cafe_refunds"),orderBy("date","desc"))); rs.forEach(d=>{ const x=d.data(); rows.push({...x,id:d.id,kind:"r"}); ref+=Number(x.amount)||0; }); }catch(e){ console.warn("refunds",e); }
   let iCount=0,iSum=0; try{ const is=await getDocs(collection(db,"cafe_interest_public")); is.forEach(d=>{iCount++; iSum+=Number(d.data().amount)||0;}); }catch(e){ console.warn("interest",e); }
   const net=Math.max(0,conf-ref), target=cfg.target||TARGET_DEFAULT, pct=Math.min(100,Math.round(net/target*1000)/10);
+  // 365-day clock from the first confirmed contribution
+  const firstTs = rows.filter(r=>r.kind==="c"&&r.status==="confirmed"&&r.date?.toMillis).map(r=>r.date.toMillis()).sort((a,b)=>a-b)[0] || (cfg.firstContributionAt?.toMillis?.() ?? null);
+  const deadline = firstTs ? new Date(firstTs+365*86400000) : null;
+  if(deadline){ $("#tOuter").textContent=fmtD(deadline); $("#gOuter").textContent=fmtD(deadline)+" · "+window.__dleft(deadline); $("#ckSub").textContent="Started "+fmtD(new Date(firstTs))+" with the first contribution. Target by "+fmtD(deadline)+" — or everyone is refunded."; 
+    const tick=()=>{ let ms=deadline-Date.now(); if(ms<0) ms=0; const d=Math.floor(ms/86400000), h=Math.floor(ms%86400000/3600000), m=Math.floor(ms%3600000/60000); $("#ckDigits").innerHTML=`<div><b>${d}</b><span>days</span></div><div><b>${h}</b><span>hours</span></div><div><b>${m}</b><span>mins</span></div>`; }; tick(); setInterval(tick,30000); }
+  else { $("#gOuter").textContent="starts with the first contribution"; $("#ckDigits").innerHTML=`<div><b>365</b><span>days</span></div><div><b>0</b><span>hours</span></div><div><b>0</b><span>mins</span></div>`; }
+  // cup
+  const fill=$("#cupFill"); if(fill){ const hgt=Math.round(78*pct/100); fill.setAttribute("height",hgt); fill.setAttribute("y",96-hgt); }
+  $("#cupLine").textContent = pct>=100 ? "Cup bharla. ☕ Target reached!" : pct>=50 ? "Ardha cup zala — ata ghai." : pct>0 ? "Pahila ghot padla. Cup bharayla "+inr(target-net)+" baki." : "Cup is empty. Pahila ghot tumcha?";
   $("#gHeld").textContent=inr(net); $("#heroRaised").textContent=inr(net); $("#tRaised").textContent=inr(net); $("#heroCafes").textContent="Cafés fully funded so far: "+Math.floor(net/target); $("#mNow").textContent=contributors.size.toLocaleString("en-IN")+" contributor"+(contributors.size===1?"":"s")+" · "+inr(net); $("#tPct").textContent=pct+"%"; $("#tBar").style.width=pct+"%";
   $("#tContrib").textContent=contributors.size; $("#tInterest").textContent=iCount;
   $("#lInterest").textContent=`${iCount} people · ${inr(iSum)} indicated`; $("#lInit").textContent=inr(init); $("#lConf").textContent=inr(conf); $("#lRef").textContent="−"+inr(ref); $("#lNet").textContent=inr(net);
   const agg={}; rows.filter(r=>r.kind==="c"&&r.status==="confirmed").forEach(r=>{ const k=r.contributorKey||r.id; agg[k]=agg[k]||{name:r.displayName||"Anonymous",amt:0}; agg[k].amt+=Number(r.amount)||0; }); const refByC={}; rows.filter(r=>r.kind==="r").forEach(r=>{ refByC[r.contributionId]=(refByC[r.contributionId]||0)+(Number(r.amount)||0); }); rows.filter(r=>r.kind==="c"&&refByC[r.id]).forEach(r=>{ const k=r.contributorKey||r.id; if(agg[k]) agg[k].amt-=refByC[r.id]; });
   const top=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt).slice(0,15); const medal=i=>i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
-  $("#topList").innerHTML=top.map((x,i)=>`<div class="top"><span class="rk">${medal(i)}</span><span class="nm">${esc(x.name)}</span><span class="am">${inr(x.amt)}</span></div>`).join(""); $("#topEmpty").style.display=top.length?"none":"block";
+  const badge=a=>a>=10000?"🧱 Corner":a>=5000?"📚 Shelf":a>=2500?"🍽️ Table":a>=1000?"🪑 Khurchi":"☕ Cup";
+  $("#topList").innerHTML=top.map((x,i)=>`<div class="top"><span class="rk">${medal(i)}</span><span class="nm">${esc(x.name)}<span class="badge">${badge(x.amt)}</span></span><span class="am">${inr(x.amt)}</span></div>`).join(""); $("#topEmpty").style.display=top.length?"none":"block";
   rows.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0));
   const tb=$("#ledgerTbl tbody"); tb.innerHTML = rows.length ? rows.map(r=>`<tr><td>${fmtD(r.date)}</td><td>${esc(r.kind==="r"?"Refund"+(r.reason?" — "+r.reason:""):(r.displayName||"Anonymous"))}</td><td class="num">${r.kind==="r"?"−":""}${inr(r.amount)}</td><td>${r.kind==="r"?'<span class="tag gr">REFUND</span>':(r.status==="confirmed"?'<span class="tag g">CONFIRMED</span>':'<span class="tag y">INITIATED</span>')}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">No contributions recorded. Pre-launch.</td></tr>`;
 }
