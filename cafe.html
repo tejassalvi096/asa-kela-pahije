@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Aamcha Café — we fund one café for Mumbai together, and one of us runs it. A community-funded café by Asa Kela Pahije: contribute, pitch to operate it, vote on what goes in.">
 <meta property="og:title" content="Aamcha Café — Aapan milun ek café. Ek nava malak. ☕">
-<meta property="og:description" content="Thousands of us fund one café in Mumbai. One of us — chosen on merit — runs it in partnership with Asa Kela Pahije. Every extra ₹25 lakh = one more café, one more operator.">
+<meta property="og:description" content="Contribute, get 40% back as café credit, full refund if the café never opens. Thousands of us fund one café in Mumbai. One of us — chosen on merit — runs it in partnership with Asa Kela Pahije. Every extra ₹25 lakh = one more café, one more operator.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://asakelapahije.com/cafe.html">
 <link rel="canonical" href="https://asakelapahije.com/cafe.html">
@@ -163,6 +163,11 @@
   .tiers b{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1}
   .tiers span{display:block;font-weight:600;font-size:14px;margin-top:4px}
   .tiers small{display:block;font-size:12px;color:#7a7060;margin-top:2px}
+  .tiers em{display:block;font-style:normal;font-weight:800;font-size:12.5px;color:var(--teal);margin-top:6px}
+  .guar div{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;padding:4px 0;border-bottom:1px dashed #cfc4ae}
+  .guar b{font-family:'Bebas Neue',sans-serif;font-size:18px}
+  .credit{background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px}
+  .credit b{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--teal)}
   .terms{background:#fff8e6;border:2px dashed var(--brown);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:12px}
   .terms li{margin-left:18px;margin-top:4px}
   /* modal */
@@ -204,13 +209,13 @@
   <div>
     <span class="tag y">COMMUNITY-FUNDED · MUMBAI</span>
     <h1 style="margin-top:10px">AAPAN MILUN<br>EK <span class="r">CAFÉ.</span><br>EK NAVA MALAK.</h1>
-    <p>Thousands of us chip in — whatever a café is worth to us. That funds one café in Mumbai. Then <b>one of us</b> — chosen on merit, not by luck — gets to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh after that: one more café, one more person's dream.</p>
+    <p>Thousands of us chip in — whatever a café is worth to us. <b>40% of what you give comes back as café credit</b> once the doors open, and if they never do, you get it all back. That funds one café in Mumbai. Then <b>one of us</b> — chosen on merit, not by luck — gets to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh after that: one more café, one more person's dream.</p>
     <div class="cta">
       <a class="btn red" href="#contribute">🤝 Contribute</a>
       <a class="btn" href="#operator">👩‍🍳 I want to run it</a>
       <a class="btn ghost" href="#ideas">💡 Ideas & votes</a>
     </div>
-    <p class="muted" style="margin-top:10px">Contributions are final (no refunds). No equity, no returns. Paying does not pick the operator — a published panel and a presentation day do.</p>
+    <p class="muted" style="margin-top:10px">No refunds for change of mind — but a full refund if the café doesn't open on time. No equity, no returns. Paying does not pick the operator — a published panel and a presentation day do.</p>
   </div>
   <div class="cup">
     <div class="lbl">First café — target</div>
@@ -265,11 +270,18 @@
         <div><span>5. Refunds issued</span><b id="lRef">−₹0</b></div>
         <div style="border-top:2px solid var(--ink);margin-top:4px;padding-top:6px"><span><b>Net funding (4 − 5)</b></span><b id="lNet">₹0</b></div>
       </div>
-      <p class="muted" style="margin-top:8px" id="tPolicy">Accounting policy: only payments confirmed by the payment gateway count. Contributions are non-refundable; a refund line exists only for gateway reversals or errors. Full ledger below.</p>
+      <p class="muted" style="margin-top:8px" id="tPolicy">Accounting policy: only payments confirmed by the payment gateway count. Refund lines appear for gateway reversals, errors, or if a deadline is missed. Full ledger below.</p>
     </div>
     <div class="card soft">
       <h3>Milestones</h3>
       <ul class="ms" id="msList"></ul>
+      <h3 style="margin-top:14px">Refund guarantee</h3>
+      <div class="guar" id="guarBox">
+        <div><span>Held untouched, refundable</span><b id="gHeld">₹0</b></div>
+        <div><span>Target deadline</span><b id="gOuter">—</b></div>
+        <div><span>Opening deadline</span><b id="gOpen">—</b></div>
+      </div>
+      <p class="muted" style="margin-top:6px">Not a rupee is spent before the target is reached. Miss a deadline → everyone is refunded in full within 15 days.</p>
       <h3 style="margin-top:14px">Latest update</h3>
       <div id="latestUpd" class="muted">No updates yet.</div>
     </div>
@@ -281,7 +293,7 @@
   <h2>How to <span>take part</span></h2>
   <p class="sub">It starts with a contribution. Everything else is optional.</p>
   <div class="steps">
-    <div class="step" data-go="#contribute"><div class="sn">1</div><div><h3>Contribute what the café is worth to you</h3><p>A tray of cups, a table, a whole corner — pick what you can stand behind and pay on the secure page. Your name goes on the public ledger (or stays anonymous, your call).</p></div></div>
+    <div class="step" data-go="#contribute"><div class="sn">1</div><div><h3>Contribute what the café is worth to you</h3><p>A tray of cups, a table, a whole corner — pick what you can stand behind and pay on the secure page. <b>40% comes back as café credit</b> when we open. Your name goes on the public ledger (or stays anonymous, your call).</p></div></div>
     <div class="step" data-go="#operator"><div class="sn">2</div><div><h3>Want to run it? Pitch.</h3><p>Any contributor can apply with a plan. A named panel reviews every application, shortlists, and invites finalists to a <b>presentation day</b>. One person is selected on merit and operates the café in partnership with Asa Kela Pahije.</p></div></div>
     <div class="step" data-go="#ideas"><div class="sn">3</div><div><h3>Shape it: ideas & votes</h3><p>Suggest what the café should have. Shortlisted ideas go to a public vote. The operator builds what the community picked.</p></div></div>
     <div class="step" data-open="volunteer"><div class="sn">4</div><div><h3>Give time or things</h3><p>Design, furniture, a coffee machine, a space lead. Not everything is money.</p></div></div>
@@ -325,23 +337,25 @@
     <div id="openNote" style="display:none"></div>
     <div style="margin-top:12px"><b>Pick your piece of the café</b></div>
     <div class="tiers" id="amts">
-      <button data-a="500" class="on"><b>₹500</b><span>☕ Ek tray of cups</span><small>the most common choice</small></button>
-      <button data-a="1000"><b>₹1,000</b><span>🪑 Ek khurchi</span><small>a chair with your story</small></button>
-      <button data-a="2500"><b>₹2,500</b><span>🍽️ Ek table</span><small>where strangers meet</small></button>
-      <button data-a="5000"><b>₹5,000</b><span>📚 Ek shelf</span><small>books, board games, zines</small></button>
-      <button data-a="10000"><b>₹10,000</b><span>🧱 Ek corner</span><small>a whole corner built on you</small></button>
-      <button data-a="custom"><b>Custom</b><span>🙏 Tumchi marzi</span><small>any amount from ₹100</small></button>
+      <button data-a="500" class="on"><b>₹500</b><span>☕ Ek tray of cups</span><small>the most common choice</small><em>→ ₹200 café credit</em></button>
+      <button data-a="1000"><b>₹1,000</b><span>🪑 Ek khurchi</span><small>a chair with your story</small><em>→ ₹400 café credit</em></button>
+      <button data-a="2500"><b>₹2,500</b><span>🍽️ Ek table</span><small>where strangers meet</small><em>→ ₹1,000 café credit</em></button>
+      <button data-a="5000"><b>₹5,000</b><span>📚 Ek shelf</span><small>books, board games, zines</small><em>→ ₹2,000 café credit</em></button>
+      <button data-a="10000"><b>₹10,000</b><span>🧱 Ek corner</span><small>a whole corner built on you</small><em>→ ₹4,000 café credit</em></button>
+      <button data-a="custom"><b>Custom</b><span>🙏 Tumchi marzi</span><small>any amount from ₹100</small><em>→ 40% café credit</em></button>
     </div>
-    <p class="muted" style="margin-top:8px">The café needs ₹25 lakh. 5,000 people at ₹500 gets there; 25,000 at ₹100 does too — but the first is a lot more likely. Give what you'd happily explain to a friend.</p>
+    <p class="muted" style="margin-top:8px">The café needs ₹25 lakh. 5,000 people at ₹500 gets there; 25,000 at ₹100 does too — but the first is a lot more likely. Give what you'd happily explain to a friend. <span id="creditCalc"></span></p>
     <div class="terms" id="termsBox">
       <b>Read before you pay</b>
       <ul>
-        <li><b>No refunds.</b> Every contribution is final (minimum ₹100). Please contribute only what you're comfortable giving.</li>
+        <li><b>Café credit:</b> 40% of your contribution comes back as credit for food and drink at the café — non-transferable, not cashable, usable for up to 50% of any bill, valid 12 months from opening day. You'll see it under "My café credit" after signing in with the email you paid with.</li>
+        <li><b>No refunds for change of mind.</b> Minimum ₹100.</li>
+        <li><b>Full refund if we don't deliver:</b> if the café does not open within <b>365 days</b> of the ₹25 lakh target being reached, or the target is not reached within <b>18 months</b> of launch (<span id="tOuter">date to be published</span>), every contribution is refunded in full — including gateway charges, which we absorb — within 15 days, by the method you paid.</li>
+        <li>Until the target is reached, funds are <b>held untouched</b> in a separate account of <b id="tEntity">[entity name — to be published]</b>. Scouting and early costs are borne by Asa Kela Pahije, not the fund.</li>
         <li>This is a contribution to a community project, not a purchase, loan or investment. You receive <b>no equity, profit share, interest or ownership</b>.</li>
         <li>Contributing makes you <b>eligible to apply</b> to run the café. The amount does not improve your chances: selection is on merit by a published panel and a presentation day.</li>
-        <li>Funds are received and held by <b id="tEntity">[entity name — to be published]</b> and used only for the café project as described on this page.</li>
-        <li>If a café cannot open: <b id="tFailure">[policy to be published before payments open]</b>.</li>
-        <li>Nothing here is tax-deductible unless stated in writing by the entity.</li>
+        <li>If the café cannot open: <b id="tFailure">[policy to be published before payments open]</b>.</li>
+        <li>Indian residents only. Nothing here is tax-deductible unless stated in writing by the entity.</li>
       </ul>
     </div>
     <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
@@ -349,6 +363,16 @@
       <button class="btn" id="btnInterest">🔔 Register interest</button>
       <span class="muted" id="payNote">Payment runs on Razorpay's own page — card, UPI, netbanking. We never see your card details.</span>
     </div>
+  </div>
+</section>
+
+<!-- MY CREDIT -->
+<section id="mycredit">
+  <h2>My café <span>credit</span></h2>
+  <div class="card">
+    <p class="muted">Sign in with the email you used to pay. Credits appear here once your payment is reconciled (usually within a day).</p>
+    <div style="margin-top:10px"><button class="btn sm" id="btnMyCredit">Show my credit</button></div>
+    <div id="creditList" style="margin-top:12px"></div>
   </div>
 </section>
 
@@ -390,11 +414,12 @@
 <!-- FAQ -->
 <section id="faq" class="faq">
   <h2>Questions <span>people ask</span></h2>
-  <details><summary>What do I get for my contribution?</summary><p>A café that exists because of you, your name on the public ledger if you want it, a vote on what goes inside, and the right to apply to run it. You do not get equity, profit, interest or ownership — and we say that everywhere so nobody is misled.</p></details>
-  <details><summary>Is there a refund?</summary><p>No. Contributions are final. The only "refund" lines you'll ever see in the ledger are payment-gateway reversals or duplicate-charge corrections. Please contribute only what you're comfortable giving.</p></details>
+  <details><summary>What do I get for my contribution?</summary><p>40% of it back as café credit when the doors open (e.g. ₹2,500 → ₹1,000), your name on the public ledger if you want it, a vote on what goes inside, the right to apply to run it — and a café that exists because of you. You do not get equity, profit, interest or ownership.</p></details>
+  <details><summary>How does the café credit work?</summary><p>It's a closed-loop credit usable only at the café: up to 50% of any bill, valid 12 months from opening day, non-transferable, never cashable. Sign in with the email you paid with and it shows under "My café credit". GST on what you order is included at the counter like any customer.</p></details>
+  <details><summary>Is there a refund?</summary><p>Not for change of mind. But if the café doesn't open within 365 days of the target being reached, or the target isn't reached within 18 months of launch, every contribution is refunded in full within 15 days — gateway fees included, we absorb them. Until the target is hit the money sits untouched, so it's always there to give back.</p></details>
   <details><summary>Who picks the person who runs the café?</summary><p>A panel whose names and scoring criteria are published before selection. Applicants are shortlisted on the written plan and invited to a presentation day. The selection is on merit — it is not a draw, and contributing more does not help.</p></details>
   <details><summary>Does the selected person own the café?</summary><p>No. The café is owned by the Asa Kela Pahije entity that received the funds. The selected person operates it under a partnership agreement whose key terms (duration, revenue share, responsibilities, exit) are published.</p></details>
-  <details><summary>Who holds the money?</summary><p>A registered entity, named on this page before payments open, in a ring-fenced account used only for the café project. Every rupee received and every rupee spent appears in the public ledger and expense table.</p></details>
+  <details><summary>Who holds the money?</summary><p>Our Dreamwork (a sole proprietorship of Tejas Salvi), in a separate account used only for the café. Nothing is spent before the target is reached. Every rupee received and every rupee spent appears in the public ledger and expense table.</p></details>
   <details><summary>What if the café can't open?</summary><p>That is a real risk — rent, licences and permissions in Mumbai are not simple. The policy for that case will be printed in the terms before any money is taken. Until it is, payments stay closed.</p></details>
   <details><summary>Is "₹1 crore, 4 cafés" real?</summary><p>No — it's arithmetic. The reel got about 40 lakh views; if one in 200 viewers gave an average of ₹500, that would be ₹1 crore, which funds four cafés at ₹25 lakh each. The only real number is the live counter above.</p></details>
   <details><summary>How do you stop duplicate votes?</summary><p>You sign in (Google or email link) and the database allows one ballot per account per round, enforced on the server. Someone with many email accounts could still vote more than once — so results are advisory and the team retains judgement.</p></details>
@@ -404,7 +429,7 @@
 <footer>
   <div class="fcredit">★ A PROJECT BY ASA KELA PAHIJE ★</div>
   <div style="margin-bottom:8px"><a href="https://www.instagram.com/asakelapahije/" target="_blank" rel="noopener">📸 Instagram var bhetuya → @asakelapahije</a></div>
-  Aamcha Café is a community-funded project. Contributions are voluntary, non-refundable, and confer no equity, returns or ownership. Nothing on this page is an offer of securities, a loan or an investment. Operator selection is merit-based under a published process. Figures marked "verified" come from confirmed payments; projections are arithmetic, not promises.<br><br>
+  Aamcha Café is a community-funded project. Contributions are voluntary, carry 40% café credit, are refundable in full only if published deadlines are missed, and confer no equity, returns or ownership. Nothing on this page is an offer of securities, a loan or an investment. Operator selection is merit-based under a published process. Figures marked "verified" come from confirmed payments; projections are arithmetic, not promises.<br><br>
   Questions, corrections or data requests: DM @asakelapahije on Instagram. <a href="cafe-admin.html" style="color:#9c917c">admin</a>
 </footer>
 </div>
@@ -527,10 +552,14 @@ if (isSignInWithEmailLink(auth, location.href)) { let em = localStorage.getItem(
 onAuthStateChanged(auth, u => { user = u; if(u && pendingAction){ const f=pendingAction; pendingAction=null; close(); f(); } renderVoteState(); });
 
 /* ---------- config / tracker ---------- */
-let cfg = { target: TARGET_DEFAULT, acceptingMoney:false, entityName:"", failurePolicy:"", razorpayPageUrl:"", milestones:[ {label:"₹5 lakh — location scouting begins",done:false},{label:"₹12.5 lakh — lease & fit-out budget locked",done:false},{label:"₹25 lakh — target reached, fit-out starts",done:false},{label:"Operator selected under published process",done:false},{label:"Opening day",done:false} ] };
+let cfg = { target: TARGET_DEFAULT, acceptingMoney:false, entityName:"", failurePolicy:"", razorpayPageUrl:"", launchDate:null, targetReachedAt:null, creditPct:40, milestones:[ {label:"₹5 lakh — location scouting begins (our cost, not the fund)",done:false},{label:"₹12.5 lakh — lease & fit-out budget locked",done:false},{label:"₹25 lakh — target reached, fit-out starts",done:false},{label:"Operator selected under published process",done:false},{label:"Opening day",done:false} ] };
 async function loadConfig(){ try{ const d=await getDoc(doc(db,"cafe_config","main")); if(d.exists()) cfg={...cfg,...d.data()}; }catch(e){} 
   $("#msList").innerHTML = (cfg.milestones||[]).map(m=>`<li class="${m.done?'done':''}"><span class="dot"></span><span>${esc(m.label)}</span></li>`).join("");
   if(cfg.entityName) $("#tEntity").textContent=cfg.entityName; if(cfg.failurePolicy) $("#tFailure").textContent=cfg.failurePolicy;
+  const ld = cfg.launchDate?.toDate ? cfg.launchDate.toDate() : (cfg.launchDate?new Date(cfg.launchDate):null); const tr = cfg.targetReachedAt?.toDate ? cfg.targetReachedAt.toDate() : (cfg.targetReachedAt?new Date(cfg.targetReachedAt):null);
+  const dleft = d => { const n=Math.ceil((d-Date.now())/86400000); return n>=0 ? n+" days left" : "passed"; };
+  if(ld){ const outer=new Date(ld); outer.setMonth(outer.getMonth()+18); $("#tOuter").textContent=fmtD(outer); $("#gOuter").textContent=fmtD(outer)+" · "+dleft(outer); } else { $("#gOuter").textContent="set at launch"; }
+  if(tr){ const open=new Date(tr.getTime()+365*86400000); $("#gOpen").textContent=fmtD(open)+" · "+dleft(open); } else { $("#gOpen").textContent="365 days after target"; }
   const canPay = !!(cfg.acceptingMoney && cfg.razorpayPageUrl && /^https:\/\/(pages\.razorpay\.com|rzp\.io)\//.test(cfg.razorpayPageUrl) && cfg.entityName && cfg.failurePolicy);
   if(canPay){ $("#heroStatus").textContent="✅ Contributions open · no refunds"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay on Razorpay's secure page.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").href=cfg.razorpayPageUrl; $("#btnInterest").style.display="none"; }
   else if(cfg.acceptingMoney){ $("#heroStatus").textContent="⏳ Opening shortly — terms incomplete"; }
@@ -542,7 +571,7 @@ async function loadTracker(){
   try{ const rs=await getDocs(query(collection(db,"cafe_refunds"),orderBy("date","desc"))); rs.forEach(d=>{ const x=d.data(); rows.push({...x,id:d.id,kind:"r"}); ref+=Number(x.amount)||0; }); }catch(e){ console.warn("refunds",e); }
   let iCount=0,iSum=0; try{ const is=await getDocs(collection(db,"cafe_interest_public")); is.forEach(d=>{iCount++; iSum+=Number(d.data().amount)||0;}); }catch(e){ console.warn("interest",e); }
   const net=Math.max(0,conf-ref), target=cfg.target||TARGET_DEFAULT, pct=Math.min(100,Math.round(net/target*1000)/10);
-  $("#heroRaised").textContent=inr(net); $("#tRaised").textContent=inr(net); $("#heroCafes").textContent="Cafés fully funded so far: "+Math.floor(net/target); $("#mNow").textContent=contributors.size.toLocaleString("en-IN")+" contributor"+(contributors.size===1?"":"s")+" · "+inr(net); $("#tPct").textContent=pct+"%"; $("#tBar").style.width=pct+"%";
+  $("#gHeld").textContent=inr(net); $("#heroRaised").textContent=inr(net); $("#tRaised").textContent=inr(net); $("#heroCafes").textContent="Cafés fully funded so far: "+Math.floor(net/target); $("#mNow").textContent=contributors.size.toLocaleString("en-IN")+" contributor"+(contributors.size===1?"":"s")+" · "+inr(net); $("#tPct").textContent=pct+"%"; $("#tBar").style.width=pct+"%";
   $("#tContrib").textContent=contributors.size; $("#tInterest").textContent=iCount;
   $("#lInterest").textContent=`${iCount} people · ${inr(iSum)} indicated`; $("#lInit").textContent=inr(init); $("#lConf").textContent=inr(conf); $("#lRef").textContent="−"+inr(ref); $("#lNet").textContent=inr(net);
   rows.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0));
@@ -620,7 +649,8 @@ function publishedHtml(r,ideas){ const res=r.results; const byId=Object.fromEntr
   return rankingHtml(rows,res.totalVotes,"Final results · published "+fmtD(res.publishedAt)) + `<table style="margin-top:12px"><thead><tr><th>Idea</th><th class="num">Votes</th><th>Cost est.</th><th>Decision</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.title)}${x.winner?' 🏆':''}</td><td class="num">${x.votes}</td><td>${esc(x.cost||byId[x.ideaId]?.costEstimate||"—")}</td><td>${dec(x.decision)}${x.reason?`<div class="muted">${esc(x.reason)}</div>`:""}</td></tr>`).join("")}</tbody></table>${res.note?`<p style="margin-top:10px;font-size:14px">${esc(res.note)}</p>`:""}`; }
 
 /* ---------- interest / volunteer / operator ---------- */
-let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; const p=$("#btnPay"); if(p.style.display!=="none"&&amount!=="custom"){ const u=new URL(cfg.razorpayPageUrl); u.searchParams.set("amount",amount); p.href=u.toString(); } }));
+const creditOf = a => Math.floor(a*0.4/10)*10;
+let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; $("#creditCalc").textContent = amount==="custom" ? "Custom amounts earn 40% credit, rounded down to the nearest ₹10." : ""; const p=$("#btnPay"); if(p.style.display!=="none"&&amount!=="custom"){ const u=new URL(cfg.razorpayPageUrl); u.searchParams.set("amount",amount); p.href=u.toString(); } }));
 $("#btnInterest").addEventListener("click",()=>requireAuth(()=>{ openForm("#mInterest","#intWho"); if(amount&&amount!=="custom") $("#intForm").amount.value=amount; }));
 $("#intForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#intErr","#intOk"]); if(f.website.value) return; if(!user) return showErr("#intErr","Please sign in first."); const amt=Number(f.amount.value); if(!(amt>=1)) return showErr("#intErr","Enter an amount."); if(!f.consent.checked) return showErr("#intErr","Please tick the understanding box."); if(f.name.value.trim().length<2) return showErr("#intErr","Name please.");
   $("#intSubmit").disabled=true; try{ const ref=await addDoc(collection(db,"cafe_interest"),{ uid:user.uid, email:user.email||"", name:f.name.value.trim().slice(0,60), amount:Math.round(amt), message:f.message.value.trim().slice(0,400), createdAt:serverTimestamp() }); await setDoc(doc(db,"cafe_interest_public",ref.id),{ amount:Math.round(amt), uid:user.uid, createdAt:serverTimestamp() }); f.reset(); $("#intOk").textContent="Registered. This is noted as interest only — nothing has been charged. We'll email you once when terms are published and contributions open."; $("#intOk").classList.add("on"); toast("Interest registered ✓"); loadTracker(); }catch(err){ showErr("#intErr","Couldn't save: "+(err.code||err.message)); } $("#intSubmit").disabled=false; });
@@ -629,6 +659,9 @@ $("#volForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=
 $("#btnOperator").addEventListener("click",()=>requireAuth(()=>openForm("#mOperator","#opWho")));
 $("#opForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#opErr","#opOk"]); if(f.website.value) return; if(!user) return showErr("#opErr","Please sign in first."); const v=k=>f[k].value.trim(); for(const k of ["name","experience","availability","motivation","plan","sustain"]) if(v(k).length<(k==="name"||k==="availability"?2:30)) return showErr("#opErr","Please complete all required fields — plan, motivation, experience and sustainability need at least a few sentences."); if(!/.+@.+\..+/.test(v("payEmail"))) return showErr("#opErr","Enter the email you used (or will use) to contribute."); if(!f.consent.checked) return showErr("#opErr","Please confirm the declaration.");
   $("#opSubmit").disabled=true; try{ await addDoc(collection(db,"cafe_applications"),{ uid:user.uid, email:user.email||"", name:v("name").slice(0,80), phone:v("phone").slice(0,20), payEmail:v("payEmail").slice(0,120), experience:v("experience").slice(0,1500), availability:v("availability").slice(0,200), motivation:v("motivation").slice(0,1200), plan:v("plan").slice(0,2000), sustain:v("sustain").slice(0,1500), other:v("other").slice(0,800), status:"submitted", createdAt:serverTimestamp() }); f.reset(); $("#opOk").textContent="Application received. Status: Submitted. We'll contact you by email as the published process moves forward."; $("#opOk").classList.add("on"); toast("Application submitted ✓"); }catch(err){ showErr("#opErr","Couldn't save: "+(err.code||err.message)); } $("#opSubmit").disabled=false; });
+
+/* ---------- my credit ---------- */
+$("#btnMyCredit").addEventListener("click",()=>requireAuth(async()=>{ const el=$("#creditList"); el.innerHTML="Looking up…"; try{ const qs=await getDocs(query(collection(db,"cafe_vouchers"),where("email","==",(user.email||"").toLowerCase()))); const rows=[]; qs.forEach(d=>rows.push({id:d.id,...d.data()})); if(!rows.length){ el.innerHTML=`<div class="empty">No credit found for <b>${esc(user.email)}</b> yet. If you paid with a different email, sign in with that one. Payments take up to a day to reconcile.</div>`; return; } const tot=rows.reduce((a,r)=>a+(r.status==="issued"?(r.balance??r.credit):0),0); el.innerHTML=`<div class="credit"><span>Total usable credit</span><b>${inr(tot)}</b></div>`+rows.map(r=>`<div class="credit"><span>Code <code>${esc(r.code)}</code> · from ${inr(r.amount)} on ${fmtD(r.createdAt)}</span><span><b>${inr(r.balance??r.credit)}</b> <span class="tag ${r.status==="issued"?"g":"gr"}">${esc(r.status)}</span></span></div>`).join("")+`<p class="muted" style="margin-top:8px">Show the code at the counter. Max 50% of any bill, valid 12 months from opening day.</p>`; }catch(e){ el.innerHTML=`<div class="err on">Couldn't load: ${esc(e.code||e.message)}</div>`; } }));
 
 /* ---------- updates / budget ---------- */
 async function loadUpdates(){ let ups=[]; try{ const qs=await getDocs(query(collection(db,"cafe_updates"),where("published","==",true),limit(100))); qs.forEach(d=>ups.push({id:d.id,...d.data()})); ups.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0)); }catch(e){ console.warn("updates",e); }

@@ -128,6 +128,10 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    match /cafe_vouchers/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.email == request.auth.token.email);
+      allow write: if isAdmin();
+    }
     match /cafe_contributions/{id} { allow read: if true; allow write: if isAdmin(); }
     match /cafe_contributions_private/{id} { allow read, write: if isAdmin(); }
     match /cafe_refunds/{id} { allow read: if true; allow write: if isAdmin(); }
