@@ -166,6 +166,12 @@
   .tiers em{display:block;font-style:normal;font-weight:800;font-size:12.5px;color:var(--teal);margin-top:6px}
   .guar div{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;padding:4px 0;border-bottom:1px dashed #cfc4ae}
   .guar b{font-family:'Bebas Neue',sans-serif;font-size:18px}
+  .top{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #cfc4ae;font-size:15px}
+  .top .rk{font-family:'Bebas Neue',sans-serif;font-size:24px;width:34px;color:var(--red)}
+  .top .nm{flex:1;font-weight:600}
+  .top .am{font-family:'Bebas Neue',sans-serif;font-size:22px}
+  .top:first-child{background:#fff3cd;border-radius:10px;padding:12px 10px;border:2.5px solid var(--ink)}
+  .top:first-child .rk{font-size:30px}
   .credit{background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px}
   .credit b{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--teal)}
   .terms{background:#fff8e6;border:2px dashed var(--brown);border-radius:10px;padding:12px 14px;font-size:14px;margin-top:12px}
@@ -363,6 +369,16 @@
       <button class="btn" id="btnInterest">🔔 Register interest</button>
       <span class="muted" id="payNote">Payment runs on Razorpay's own page — card, UPI, netbanking. We never see your card details.</span>
     </div>
+  </div>
+</section>
+
+<!-- TOP CONTRIBUTORS -->
+<section id="top">
+  <h2>Top <span>contributors</span></h2>
+  <p class="sub">Ranked by amount, names as they chose to appear. Updated from confirmed payments.</p>
+  <div class="card">
+    <div id="topList"></div>
+    <div class="empty" id="topEmpty" style="display:none">The board is empty — the first name on it is yours for the taking.</div>
   </div>
 </section>
 
@@ -574,6 +590,9 @@ async function loadTracker(){
   $("#gHeld").textContent=inr(net); $("#heroRaised").textContent=inr(net); $("#tRaised").textContent=inr(net); $("#heroCafes").textContent="Cafés fully funded so far: "+Math.floor(net/target); $("#mNow").textContent=contributors.size.toLocaleString("en-IN")+" contributor"+(contributors.size===1?"":"s")+" · "+inr(net); $("#tPct").textContent=pct+"%"; $("#tBar").style.width=pct+"%";
   $("#tContrib").textContent=contributors.size; $("#tInterest").textContent=iCount;
   $("#lInterest").textContent=`${iCount} people · ${inr(iSum)} indicated`; $("#lInit").textContent=inr(init); $("#lConf").textContent=inr(conf); $("#lRef").textContent="−"+inr(ref); $("#lNet").textContent=inr(net);
+  const agg={}; rows.filter(r=>r.kind==="c"&&r.status==="confirmed").forEach(r=>{ const k=r.contributorKey||r.id; agg[k]=agg[k]||{name:r.displayName||"Anonymous",amt:0}; agg[k].amt+=Number(r.amount)||0; }); const refByC={}; rows.filter(r=>r.kind==="r").forEach(r=>{ refByC[r.contributionId]=(refByC[r.contributionId]||0)+(Number(r.amount)||0); }); rows.filter(r=>r.kind==="c"&&refByC[r.id]).forEach(r=>{ const k=r.contributorKey||r.id; if(agg[k]) agg[k].amt-=refByC[r.id]; });
+  const top=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt).slice(0,50); const medal=i=>i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+  $("#topList").innerHTML=top.map((x,i)=>`<div class="top"><span class="rk">${medal(i)}</span><span class="nm">${esc(x.name)}</span><span class="am">${inr(x.amt)}</span></div>`).join(""); $("#topEmpty").style.display=top.length?"none":"block";
   rows.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0));
   const tb=$("#ledgerTbl tbody"); tb.innerHTML = rows.length ? rows.map(r=>`<tr><td>${fmtD(r.date)}</td><td>${esc(r.kind==="r"?"Refund"+(r.reason?" — "+r.reason:""):(r.displayName||"Anonymous"))}</td><td class="num">${r.kind==="r"?"−":""}${inr(r.amount)}</td><td>${r.kind==="r"?'<span class="tag gr">REFUND</span>':(r.status==="confirmed"?'<span class="tag g">CONFIRMED</span>':'<span class="tag y">INITIATED</span>')}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">No contributions recorded. Pre-launch.</td></tr>`;
 }
