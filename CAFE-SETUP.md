@@ -1,4 +1,4 @@
-# Aamcha Café — community café feature: setup, architecture & handover
+# Asa Kela Pahije Café — community café feature: setup, architecture & handover
 
 Live routes
 - Public page: https://asakelapahije.com/cafe.html
@@ -8,7 +8,7 @@ Live routes
 The site is static HTML on GitHub Pages (repo `tejassalvi096/asa-kela-pahije`, branch `main`) with Firebase Firestore (`asa-kela-pahije`, asia-south1) as the only backend. No framework, no build step, no server. The café feature follows the same pattern:
 - one self-contained page per route (inline CSS/JS, Firebase modular SDK 10.12.5 from gstatic),
 - the same design tokens (paper/ink/yellow/red/teal, Bebas Neue + Rubik/Mukta, 3px ink borders, offset shadows),
-- the same nav, with a new `☕ AAMCHA CAFÉ` link on index/fda/changle-lok, and a teal "NEW · COMMUNITY PROJECT" card on the home page,
+- the same nav, with a new `☕ AKP CAFÉ` link on index/fda/changle-lok, and a teal "NEW · COMMUNITY PROJECT" card on the home page,
 - GA4 tag (G-ECGL08Y45G) kept consistent on the new pages.
 
 New infrastructure that did not exist before: **Firebase Authentication** (Google sign-in + passwordless email link), used for identity on ideas, votes, interest, volunteers, applications and admin.
