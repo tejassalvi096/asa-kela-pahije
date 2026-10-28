@@ -83,6 +83,10 @@
   .ck-r div{background:#2a2520;border:2px solid var(--yellow);border-radius:10px;padding:8px 12px;min-width:72px;text-align:center}
   .ck-r b{display:block;font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1;color:var(--yellow)}
   .ck-r span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#cfc4ae}
+  .allnames{margin-top:12px;columns:3;column-gap:18px;font-size:14px}
+  @media(max-width:720px){.allnames{columns:2}}
+  .allnames div{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e4dcc6}
+  .allnames span{color:#7a7060;font-size:12.5px}
   .badge{font-size:11.5px;background:#fff3cd;border:1.5px solid var(--ink);border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:600;white-space:nowrap}
   .bar{height:22px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:10px 0 6px}
   .bar div{height:100%;background:repeating-linear-gradient(45deg,var(--yellow) 0 10px,#e9a21e 10px 20px);width:0%;transition:width .8s}
@@ -255,10 +259,12 @@
 <!-- WALL OF BUILDERS -->
 <section id="top">
   <h2>Wall of <span>builders</span></h2>
-  <p class="sub">The 15 people who've put the most into this café — so far. Contribute again any time and your name climbs. Names as each person chose.</p>
+  <p class="sub"><b>Top 15 contributors</b> — the people who've put the most into this café so far. Contribute again any time and your name climbs. Names as each person chose.</p>
   <div class="card">
     <div id="topList" class="topgrid"></div>
     <div class="empty" id="topEmpty" style="display:none">The wall is bare. The first brick has a name on it — could be yours. 🧱</div>
+    <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn sm ghost" id="btnAllNames">📜 Read all contributors' names</button><span class="muted" id="allCount"></span></div>
+    <div id="allNames" class="allnames" style="display:none"></div>
   </div>
 </section>
 
@@ -621,6 +627,8 @@ async function loadTracker(){
   const agg={}; rows.filter(r=>r.kind==="c"&&r.status==="confirmed").forEach(r=>{ const k=r.contributorKey||r.id; agg[k]=agg[k]||{name:r.displayName||"Anonymous",amt:0}; agg[k].amt+=Number(r.amount)||0; }); const refByC={}; rows.filter(r=>r.kind==="r").forEach(r=>{ refByC[r.contributionId]=(refByC[r.contributionId]||0)+(Number(r.amount)||0); }); rows.filter(r=>r.kind==="c"&&refByC[r.id]).forEach(r=>{ const k=r.contributorKey||r.id; if(agg[k]) agg[k].amt-=refByC[r.id]; });
   const top=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt).slice(0,15); const medal=i=>i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
   const badge=a=>a>=10000?"🧱 Corner":a>=5000?"📚 Shelf":a>=2500?"🍽️ Table":a>=1000?"🪑 Khurchi":"☕ Cup";
+  const all=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt); $("#allCount").textContent=all.length?all.length+" contributor"+(all.length===1?"":"s")+" in total":"";
+  $("#allNames").innerHTML=all.map((x,i)=>`<div>${i+1}. ${esc(x.name)} <span>· ${inr(x.amt)}</span></div>`).join("")||'<div class="muted">No contributors yet.</div>';
   $("#topList").innerHTML=top.map((x,i)=>`<div class="top"><span class="rk">${medal(i)}</span><span class="nm">${esc(x.name)}<span class="badge">${badge(x.amt)}</span></span><span class="am">${inr(x.amt)}</span></div>`).join(""); $("#topEmpty").style.display=top.length?"none":"block";
   rows.sort((a,b)=>(b.date?.toMillis?.()||0)-(a.date?.toMillis?.()||0));
   const tb=$("#ledgerTbl tbody"); tb.innerHTML = rows.length ? rows.map(r=>`<tr><td>${fmtD(r.date)}</td><td>${esc(r.kind==="r"?"Refund"+(r.reason?" — "+r.reason:""):(r.displayName||"Anonymous"))}</td><td class="num">${r.kind==="r"?"−":""}${inr(r.amount)}</td><td>${r.kind==="r"?'<span class="tag gr">REFUND</span>':(r.status==="confirmed"?'<span class="tag g">CONFIRMED</span>':'<span class="tag y">INITIATED</span>')}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">No contributions recorded. Pre-launch.</td></tr>`;
@@ -707,6 +715,8 @@ $("#volForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=
 $("#btnOperator").addEventListener("click",()=>requireAuth(()=>openForm("#mOperator","#opWho")));
 $("#opForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#opErr","#opOk"]); if(f.website.value) return; if(!user) return showErr("#opErr","Please sign in first."); const v=k=>f[k].value.trim(); for(const k of ["name","experience","availability","motivation","plan","sustain"]) if(v(k).length<(k==="name"||k==="availability"?2:30)) return showErr("#opErr","Please complete all required fields — plan, motivation, experience and sustainability need at least a few sentences."); if(!/.+@.+\..+/.test(v("payEmail"))) return showErr("#opErr","Enter the email you used (or will use) to contribute."); if(!f.consent.checked) return showErr("#opErr","Please confirm the declaration.");
   $("#opSubmit").disabled=true; try{ await addDoc(collection(db,"cafe_applications"),{ uid:user.uid, email:user.email||"", name:v("name").slice(0,80), phone:v("phone").slice(0,20), payEmail:v("payEmail").slice(0,120), experience:v("experience").slice(0,1500), availability:v("availability").slice(0,200), motivation:v("motivation").slice(0,1200), plan:v("plan").slice(0,2000), sustain:v("sustain").slice(0,1500), other:v("other").slice(0,800), status:"submitted", createdAt:serverTimestamp() }); f.reset(); $("#opOk").textContent="Application received. Status: Submitted. We'll contact you by email as the published process moves forward."; $("#opOk").classList.add("on"); toast("Application submitted ✓"); }catch(err){ showErr("#opErr","Couldn't save: "+(err.code||err.message)); } $("#opSubmit").disabled=false; });
+
+$("#btnAllNames").addEventListener("click",()=>{ const el=$("#allNames"); const on=el.style.display!=="none"; el.style.display=on?"none":"block"; $("#btnAllNames").textContent=on?"📜 Read all contributors' names":"Hide the full list"; });
 
 /* ---------- my credit ---------- */
 $("#btnMyCredit").addEventListener("click",()=>requireAuth(async()=>{ const el=$("#creditList"); el.innerHTML="Looking up…"; try{ const qs=await getDocs(query(collection(db,"cafe_vouchers"),where("email","==",(user.email||"").toLowerCase()))); const rows=[]; qs.forEach(d=>rows.push({id:d.id,...d.data()})); if(!rows.length){ el.innerHTML=`<div class="empty">No credit found for <b>${esc(user.email)}</b> yet. If you paid with a different email, sign in with that one. Payments take up to a day to reconcile.</div>`; return; } const tot=rows.reduce((a,r)=>a+(r.status==="issued"?(r.balance??r.credit):0),0); el.innerHTML=`<div class="credit"><span>Total usable credit</span><b>${inr(tot)}</b></div>`+rows.map(r=>`<div class="credit"><span>Code <code>${esc(r.code)}</code> · from ${inr(r.amount)} on ${fmtD(r.createdAt)}</span><span><b>${inr(r.balance??r.credit)}</b> <span class="tag ${r.status==="issued"?"g":"gr"}">${esc(r.status)}</span></span></div>`).join("")+`<p class="muted" style="margin-top:8px">Show the code at the counter. Max 50% of any bill, valid 12 months from opening day.</p>`; }catch(e){ el.innerHTML=`<div class="err on">Couldn't load: ${esc(e.code||e.message)}</div>`; } }));
