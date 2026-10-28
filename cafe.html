@@ -87,12 +87,6 @@
   @media(max-width:720px){.allnames{columns:2}}
   .allnames div{break-inside:avoid;padding:3px 0;border-bottom:1px dashed #e4dcc6}
   .allnames span{color:#7a7060;font-size:12.5px}
-  .sharebox{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
-  .sharebox>div:first-child{flex:1.2;min-width:260px}
-  .sharelink{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .sharelink input{flex:1;min-width:200px;margin:0;font-size:13px}
-  .conn{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed #cfc4ae;font-size:14px}
-  .conn b{font-family:'Bebas Neue',sans-serif;font-size:20px}
   .badge{font-size:11.5px;background:#fff3cd;border:1.5px solid var(--ink);border-radius:999px;padding:1px 8px;margin-left:6px;font-weight:600;white-space:nowrap}
   .bar{height:22px;border:3px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:10px 0 6px}
   .bar div{height:100%;background:repeating-linear-gradient(45deg,var(--yellow) 0 10px,#e9a21e 10px 20px);width:0%;transition:width .8s}
@@ -271,23 +265,6 @@
     <div class="empty" id="topEmpty" style="display:none">The wall is bare. The first brick has a name on it — could be yours. 🧱</div>
     <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn sm ghost" id="btnAllNames">📜 Read all contributors' names</button><span class="muted" id="allCount"></span></div>
     <div id="allNames" class="allnames" style="display:none"></div>
-  </div>
-</section>
-
-<!-- SHARE / CONNECTORS -->
-<section id="share">
-  <div class="sharebox">
-    <div>
-      <h3 style="font-size:26px">Bring a friend. <span style="color:var(--red)">Or fifty.</span></h3>
-      <p style="font-size:14.5px;color:#4a4238;margin-top:4px">Every contributor gets a personal link. People who join through it count for you on the Connectors board. Recognition only — it never touches operator selection.</p>
-      <div id="shareMine" style="margin-top:10px"></div>
-    </div>
-    <div class="card soft" style="min-width:260px;flex:1">
-      <h3>🔗 Connectors</h3>
-      <p class="muted" style="margin:2px 0 8px">Top 3 — most friends brought in (people, not rupees).</p>
-      <div id="connList"></div>
-      <div class="muted" id="connEmpty">Nobody yet. First link shared wins the first spot.</div>
-    </div>
   </div>
 </section>
 
@@ -604,15 +581,6 @@ $$(".mwrap").forEach(m=>m.addEventListener("click",e=>{ if(e.target===m) close()
 $$(".step").forEach(c=>c.addEventListener("click",()=>{ if(c.dataset.go) location.hash=c.dataset.go; else if(c.dataset.open==="volunteer") requireAuth(()=>openForm("#mVolunteer","#volWho")); }));
 const mathOut=()=>{ const n=Math.max(0,+$("#mInput").value||0), a=Math.max(0,+$("#mAvg").value||0); const amt=n*a; const cafes=Math.floor(amt/2500000); const need=a?Math.ceil(2500000/a):0; $("#mOut").textContent = n.toLocaleString("en-IN")+" × "+inr(a)+" = "+inr(amt)+" → "+cafes+" café"+(cafes===1?"":"s")+(cafes?"" :" (at "+inr(a)+" each, the first café needs "+need.toLocaleString("en-IN")+" people)"); }; $("#mInput").addEventListener("input",mathOut); $("#mAvg").addEventListener("input",mathOut); mathOut();
 
-/* ---------- referral capture ---------- */
-(function(){ const v=new URLSearchParams(location.search).get("via"); if(v && /^AKP-[A-Z0-9]{6}$/i.test(v)){ localStorage.setItem("cafe_via",v.toUpperCase()); history.replaceState(null,"",location.pathname+location.hash); } })();
-const myVia = () => localStorage.getItem("cafe_via")||"";
-const shareText = code => `Mumbai madhe aapan milun ek café banavtoy — ani ek jan te chalavnar. 40% café credit parat, 365-day refund clock. Join: https://asakelapahije.com/cafe.html${code?"?via="+code:""}`;
-function renderShare(code){ const el=$("#shareMine"); const url="https://asakelapahije.com/cafe.html"+(code?"?via="+code:""); el.innerHTML = code ? `<div class="sharelink"><input readonly value="${url}" id="shareUrl"><button class="btn sm" id="copyShare">Copy</button><a class="btn sm teal" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(shareText(code))}">WhatsApp</a></div><p class="muted" style="margin-top:6px">Your code <b>${esc(code)}</b> — same as your café-credit code.</p>` : `<div class="sharelink"><a class="btn sm teal" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(shareText(""))}">Share on WhatsApp</a><button class="btn sm ghost" id="getMyLink">Get my personal link</button></div><p class="muted" style="margin-top:6px">Personal links appear once your contribution is reconciled (sign in with the email you paid with).</p>`;
-  $("#copyShare")?.addEventListener("click",()=>{ navigator.clipboard?.writeText(url); toast("Link copied ✓"); }); $("#getMyLink")?.addEventListener("click",()=>requireAuth(loadMyShare)); }
-async function loadMyShare(){ try{ const qs=await getDocs(query(collection(db,"cafe_vouchers"),where("email","==",(user.email||"").toLowerCase()),limit(1))); let code=""; qs.forEach(d=>code=d.data().code); renderShare(code); if(!code) toast("No reconciled contribution found for "+user.email+" yet."); }catch(e){ renderShare(""); } }
-renderShare("");
-
 /* ---------- auth ---------- */
 let user = null; let pendingAction = null;
 const requireAuth = fn => { if(user) fn(); else { pendingAction = fn; open("#mAuth"); } };
@@ -622,7 +590,7 @@ $("#btnEmailLink").addEventListener("click", async ()=>{ hideMsgs(["#authOk","#a
   try{ await sendSignInLinkToEmail(auth, em, { url: location.origin + location.pathname + "#signin", handleCodeInApp:true }); localStorage.setItem("cafe_email_for_signin", em); $("#authOk").textContent="Link sent. Open it on this device to finish signing in."; $("#authOk").classList.add("on"); }
   catch(e){ showErr("#authErr","Couldn't send the link: "+(e.code||e.message)); } });
 if (isSignInWithEmailLink(auth, location.href)) { let em = localStorage.getItem("cafe_email_for_signin") || prompt("Confirm your email to finish signing in"); if(em){ signInWithEmailLink(auth, em, location.href).then(()=>{ localStorage.removeItem("cafe_email_for_signin"); history.replaceState(null,"",location.pathname); toast("Signed in ✓"); }).catch(e=>toast("Sign-in link failed: "+(e.code||e.message))); } }
-onAuthStateChanged(auth, u => { user = u; if(u && pendingAction){ const f=pendingAction; pendingAction=null; close(); f(); } renderVoteState(); if(u) loadMyShare(); });
+onAuthStateChanged(auth, u => { user = u; if(u && pendingAction){ const f=pendingAction; pendingAction=null; close(); f(); } renderVoteState(); });
 
 /* ---------- config / tracker ---------- */
 let cfg = { target: TARGET_DEFAULT, acceptingMoney:false, entityName:"", failurePolicy:"", razorpayPageUrl:"", launchDate:null, targetReachedAt:null, creditPct:40, milestones:[ {label:"₹5 lakh — location scouting begins (our cost, not the fund)",done:false},{label:"₹12.5 lakh — lease & fit-out budget locked",done:false},{label:"₹25 lakh — target reached, fit-out starts",done:false},{label:"Operator selected under published process",done:false},{label:"Opening day",done:false} ] };
@@ -657,8 +625,6 @@ async function loadTracker(){
   $("#tContrib").textContent=contributors.size; $("#tInterest").textContent=iCount;
   $("#lInterest").textContent=`${iCount} people · ${inr(iSum)} indicated`; $("#lInit").textContent=inr(init); $("#lConf").textContent=inr(conf); $("#lRef").textContent="−"+inr(ref); $("#lNet").textContent=inr(net);
   const agg={}; rows.filter(r=>r.kind==="c"&&r.status==="confirmed").forEach(r=>{ const k=r.contributorKey||r.id; agg[k]=agg[k]||{name:r.displayName||"Anonymous",amt:0}; agg[k].amt+=Number(r.amount)||0; }); const refByC={}; rows.filter(r=>r.kind==="r").forEach(r=>{ refByC[r.contributionId]=(refByC[r.contributionId]||0)+(Number(r.amount)||0); }); rows.filter(r=>r.kind==="c"&&refByC[r.id]).forEach(r=>{ const k=r.contributorKey||r.id; if(agg[k]) agg[k].amt-=refByC[r.id]; });
-  const conn={}; rows.filter(r=>r.kind==="c"&&r.status==="confirmed"&&r.via).forEach(r=>{ const k=r.via; conn[k]=conn[k]||{name:r.viaName||r.via,set:new Set()}; conn[k].set.add(r.contributorKey||r.id); }); const cl=Object.values(conn).map(x=>({name:x.name,n:x.set.size})).sort((a,b)=>b.n-a.n).slice(0,3);
-  $("#connList").innerHTML=cl.map((x,i)=>`<div class="conn"><span>${["🥇","🥈","🥉"][i]} ${esc(x.name)}</span><b>${x.n} friend${x.n===1?"":"s"}</b></div>`).join(""); $("#connEmpty").style.display=cl.length?"none":"block";
   const top=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt).slice(0,15); const medal=i=>i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
   const badge=a=>a>=10000?"🧱 Corner":a>=5000?"📚 Shelf":a>=2500?"🍽️ Table":a>=1000?"🪑 Khurchi":"☕ Cup";
   const all=Object.values(agg).filter(x=>x.amt>0).sort((a,b)=>b.amt-a.amt); $("#allCount").textContent=all.length?all.length+" contributor"+(all.length===1?"":"s")+" in total":"";
@@ -746,7 +712,7 @@ function publishedHtml(r,ideas){ const res=r.results; const byId=Object.fromEntr
 
 /* ---------- interest / volunteer / operator ---------- */
 const creditOf = a => Math.floor(a*0.4/10)*10;
-function payUrl(){ if(!cfg.razorpayPageUrl) return "#"; const u=new URL(cfg.razorpayPageUrl); if(amount&&amount!=="custom") u.searchParams.set("amount",amount); const v=myVia(); if(v){ u.searchParams.set("referral_code",v); } return u.toString(); }
+function payUrl(){ if(!cfg.razorpayPageUrl) return "#"; const u=new URL(cfg.razorpayPageUrl); if(amount&&amount!=="custom") u.searchParams.set("amount",amount); return u.toString(); }
 let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; $("#creditCalc").textContent = amount==="custom" ? "Custom amounts earn 40% credit, rounded down to the nearest ₹10." : ""; const p=$("#btnPay"); if(p.style.display!=="none") p.href=payUrl(); }));
 $("#btnInterest").addEventListener("click",()=>requireAuth(()=>{ openForm("#mInterest","#intWho"); if(amount&&amount!=="custom") $("#intForm").amount.value=amount; }));
 $("#intForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#intErr","#intOk"]); if(f.website.value) return; if(!user) return showErr("#intErr","Please sign in first."); const amt=Number(f.amount.value); if(!(amt>=1)) return showErr("#intErr","Enter an amount."); if(!f.consent.checked) return showErr("#intErr","Please tick the understanding box."); if(f.name.value.trim().length<2) return showErr("#intErr","Name please.");
