@@ -232,7 +232,7 @@
     <h1 style="margin-top:10px">AAPAN MILUN<br>EK <span class="r">CAFÉ.</span><br>EK NAVA MALAK.</h1>
     <p>Thousands of us chip in — whatever a café is worth to us. <b>40% of what you give comes back as café credit</b> once the doors open, and if they never do, you get it back (minus only the gateway's 2–3% fee). That funds one café in Mumbai. Then <b>one of us</b> — chosen on merit, not by luck — gets to run it in partnership with Asa Kela Pahije. Every extra ₹25 lakh after that: one more café, one more person's dream.</p>
     <div class="cta">
-      <a class="btn red" href="#contribute">🤝 Contribute</a>
+      <button class="btn red" id="ctaPay">🤝 Contribute now</button>
       <a class="btn" href="#operator">👩‍🍳 I want to run it</a>
       <a class="btn ghost" href="#ideas">💡 Ideas & votes</a>
     </div>
@@ -400,9 +400,10 @@
       </ul>
     </div>
     <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <a class="btn red" id="btnPay" href="#" style="display:none" target="_blank" rel="noopener">🤝 Pay securely via Razorpay</a>
+      <button class="btn red" id="btnPay" style="display:none">🤝 Contribute now</button>
+      <a class="muted" id="payFallback" href="#" target="_blank" rel="noopener" style="display:none;font-size:12.5px">Popup not working? Pay on Razorpay's page ↗</a>
       <button class="btn" id="btnInterest">🔔 Register interest</button>
-      <span class="muted" id="payNote">Payment runs on Razorpay's own page — card, UPI, netbanking. We never see your card details.</span>
+      <span class="muted" id="payNote">Razorpay checkout opens right here — UPI, cards, netbanking. We never see your card details.</span>
     </div>
   </div>
 </section>
@@ -553,6 +554,19 @@
   </form>
 </div></div>
 
+<div class="mwrap" id="mPay"><div class="modal"><button class="mclose" data-close>✕</button>
+  <h2>Tumcha tukda</h2>
+  <p class="muted">Pick your piece, add your name, pay — it all happens right here via Razorpay (UPI, cards, netbanking). 40% comes back as café credit.</p>
+  <div class="tiers" id="payTiers" style="margin-top:10px"></div>
+  <label id="customWrap" style="display:none">Amount (₹, minimum 100)<input type="number" id="payCustom" min="100" step="10" placeholder="e.g. 1500"></label>
+  <div class="credit" style="margin-top:10px"><span>You pay</span><b id="payAmt">₹500</b><span>café credit</span><b id="payCredit">₹200</b></div>
+  <label>Name *<input id="payName" maxlength="60" placeholder="as on your payment"></label>
+  <label>Email * <small>(links your café credit; keep it consistent)</small><input id="payEmail" type="email" maxlength="120"></label>
+  <label>Name on the Wall of Builders <small>(or leave blank for Anonymous)</small><input id="payWall" maxlength="40" placeholder="e.g. Tejas S. · or Anonymous"></label>
+  <label class="chk" style="margin-top:12px"><input type="checkbox" id="payAgree"><span>I've read the terms: no refunds for change of mind; refund net of gateway charges only if a deadline is missed; 40% café credit; no equity or returns; Indian resident, 18+.</span></label>
+  <div class="err" id="payErr"></div><div class="ok" id="payOk"></div>
+  <div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn red" id="payGo">Pay with Razorpay →</button><span class="muted">Secure checkout by Razorpay. We never see card details.</span></div>
+</div></div>
 <div class="toast" id="toast"></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -566,6 +580,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const inr = n => "₹" + Math.round(Number(n)||0).toLocaleString("en-IN");
 const fmtD = ts => { const d = ts?.toDate ? ts.toDate() : (ts ? new Date(ts) : null); return d ? d.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "—"; };
 const TARGET_DEFAULT = 2500000;
+const creditOf = a => Math.floor(a*0.4/10)*10;
 const PUBLIC_STATUSES = ["shortlisted","open","winner","planned","implemented","not_selected"];
 const STATUS_LABEL = { submitted:"Submitted", review:"Under review", shortlisted:"Shortlisted", open:"Open for voting", winner:"Winner", planned:"Planned", implemented:"Implemented", not_selected:"Not selected" };
 const STATUS_CLS = { shortlisted:"t", open:"y", winner:"r", planned:"p", implemented:"g", not_selected:"gr" };
@@ -601,8 +616,8 @@ async function loadConfig(){ try{ const d=await getDoc(doc(db,"cafe_config","mai
   const dleft = d => { const n=Math.ceil((d-Date.now())/86400000); return n>=0 ? n+" days left" : "passed"; };
   window.__tr=tr; window.__ld=ld; window.__dleft=dleft;
   if(tr){ const open=new Date(tr.getTime()+365*86400000); $("#gOpen").textContent=fmtD(open)+" · "+dleft(open); } else { $("#gOpen").textContent="365 days after target"; }
-  const canPay = !!(cfg.acceptingMoney && cfg.razorpayPageUrl && /^https:\/\/(pages\.razorpay\.com|rzp\.io)\//.test(cfg.razorpayPageUrl) && cfg.entityName && cfg.failurePolicy);
-  if(canPay){ $("#heroStatus").textContent="✅ Contributions open · 40% café credit · refund clock running"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay on Razorpay's secure page.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").href=payUrl(); $("#btnInterest").style.display="none"; }
+  const canPay = !!(cfg.acceptingMoney && (cfg.razorpayKeyId || (cfg.razorpayPageUrl && /^https:\/\/(pages\.razorpay\.com|rzp\.io)\//.test(cfg.razorpayPageUrl))) && cfg.entityName && cfg.failurePolicy);
+  if(canPay){ $("#heroStatus").textContent="✅ Contributions open · 40% café credit · refund clock running"; $("#prelaunchNote").style.display="none"; const on=$("#openNote"); on.style.display="block"; on.innerHTML=`<span class="tag g">OPEN</span><p style="margin-top:8px">${esc(cfg.openNote||"Contributions are open. Read the terms below, then pay right here via Razorpay.")}</p>`; $("#btnPay").style.display="inline-block"; $("#btnPay").addEventListener("click",()=>openPay(amount)); $("#payFallback").style.display="inline"; $("#payFallback").href=cfg.razorpayPageUrl; $("#btnInterest").style.display="none"; }
   else if(cfg.acceptingMoney){ $("#heroStatus").textContent="⏳ Opening shortly — terms incomplete"; }
   if(cfg.policy) $("#tPolicy").textContent="Accounting policy: "+cfg.policy; }
 
@@ -710,10 +725,29 @@ function publishedHtml(r,ideas){ const res=r.results; const byId=Object.fromEntr
   const dec = d => ({approved:'<span class="tag g">APPROVED</span>',needs_funding:'<span class="tag y">NEEDS FUNDING</span>',evaluating:'<span class="tag t">FURTHER EVALUATION</span>',declined:'<span class="tag gr">NOT POSSIBLE</span>'}[d]||'');
   return rankingHtml(rows,res.totalVotes,"Final results · published "+fmtD(res.publishedAt)) + `<table style="margin-top:12px"><thead><tr><th>Idea</th><th class="num">Votes</th><th>Cost est.</th><th>Decision</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.title)}${x.winner?' 🏆':''}</td><td class="num">${x.votes}</td><td>${esc(x.cost||byId[x.ideaId]?.costEstimate||"—")}</td><td>${dec(x.decision)}${x.reason?`<div class="muted">${esc(x.reason)}</div>`:""}</td></tr>`).join("")}</tbody></table>${res.note?`<p style="margin-top:10px;font-size:14px">${esc(res.note)}</p>`:""}`; }
 
+/* ---------- inline Razorpay checkout ---------- */
+const TIERS=[[500,"☕ Ek tray of cups"],[1000,"🪑 Ek khurchi"],[2500,"🍽️ Ek table"],[5000,"📚 Ek shelf"],[10000,"🧱 Ek corner"],["custom","🙏 Tumchi marzi"]];
+let payTier=500;
+$("#payTiers").innerHTML=TIERS.map(([a,l])=>`<button type="button" data-pt="${a}" class="${a===500?'on':''}"><b>${a==="custom"?"Custom":inr(a)}</b><span>${l}</span><em>${a==="custom"?"40% credit":"→ "+inr(creditOf(a))+" credit"}</em></button>`).join("");
+function payAmount(){ return payTier==="custom" ? Math.round(+$("#payCustom").value||0) : payTier; }
+function refreshPay(){ const a=payAmount(); $("#payAmt").textContent=inr(a); $("#payCredit").textContent=inr(creditOf(a)); $("#customWrap").style.display=payTier==="custom"?"block":"none"; }
+$$("[data-pt]").forEach(b=>b.addEventListener("click",()=>{ $$("[data-pt]").forEach(x=>x.classList.remove("on")); b.classList.add("on"); payTier=b.dataset.pt==="custom"?"custom":+b.dataset.pt; refreshPay(); }));
+$("#payCustom").addEventListener("input",refreshPay);
+function openPay(pre){ hideMsgs(["#payErr","#payOk"]); if(pre&&pre!=="custom"){ payTier=+pre; $$("[data-pt]").forEach(x=>x.classList.toggle("on",x.dataset.pt==String(pre))); } if(user){ if(!$("#payEmail").value) $("#payEmail").value=user.email||""; if(!$("#payName").value) $("#payName").value=user.displayName||""; } refreshPay(); $("#payFallback").href=cfg.razorpayPageUrl||"#"; open("#mPay"); }
+let rzpLoaded=null; function loadRzp(){ if(window.Razorpay) return Promise.resolve(); if(rzpLoaded) return rzpLoaded; rzpLoaded=new Promise((res,rej)=>{ const sc=document.createElement("script"); sc.src="https://checkout.razorpay.com/v1/checkout.js"; sc.onload=res; sc.onerror=()=>rej(new Error("checkout.js failed to load")); document.head.appendChild(sc); }); return rzpLoaded; }
+$("#payGo").addEventListener("click", async ()=>{ hideMsgs(["#payErr","#payOk"]); const a=payAmount(), nm=$("#payName").value.trim(), em=$("#payEmail").value.trim().toLowerCase(), wall=$("#payWall").value.trim();
+  if(!(a>=100)) return showErr("#payErr","Minimum contribution is ₹100."); if(a>1000000) return showErr("#payErr","For amounts above ₹10,00,000 please DM us first."); if(nm.length<2) return showErr("#payErr","Name please."); if(!/.+@.+\..+/.test(em)) return showErr("#payErr","A valid email is needed — it's how your café credit finds you."); if(!$("#payAgree").checked) return showErr("#payErr","Please confirm you've read the terms.");
+  if(!cfg.razorpayKeyId){ if(cfg.razorpayPageUrl){ const u=new URL(cfg.razorpayPageUrl); u.searchParams.set("amount",a); window.open(u.toString(),"_blank","noopener"); return; } return showErr("#payErr","Payments aren't switched on yet."); }
+  const btn=$("#payGo"); btn.disabled=true; btn.textContent="Opening Razorpay…";
+  try{ await loadRzp(); const rz=new Razorpay({ key:cfg.razorpayKeyId, amount:a*100, currency:"INR", name:"Asa Kela Pahije Café", description:"Contribution · no refunds except missed deadline · 40% café credit", image:"https://asakelapahije.com/favicon.png", prefill:{ name:nm, email:em }, notes:{ wall_name: wall||"Anonymous", tier:String(payTier), credit:String(creditOf(a)), source:"site-inline" }, theme:{ color:"#e2432e" }, modal:{ ondismiss:()=>{ btn.disabled=false; btn.textContent="Pay with Razorpay →"; } },
+      handler: async (resp)=>{ btn.textContent="Paid ✓"; $("#payOk").textContent="Payment received (ID "+resp.razorpay_payment_id+"). Thank you — your name goes on the wall and your café credit appears under \"My café credit\" once reconciled (usually within a day)."; $("#payOk").classList.add("on"); toast("Dhanyavaad 🙏 Payment received."); try{ await addDoc(collection(db,"cafe_payment_hints"),{ paymentId:resp.razorpay_payment_id, amount:a, email:em, name:nm, wall:wall||"Anonymous", uid:user?user.uid:"", createdAt:serverTimestamp() }); }catch(e){} } });
+    rz.on("payment.failed",r=>{ showErr("#payErr","Payment failed: "+(r.error?.description||"try another method")); btn.disabled=false; btn.textContent="Pay with Razorpay →"; }); rz.open(); }
+  catch(e){ showErr("#payErr","Couldn't open checkout: "+e.message); btn.disabled=false; btn.textContent="Pay with Razorpay →"; } });
+$("#ctaPay").addEventListener("click",()=>{ if(cfg.acceptingMoney&&(cfg.razorpayKeyId||cfg.razorpayPageUrl)) openPay(); else location.hash="#contribute"; });
+
 /* ---------- interest / volunteer / operator ---------- */
-const creditOf = a => Math.floor(a*0.4/10)*10;
 function payUrl(){ if(!cfg.razorpayPageUrl) return "#"; const u=new URL(cfg.razorpayPageUrl); if(amount&&amount!=="custom") u.searchParams.set("amount",amount); return u.toString(); }
-let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; $("#creditCalc").textContent = amount==="custom" ? "Custom amounts earn 40% credit, rounded down to the nearest ₹10." : ""; const p=$("#btnPay"); if(p.style.display!=="none") p.href=payUrl(); }));
+let amount="500"; $$("#amts button").forEach(b=>b.addEventListener("click",()=>{ $$("#amts button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); amount=b.dataset.a; $("#creditCalc").textContent = amount==="custom" ? "Custom amounts earn 40% credit, rounded down to the nearest ₹10." : ""; }));
 $("#btnInterest").addEventListener("click",()=>requireAuth(()=>{ openForm("#mInterest","#intWho"); if(amount&&amount!=="custom") $("#intForm").amount.value=amount; }));
 $("#intForm").addEventListener("submit", async e=>{ e.preventDefault(); const f=e.target; hideMsgs(["#intErr","#intOk"]); if(f.website.value) return; if(!user) return showErr("#intErr","Please sign in first."); const amt=Number(f.amount.value); if(!(amt>=1)) return showErr("#intErr","Enter an amount."); if(!f.consent.checked) return showErr("#intErr","Please tick the understanding box."); if(f.name.value.trim().length<2) return showErr("#intErr","Name please.");
   $("#intSubmit").disabled=true; try{ const ref=await addDoc(collection(db,"cafe_interest"),{ uid:user.uid, email:user.email||"", name:f.name.value.trim().slice(0,60), amount:Math.round(amt), message:f.message.value.trim().slice(0,400), createdAt:serverTimestamp() }); await setDoc(doc(db,"cafe_interest_public",ref.id),{ amount:Math.round(amt), uid:user.uid, createdAt:serverTimestamp() }); f.reset(); $("#intOk").textContent="Registered. This is noted as interest only — nothing has been charged. We'll email you once when terms are published and contributions open."; $("#intOk").classList.add("on"); toast("Interest registered ✓"); loadTracker(); }catch(err){ showErr("#intErr","Couldn't save: "+(err.code||err.message)); } $("#intSubmit").disabled=false; });

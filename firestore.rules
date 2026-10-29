@@ -128,6 +128,12 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    match /cafe_payment_hints/{id} {
+      allow read: if isAdmin();
+      allow create: if d().keys().hasOnly(['paymentId','amount','email','name','wall','uid','createdAt']) && str('paymentId',40) && str('email',120) && str('name',60) && str('wall',40) && d().amount is int && d().amount >= 100 && d().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
     match /cafe_vouchers/{id} {
       allow read: if isAdmin() || (signedIn() && resource.data.email == request.auth.token.email);
       allow write: if isAdmin();
