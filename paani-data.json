@@ -1,13 +1,13 @@
 {
-  "upd": "27 Oct 2026",
-  "src": {"name": "Lokmat (WRD)", "url": "https://www.lokmat.com/agriculture/weather/only-69-percent-of-the-water-storage-is-left-in-the-dams-of-the-state-read-how-much-percent-of-water-is-left-in-which-dam-a-a975/"},
+  "upd": "3 Nov 2026",
+  "src": {"name": "Saamana (WRD)", "url": "https://www.saamana.com/maharashtra-dams-water-storage-drops-marathwada-drought-concern/"},
   "r": {
-    "mh": [69, 90],
-    "konkan": [86, 92.30],
-    "pune": [80, 93.48],
-    "nashik": [77, 83.92],
-    "mw": [40, 88.12],
-    "amr": [57, 84.70],
-    "ngp": [62, 86.29]
+    "mh": [67, 90],
+    "konkan": [84, 92.30],
+    "pune": [77, 93.48],
+    "nashik": [76, 83.92],
+    "mw": [39, 88.12],
+    "amr": [55, 84.70],
+    "ngp": [59, 86.29]
   }
 }
