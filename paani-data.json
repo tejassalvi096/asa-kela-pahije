@@ -1,13 +1,13 @@
 {
-  "upd": "3 Nov 2026",
-  "src": {"name": "Saamana (WRD)", "url": "https://www.saamana.com/maharashtra-dams-water-storage-drops-marathwada-drought-concern/"},
+  "upd": "8 Nov 2026",
+  "src": {"name": "The Indian Awaaz (WRD)", "url": "https://theindianawaaz.com/maharashtra-water-storage-in-dams-declines-to-65-79-per-cent/"},
   "r": {
-    "mh": [67, 90],
-    "konkan": [84, 92.30],
-    "pune": [77, 93.48],
-    "nashik": [76, 83.92],
-    "mw": [39, 88.12],
-    "amr": [55, 84.70],
-    "ngp": [59, 86.29]
+    "mh": [65.79, 90.67],
+    "konkan": [83.34, 92.30],
+    "pune": [76.32, 93.48],
+    "nashik": [75.56, 83.92],
+    "mw": [38.39, 88.12],
+    "amr": [53.97, 84.70],
+    "ngp": [57.99, 86.29]
   }
 }
