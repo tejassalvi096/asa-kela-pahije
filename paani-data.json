@@ -1,13 +1,13 @@
 {
-  "upd": "8 Nov 2026",
-  "src": {"name": "The Indian Awaaz (WRD)", "url": "https://theindianawaaz.com/maharashtra-water-storage-in-dams-declines-to-65-79-per-cent/"},
+  "upd": "15 Nov 2026",
+  "src": {"name": "Pudhari (WRD)", "url": "https://pudhari.news/maharashtra/mumbai/maharashtra-dams-hold-only-6417-of-their-total-water-storage-ap84"},
   "r": {
-    "mh": [65.79, 90.67],
-    "konkan": [83.34, 92.30],
-    "pune": [76.32, 93.48],
-    "nashik": [75.56, 83.92],
-    "mw": [38.39, 88.12],
-    "amr": [53.97, 84.70],
-    "ngp": [57.99, 86.29]
+    "mh": [64.17, 90.54],
+    "konkan": [81.69, 92.30],
+    "pune": [74.82, 93.48],
+    "nashik": [74.05, 83.92],
+    "mw": [36.75, 88.12],
+    "amr": [52.27, 84.70],
+    "ngp": [56.02, 86.29]
   }
 }
