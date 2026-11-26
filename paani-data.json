@@ -1,13 +1,13 @@
 {
-  "upd": "15 Nov 2026",
-  "src": {"name": "Pudhari (WRD)", "url": "https://pudhari.news/maharashtra/mumbai/maharashtra-dams-hold-only-6417-of-their-total-water-storage-ap84"},
+  "upd": "25 Nov 2026",
+  "src": {"name": "Free Press Journal Marathi (WRD)", "url": "https://marathi.freepressjournal.in/maharashtra/maharashtra-water-crisis-2026-dam-storage-drops-by-28-percentage-points-only-62-percent-water-left-in-3042-dams"},
   "r": {
-    "mh": [64.17, 90.54],
-    "konkan": [81.69, 92.30],
-    "pune": [74.82, 93.48],
-    "nashik": [74.05, 83.92],
-    "mw": [36.75, 88.12],
-    "amr": [52.27, 84.70],
-    "ngp": [56.02, 86.29]
+    "mh": [62, 90],
+    "konkan": [80, 92.30],
+    "pune": [72, 93.48],
+    "nashik": [71, 83.92],
+    "mw": [34, 89],
+    "amr": [51, 84.70],
+    "ngp": [55, 86.29]
   }
 }
